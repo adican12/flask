@@ -1,5 +1,6 @@
 $( document ).ready(function() {
-    alert( "ready!" );
+    // alert( "ready!" );
+
     $(".y").on("click",function(){
       alert("y");
     });
