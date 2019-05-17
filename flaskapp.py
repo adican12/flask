@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import render_template
 from mysql as mysql
+import logging
+
 
 app = Flask(__name__)
 
@@ -16,8 +18,11 @@ def hello(name=None):
 
 @app.route('/mysql')
 def mysql():
-    print "start mysql"
-    return mysql.connect()
+    print('start mysql', file=sys.stderr)
+    app.logger.warning('testing warning log')
+    app.logger.error('testing error log')
+    app.logger.info('testing info log')
+    mysql.connect()
 
 
 if __name__ == '__main__':
