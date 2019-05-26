@@ -1,0 +1,4 @@
+mysql_host: 'localhost'
+mysql_user: 'cat'
+mysql_password: 'catwifi808'
+mysql_db: 'catifi'
