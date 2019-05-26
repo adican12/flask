@@ -34,8 +34,8 @@ def home():
     # ------------------------------------------return for check------------------------------------------
     return "<p>Your browser is %s</p>"
 
-@app.route('/signup',methods=['GET','POST'])
-def sign_up():
+# @app.route('/signup',methods=['GET','POST'])
+# def sign_up():
     # read the posted values from the UI
     #try:
         # form = request.form
@@ -66,83 +66,83 @@ def sign_up():
     # finally:
     #     cur.close()
 
-    # ------------------------------------------return for check------------------------------------------
-    return "sign_up"
-
-@app.route('/showsignup')
-def showSignUp():
-   return render_template('signup.html')
-
-
-@app.route('/users',methods=["GET"])
-def users():
-    # cur = mysql.connection.cursor()
-    # result_value = cur.execute("SELECT * FROM users")
-    # print(result_value)
-    # if result_value > 0:
-    #     users = cur.fetchall()
-
-
-        #print(users)
-       #return users[0]
-
-
-    # return jsonify(users)
-
-    # ------------------------------------------return for check------------------------------------------
-    return "<p>users</p>"
-
-
-
-@app.route('/welcome')
-def welcome():
-    return render_template('welcome.html')
-
-
-
-#cookie response
-@app.route('/cookie')
-def coockie():
-    # response = make_response('<h1>This document carries a cookie!</h1>')
-    # response.set_cookie('answer', '42')
-    # return response
-
-    # ------------------------------------------return for check------------------------------------------
-    return "<p>cookie</p>"
-
-
-
-
-
-# Route for handling the login page logic
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    # error = None
-    # if request.method == 'POST':
-    #     if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-    #         error = 'Invalid Credentials. Please try again.'
-    #     else:
-    #         return redirect(url_for('home'))
-    # return render_template('login.html', error=error)
-
-
-    # ------------------------------------------return for check------------------------------------------
-    return "<p>login</p>"
-
-
-@app.route('/users/<user_id>')
-def page(user_id):
-    # print(user_id)
-    # cur = mysql.connection.cursor()
-    # cur.execute("""SELECT * FROM users WHERE name = {}""".format(user_id))
-    # rows = cur.fetchall()
-    # print(rows)
-    # #for row in rows:
-    # return jsonify(rows)
-
-
-    # ------------------------------------------return for check------------------------------------------
-    return "<p>users</p>"
+#     # ------------------------------------------return for check------------------------------------------
+#     return "sign_up"
+#
+# @app.route('/showsignup')
+# def showSignUp():
+#    return render_template('signup.html')
+#
+#
+# @app.route('/users',methods=["GET"])
+# def users():
+#     # cur = mysql.connection.cursor()
+#     # result_value = cur.execute("SELECT * FROM users")
+#     # print(result_value)
+#     # if result_value > 0:
+#     #     users = cur.fetchall()
+#
+#
+#         #print(users)
+#        #return users[0]
+#
+#
+#     # return jsonify(users)
+#
+#     # ------------------------------------------return for check------------------------------------------
+#     return "<p>users</p>"
+#
+#
+#
+# @app.route('/welcome')
+# def welcome():
+#     return render_template('welcome.html')
+#
+#
+#
+# #cookie response
+# @app.route('/cookie')
+# def coockie():
+#     # response = make_response('<h1>This document carries a cookie!</h1>')
+#     # response.set_cookie('answer', '42')
+#     # return response
+#
+#     # ------------------------------------------return for check------------------------------------------
+#     return "<p>cookie</p>"
+#
+#
+#
+#
+#
+# # Route for handling the login page logic
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     # error = None
+#     # if request.method == 'POST':
+#     #     if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+#     #         error = 'Invalid Credentials. Please try again.'
+#     #     else:
+#     #         return redirect(url_for('home'))
+#     # return render_template('login.html', error=error)
+#
+#
+#     # ------------------------------------------return for check------------------------------------------
+#     return "<p>login</p>"
+#
+#
+# @app.route('/users/<user_id>')
+# def page(user_id):
+#     # print(user_id)
+#     # cur = mysql.connection.cursor()
+#     # cur.execute("""SELECT * FROM users WHERE name = {}""".format(user_id))
+#     # rows = cur.fetchall()
+#     # print(rows)
+#     # #for row in rows:
+#     # return jsonify(rows)
+#
+#
+#     # ------------------------------------------return for check------------------------------------------
+#     return "<p>users</p>"
 
 
 
