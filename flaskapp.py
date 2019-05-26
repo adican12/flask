@@ -5,7 +5,7 @@ from flask import make_response, jsonify
 
 import yaml
 
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
@@ -22,6 +22,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    return "<p>Your browser is %s</p>"
+
     #conn = db_connect.connect()  # connect to database
     #cur = mysql.connection.cursor()
     #cur.execute('INSERT INTO user( name , age ) VALUES (%s,%s)',('yarden','26'))
@@ -32,7 +34,6 @@ def home():
     # return '<p>Your browser is %s</p>' % user_agent
 
     # ------------------------------------------return for check------------------------------------------
-    return "<p>Your browser is %s</p>"
 
 # @app.route('/signup',methods=['GET','POST'])
 # def sign_up():
@@ -147,15 +148,15 @@ def home():
 
 
 #error handler
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
-
-
+# @app.errorhandler(404)
+# def page_not_found(e):
+#     return render_template('404.html'), 404
+#
+# @app.errorhandler(500)
+# def internal_server_error(e):
+#     return render_template('500.html'), 500
+#
+#
 
 
 
