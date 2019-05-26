@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request,redirect, url_for ,json
-from flask import make_response, jsonify
+# from flask import make_response, jsonify
 
 import yaml
 
@@ -20,9 +20,9 @@ app = Flask(__name__)
 
 
 
-@app.route('/')
-def home():
-    return "<p>Your browser is %s</p>"
+@app.route("/")
+def hello():
+    return "Hello World!"
 
     #conn = db_connect.connect()  # connect to database
     #cur = mysql.connection.cursor()
