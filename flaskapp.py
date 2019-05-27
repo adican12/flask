@@ -33,20 +33,21 @@ def login():
             # cur.execute("SELECT * FROM `users` WHERE `name`=%s AND `password` =%s" , ( username , password) )
             # cur.execute("SELECT * FROM `users` WHERE `name`=%s " , ( username ) )
             cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-            massage = " execute"
-            # #
-            # # rows = cur.fetchall()
-            # #
-            # # if rows > 0:
-            # #     for r in rows:
-            # #         massage = massage +"----"
-            # #         massage = massage + r
-            # #
-            # #     return render_template('login.html',error=massage)
+
+            rows = cur.fetchall()
+
+            # if rows > 0:
+            #     for r in rows:
+            #         massage = massage +"----"
+            #         massage = massage + r
+            #
+            #     return render_template('login.html',error=massage)
             #     # return jsonify(rows)
             # else:
             #     massage = massage+ "row < 0"
-            return render_template('login.html',error=massage)
+            # return render_template('login.html',error=massage)
+
+            return render_template('welcome.html',massage=massage)
         except Exception as e:
             e = "error from exception" + e
             return render_template('login.html',error=e)
