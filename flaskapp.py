@@ -45,6 +45,7 @@ def login():
                 massage = massage+ "row < 0"
                 return render_template('login.html',error=massage)
         except Exception as e:
+            e = "error from exception" + e
             return render_template('login.html',error=e)
 
     else:
