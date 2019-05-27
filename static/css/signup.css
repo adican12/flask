@@ -9,6 +9,7 @@ margin: 0 auto;
   width: 300px;
   height: 200px;
   margin: 0 auto;
+  display:inline-inline-block;
   text-align: center;
 }
 .a_continer a{
