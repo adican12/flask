@@ -74,10 +74,12 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    filename = os.path.join(app.instance_path,  'text.txt')
-    massage = filename
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'text.txt')
+
+    # filename = os.path.join(app.instance_path,  'text.txt')
+    massage = path
     try:
-        db = open(filename,'r')
+        db = open(path,'r')
     except Exception as e:
         massage = massage + e
 
