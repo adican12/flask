@@ -6,6 +6,11 @@ margin: 0 auto;
   height: 200px;
   margin: 0 auto;
 }
+.a_continer div{
+ width:200px;
+ height:200px;
+ border:1px solid black;
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;
