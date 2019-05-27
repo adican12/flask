@@ -76,8 +76,8 @@ def index():
 def welcome():
     # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'text.txt')
     path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
-
-    db = yaml.load(open(path),Loader=yaml.FullLoader)
+    y=open(path)
+    db = yaml.load(y,Loader=yaml.FullLoader)
     # app.config['MYSQL_HOST']=db['mysql_host']
     # app.config['MYSQL_USER']=db['mysql_user']
     # app.config['MYSQL_PASSWORD']=db['mysql_password']
