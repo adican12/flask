@@ -74,15 +74,16 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    # try:
-    #     db = yaml.load(open('/db.yaml'))
-    #     if not db:
-    #         massage = "success"
-    #     else:
-    #         massage = "fail"
-    # except Exception as e:
-    #     massage = "error : " +  e
-    massage="hello"
+
+    try:
+        db = open('/db.yaml','r')
+        if  db:
+            massage = "success"
+        else:
+            massage = "fail"
+    except Exception as e:
+        massage = "error : " +  e
+
     return render_template('welcome.html',massage=massage)
 
 #cookie response
