@@ -5,6 +5,11 @@ import os
 
 app = Flask(__name__)
 
+with open("db.yaml", 'r') as stream:
+    try:
+        print(yaml.load(stream)) # or do something else with it
+    except yaml.YAMLError as exc:
+        print(exc)
 
 # db = yaml.load(open('db.yaml'),Loader=yaml.FullLoader)
 # app.config['MYSQL_HOST']=db['mysql_host']
@@ -70,8 +75,6 @@ def sign_up():
 
 @app.route('/')
 def index():
-    dir_path= os.path.dirname(os.path.realpath(__file__))
-    print(dir_path)
     return render_template('index.html')
 
 @app.route('/welcome')
