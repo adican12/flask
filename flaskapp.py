@@ -5,11 +5,6 @@ import os
 
 app = Flask(__name__)
 
-f= open("log.txt","w+")
-for i in range(10):
-     f.write("This is line %d\r\n" % (i+1))
-     
-
 # db = yaml.load(open('db.yaml'),Loader=yaml.FullLoader)
 # app.config['MYSQL_HOST']=db['mysql_host']
 # app.config['MYSQL_USER']=db['mysql_user']
@@ -78,7 +73,8 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    return render_template('welcome.html')
+    massage=os.getcwd()
+    return render_template('welcome.html',massage=massage)
 
 #cookie response
 @app.route('/cookie')
