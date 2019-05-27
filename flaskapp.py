@@ -22,24 +22,19 @@ mysql = MySQL(app)
 def login():
     error = None
     if request.method == 'POST':
-        massage = request.form['username']
-         massage= massage + "-----"
-         massage = massage +  request.form['password']
+        massage = request.form['username'] 
         return render_template('/welcome.html',massage)
     else
         return render_template('login.html', error=error)
 
-
-# # Route for handling the login page logic
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     error = None
-#     if request.method == 'POST':
-#         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-#             error = 'Invalid Credentials. Please try again.'
-#         else:
-#             return redirect(url_for('home'))
-#     return render_template('login.html', error=error)
+    #
+    # error = None
+    # if request.method == 'POST':
+    #     if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+    #         error = 'Invalid Credentials. Please try again.'
+    #     else:
+    #         # return redirect(url_for('home'))
+    # return render_template('login.html', error=error)
 
 
 
