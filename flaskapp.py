@@ -2,10 +2,13 @@ from flask import Flask, render_template, send_file, request, session, redirect,
 from flask_mysqldb import MySQL
 import yaml
 import os
-import logging
 
 app = Flask(__name__)
 
+f= open("log.txt","w+")
+for i in range(10):
+     f.write("This is line %d\r\n" % (i+1))
+     
 
 # db = yaml.load(open('db.yaml'),Loader=yaml.FullLoader)
 # app.config['MYSQL_HOST']=db['mysql_host']
