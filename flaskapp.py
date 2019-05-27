@@ -5,14 +5,16 @@ import os
 
 app = Flask(__name__)
 
+path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
+y=open(path)
+db = yaml.load(y)
+app.config['MYSQL_HOST']=db['mysql_host']
+app.config['MYSQL_USER']=db['mysql_user']
+app.config['MYSQL_PASSWORD']=db['mysql_password']
+app.config['MYSQL_DB']=db['mysql_db']
+app.config['MYSQL_CURSORCLASS']='DictCursor'
+mysql = MySQL(app)
 
-# db = yaml.load(open('/db.yaml'),Loader=yaml.FullLoader)
-# app.config['MYSQL_HOST']=db['mysql_host']
-# app.config['MYSQL_USER']=db['mysql_user']
-# app.config['MYSQL_PASSWORD']=db['mysql_password']
-# app.config['MYSQL_DB']=db['mysql_db']
-# app.config['MYSQL_CURSORCLASS']='DictCursor'
-# mysql = MySQL(app)
 
 
 # Route for handling the login page logic
@@ -74,18 +76,7 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'text.txt')
-    path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
-    y=open(path)
-    db = yaml.load(y)
-    app.config['MYSQL_HOST']=db['mysql_host']
-    app.config['MYSQL_USER']=db['mysql_user']
-    app.config['MYSQL_PASSWORD']=db['mysql_password']
-    app.config['MYSQL_DB']=db['mysql_db']
-    app.config['MYSQL_CURSORCLASS']='DictCursor'
-    mysql = MySQL(app)
-    massage= " works !"
-
+    massage = "welcome str"
     return render_template('welcome.html',massage=massage)
 
 #cookie response
