@@ -15,7 +15,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/Welcome')
+@app.route('/welcome')
 def index():
     return render_template('welcome.html')
 
