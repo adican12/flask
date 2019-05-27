@@ -22,10 +22,21 @@ mysql = MySQL(app)
 def login():
     error = None
     if request.method == 'POST':
-        massage = request.form['username']
-        massage = massage + "-----------"
-        massage = massage + request.form['password']
-        return render_template('login.html',error=massage)
+        username = request.form['username']
+        massage = username + "-----------"
+        password = request.form['password']
+        massage = massage + password
+
+        cur = mysql.connection.cursor()
+        cur.execute("""SELECT * FROM users WHERE name = {} AND password = {}""".format(username,password))
+        rows = cur.fetchall()
+        if rows > 0:
+            for r in rows:
+                massage = massage +"----" +r
+            # return jsonify(rows)
+        else:
+            massage = massage+ "row < 0"
+            return render_template('login.html',error=massage)
     else:
         return render_template('login.html', error=error)
 
