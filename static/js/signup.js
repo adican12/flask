@@ -1,8 +1,8 @@
 $(function() {
   alert("js signup ready");
-  
+
     $('#btnSignUp').click(function() {
-        alert("yarden");
+        alert("form submit");
         $.ajax({
             url: '/signup',
             data: $('form').serialize(),
