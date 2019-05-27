@@ -32,7 +32,10 @@ def login():
         rows = cur.fetchall()
         if rows > 0:
             for r in rows:
-                massage = massage +"----" +r
+                massage = massage +"----"
+                massage = massage + r
+
+            return render_template('login.html',error=massage)
             # return jsonify(rows)
         else:
             massage = massage+ "row < 0"
