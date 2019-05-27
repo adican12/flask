@@ -1,6 +1,3 @@
-# from flask import Flask
-# from flask import render_template
-
 from flask import Flask, render_template, send_file, request, session, redirect, url_for,make_response
 
 # from flask_mysqldb import MySQL
@@ -19,6 +16,28 @@ def index():
 def welcome():
     return render_template('welcome.html')
 
+
+@app.route('/api')
+def api():
+ pass
+
+#cookie response
+@app.route('/cookie')
+def coockie():
+    response = make_response('<h1>This document carries a cookie!</h1>')
+    response.set_cookie('answer', '42')
+    return response
+
+# Route for handling the login page logic
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    # if request.method == 'POST':
+    #     if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+    #         error = 'Invalid Credentials. Please try again.'
+    #     else:
+    #         return redirect(url_for('home'))
+    return render_template('login.html', error=error)
 
 
 #error handler
