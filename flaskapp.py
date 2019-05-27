@@ -74,18 +74,13 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'text.txt')
+    # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'text.txt')
+    path = os.path.join('.', os.path.dirname(__file__), 'text.txt')
 
     # filename = os.path.join(app.instance_path,  'text.txt')
     massage = path
-    try:
-        db = open(path,'r')
-    except Exception as e:
-        massage = massage + e
-
-    # for x in db:
-        # massage = massage + x
-
+    db = open(path,'r')
+    
     return render_template('welcome.html',massage=massage)
 
 #cookie response
