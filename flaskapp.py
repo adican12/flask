@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_file, request, session, redirect,
 
 from flask_mysqldb import MySQL
 #
-# import yaml
+import yaml
 
 app = Flask(__name__)
 
@@ -15,7 +15,8 @@ def login():
         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
             error = 'Invalid Credentials. Please try again.'
         else:
-            return redirect(url_for('home'))
+            # return redirect(url_for('home'))
+            return render_template('/welcome.html')
     return render_template('login.html', error=error)
 
 @app.route('/showsignup')
