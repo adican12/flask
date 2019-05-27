@@ -74,8 +74,9 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    # db = open('/db.yaml','r')
-    massage = "yyyyy "
+    db = open('text.txt','r')
+    for x in db:
+        massage = massage + x 
     return render_template('welcome.html',massage=massage)
 
 #cookie response
