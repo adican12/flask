@@ -74,9 +74,12 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    db = open('text.txt','r')
-    for x in db:
-        massage = massage + x 
+    filename = os.path.join(app.instance_path, 'flaskapp', 'text.txt')
+    massage = filename
+    # db = open('text.txt','r')
+    # for x in db:
+    #     massage = massage + x
+
     return render_template('welcome.html',massage=massage)
 
 #cookie response
