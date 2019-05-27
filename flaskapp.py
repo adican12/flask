@@ -20,9 +20,13 @@ mysql = MySQL(app)
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == 'POST':
         massage = request.form['username'] + "-----" +  request.form['password']
         return render_template('/welcome.html',massage)
+    else
+        return render_template('login.html', error=error)
+
     #
     # error = None
     # if request.method == 'POST':
