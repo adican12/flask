@@ -22,8 +22,8 @@ mysql = MySQL(app)
 def login():
     error = None
     if request.method == 'POST':
-        # massage = request.form['username'] + "-----" +  request.form['password']
-        massage = "post"
+        massage = request.form['username']
+        # massage = "post"
         return render_template('welcome.html',massage=massage)
     else:
         return render_template('login.html', error=error)
