@@ -7,6 +7,16 @@ from flask import Flask, render_template, send_file, request, session, redirect,
 app = Flask(__name__)
 
 
+# Route for handling the login page logic
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect(url_for('home'))
+    return render_template('login.html', error=error)
 
 @app.route('/showsignup')
 def showSignUp():
@@ -24,22 +34,21 @@ def sign_up():
         _phone=request.form['mobile']
         _birthday=request.form['birthday']
         _image=request.form['image']
-        
-        if _name and _password and _email and _gender and _phone and _birthday and _image:
-            return render_template("welcome.html")
-            # cur = mysql.connection.cursor()
-            #
-            # _hashed_password = generate_password_hash(_password)
-            # cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
-            # data = cur.fetchall()
-            #
-            # if len(data) is 0:
-            #     mysql.connection.commit()
-            #     return json.dumps({'message': 'User created successfully !'})
-            # else:
-            #     return json.dumps({'error': str(data[0])})
-        else:
-             return json.dumps({'html': '<span>Enter the required fields</span>'})
+        #
+        # if _name and _password and _email and _gender and _phone and _birthday and _image:
+        #     # cur = mysql.connection.cursor()
+        #     #
+        #     # _hashed_password = generate_password_hash(_password)
+        #     # cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
+        #     # data = cur.fetchall()
+        #     #
+        #     # if len(data) is 0:
+        #     #     mysql.connection.commit()
+        #     #     return json.dumps({'message': 'User created successfully !'})
+        #     # else:
+        #     #     return json.dumps({'error': str(data[0])})
+        # else:
+        #      return json.dumps({'html': '<span>Enter the required fields</span>'})
 
     # except Exception as e:
     #     return json.dumps({'error': str(e)})
