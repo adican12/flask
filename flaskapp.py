@@ -23,7 +23,8 @@ def login():
     error = None
     if request.method == 'POST':
         massage = request.form['username']
-        # massage = "post"
+        massage = massage + "-----------"
+        massage = massage + request.form['password']
         return render_template('welcome.html',massage=massage)
     else:
         return render_template('login.html', error=error)
