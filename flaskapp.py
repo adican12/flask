@@ -1,6 +1,6 @@
 from flask import Flask, render_template, send_file, request, session, redirect, url_for,make_response
 
-# from flask_mysqldb import MySQL
+from flask_mysqldb import MySQL
 #
 # import yaml
 
@@ -26,14 +26,15 @@ def showSignUp():
 def sign_up():
     # read the posted values from the UI
     #try:
-        form = request.form
-        _name=request.form['username']
-        _password=request.form['password']
-        _email=request.form['email']
-        _gender=request.form['gender']
-        _phone=request.form['mobile']
-        _birthday=request.form['birthday']
-        _image=request.form['image']
+    form = request.form
+    _name=request.form['username']
+    _password=request.form['password']
+    _email=request.form['email']
+    _gender=request.form['gender']
+    _phone=request.form['mobile']
+    _birthday=request.form['birthday']
+    _image=request.form['image']
+    return render_template('signup.html')
         #
         # if _name and _password and _email and _gender and _phone and _birthday and _image:
         #     # cur = mysql.connection.cursor()
