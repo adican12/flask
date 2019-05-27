@@ -1,4 +1,6 @@
 $(function() {
+  alert("js signup ready");
+  
     $('#btnSignUp').click(function() {
         alert("yarden");
         $.ajax({
