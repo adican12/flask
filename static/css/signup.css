@@ -6,10 +6,8 @@ margin: 0 auto;
   height: 200px;
   margin: 0 auto;
 }
-.a_continer div{
- width:200px;
- height:200px;
- border:1px solid black;
+.a_continer a{
+  text-align: center;
 }
 .form-signin {
   max-width: 330px;
