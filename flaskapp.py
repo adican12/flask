@@ -74,12 +74,8 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    db = open('/db.yaml','r')
-    if  db:
-        massage = "success"
-    else:
-        massage = "fail"
-
+    # db = open('/db.yaml','r')
+    massage = "yyyyy "
     return render_template('welcome.html',massage=massage)
 
 #cookie response
