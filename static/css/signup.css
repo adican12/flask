@@ -2,12 +2,13 @@ body {
 margin: 0 auto;
 }
 .a_continer{
-  width: 500px;
+  width: 300px;
   height: 200px;
   margin: 0 auto;
+  text-align: center;
 }
 .a_continer a{
-  text-align: center;
+  cursor:pointer;
 }
 .form-signin {
   max-width: 330px;
