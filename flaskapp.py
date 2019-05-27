@@ -48,15 +48,15 @@ def sign_up():
     _image=request.form['image']
 
     if _name and _password and _email and _gender and _phone and _birthday and _image:
-        cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO users( name , email , password ,gender , mobile , user_type , image , birthday , status , user_category ) VALUES ( %s , %s , %s , %s , %s ,"standard_user", %s , %s , 1 ,"love")',(_name,_email,_password,_gender,_phone,_birthday,_image))
-        data = cur.fetchall()
-
-        if len(data) is 0:
+        try:
+            cur = mysql.connection.cursor()
+            result  = cur.execute('INSERT INTO users( name , email , password ,gender , mobile , user_type , image , birthday , status , user_category ) VALUES ( %s , %s , %s , %s , %s ,"standard_user", %s , %s , 1 ,"love")',(_name,_email,_password,_gender,_phone,_birthday,_image))
             mysql.connection.commit()
+        except Exception as e:
             return json.dumps({'message': 'User created successfully !'})
         else:
             return json.dumps({'error': str(data[0])})
+
     else:
          return json.dumps({'html': '<span>Enter the required fields</span>'})
 
