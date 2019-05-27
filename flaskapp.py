@@ -27,19 +27,23 @@ def login():
         password = request.form['password']
         massage = massage + password
 
-        cur = mysql.connection.cursor()
-        cur.execute("""SELECT * FROM users WHERE name = {} AND password = {}""".format(username,password))
-        rows = cur.fetchall()
-        if rows > 0:
-            for r in rows:
-                massage = massage +"----"
-                massage = massage + r
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute("""SELECT * FROM users WHERE name = {} AND password = {}""".format(username,password))
+            rows = cur.fetchall()
+            if rows > 0:
+                for r in rows:
+                    massage = massage +"----"
+                    massage = massage + r
 
-            return render_template('login.html',error=massage)
-            # return jsonify(rows)
-        else:
-            massage = massage+ "row < 0"
-            return render_template('login.html',error=massage)
+                return render_template('login.html',error=massage)
+                # return jsonify(rows)
+            else:
+                massage = massage+ "row < 0"
+                return render_template('login.html',error=massage)
+        except Exception as e:
+            return render_template('login.html',error=e)
+
     else:
         return render_template('login.html', error=error)
 
