@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-db = yaml.load(open('/db.yaml'))
+
 # db = yaml.load(open('/db.yaml'),Loader=yaml.FullLoader)
 # app.config['MYSQL_HOST']=db['mysql_host']
 # app.config['MYSQL_USER']=db['mysql_user']
@@ -74,7 +74,15 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    massage=os.getcwd()
+    try:
+        db = yaml.load(open('/db.yaml'))
+        if not db:
+            massage = "success"
+        else:
+            massage = "fail"
+    except Exception as e:
+        massage = "error : " +  e
+
     return render_template('welcome.html',massage=massage)
 
 #cookie response
