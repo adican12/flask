@@ -25,19 +25,9 @@ def login():
         massage = request.form['username']
         massage = massage + "-----------"
         massage = massage + request.form['password']
-        return render_template('welcome.html',massage=massage)
+        return render_template('login.html',error=massage)
     else:
         return render_template('login.html', error=error)
-
-    #
-    # error = None
-    # if request.method == 'POST':
-    #     if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-    #         error = 'Invalid Credentials. Please try again.'
-    #     else:
-    #         # return redirect(url_for('home'))
-    # return render_template('login.html', error=error)
-
 
 
 @app.route('/showsignup')
