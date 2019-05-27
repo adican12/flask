@@ -74,15 +74,11 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-
-    try:
-        db = open('/db.yaml','r')
-        if  db:
-            massage = "success"
-        else:
-            massage = "fail"
-    except Exception as e:
-        massage = "error : " +  e
+    db = open('/db.yaml','r')
+    if  db:
+        massage = "success"
+    else:
+        massage = "fail"
 
     return render_template('welcome.html',massage=massage)
 
