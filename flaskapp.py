@@ -74,11 +74,15 @@ def index():
 
 @app.route('/welcome')
 def welcome():
-    filename = os.path.join(app.instance_path, 'flaskapp', 'text.txt')
+    filename = os.path.join(app.instance_path,  'text.txt')
     massage = filename
-    # db = open('text.txt','r')
+    try:
+        db = open(filename,'r')
+    except Exception as e:
+        massage = massage + e
+
     # for x in db:
-    #     massage = massage + x
+        # massage = massage + x
 
     return render_template('welcome.html',massage=massage)
 
