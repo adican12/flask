@@ -1,5 +1,12 @@
-from flask import Flask
-from flask import render_template
+# from flask import Flask
+# from flask import render_template
+
+from flask import Flask, render_template, send_file, request, session, redirect, url_for,make_response
+
+# from flask_mysqldb import MySQL
+#
+# import yaml
+
 
 
 app = Flask(__name__)
@@ -7,6 +14,12 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/Welcome')
+def index():
+    return render_template('welcome.html')
+
+
 
 #error handler
 @app.errorhandler(404)
