@@ -29,6 +29,8 @@ def login():
             return render_template('/welcome.html')
     return render_template('login.html', error=error)
 
+
+
 @app.route('/showsignup')
 def showSignUp():
    return render_template('signup.html')
@@ -36,7 +38,6 @@ def showSignUp():
 @app.route('/signup',methods=['GET','POST'])
 def sign_up():
     # read the posted values from the UI
-    #try:
     form = request.form
     _name=request.form['username']
     _password=request.form['password']
@@ -46,26 +47,45 @@ def sign_up():
     _birthday=request.form['birthday']
     _image=request.form['image']
     return render_template('signup.html')
-        #
-        # if _name and _password and _email and _gender and _phone and _birthday and _image:
-        #     # cur = mysql.connection.cursor()
-        #     #
-        #     # _hashed_password = generate_password_hash(_password)
-        #     # cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
-        #     # data = cur.fetchall()
-        #     #
-        #     # if len(data) is 0:
-        #     #     mysql.connection.commit()
-        #     #     return json.dumps({'message': 'User created successfully !'})
-        #     # else:
-        #     #     return json.dumps({'error': str(data[0])})
-        # else:
-        #      return json.dumps({'html': '<span>Enter the required fields</span>'})
+    #
+    # if _name and _password and _email and _gender and _phone and _birthday and _image:
+    #     # cur = mysql.connection.cursor()
+    #     #
+    #     # _hashed_password = generate_password_hash(_password)
+    #     # cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
+    #     # data = cur.fetchall()
+    #     #
+    #     # if len(data) is 0:
+    #     #     mysql.connection.commit()
+    #     #     return json.dumps({'message': 'User created successfully !'})
+    #     # else:
+    #     #     return json.dumps({'error': str(data[0])})
+    # else:
+    #      return json.dumps({'html': '<span>Enter the required fields</span>'})
 
-    # except Exception as e:
-    #     return json.dumps({'error': str(e)})
-    # finally:
-    #     cur.close()
+
+# @app.route('/users/<user_id>')
+# def page(user_id):
+#     print(user_id)
+#     cur = mysql.connection.cursor()
+#     cur.execute("""SELECT * FROM users WHERE name = {}""".format(user_id))
+#     rows = cur.fetchall()
+#     print(rows)
+#     #for row in rows:
+#     return jsonify(rows)
+
+#
+# @app.route('/users',methods=["GET"])
+# def users():
+#     cur = mysql.connection.cursor()
+#     result_value = cur.execute("SELECT * FROM users")
+#     print(result_value)
+#     if result_value > 0:
+#         users = cur.fetchall()
+#         #print(users)
+#        #return users[0]
+#     return jsonify(users)
+#     #return render_template('users.html', users=users)
 
 
 
