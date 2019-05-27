@@ -1,6 +1,10 @@
 body {
 margin: 0 auto;
 }
+.list{
+  width:100%;
+  text-align: center;
+}
 .a_continer{
   width: 300px;
   height: 200px;
