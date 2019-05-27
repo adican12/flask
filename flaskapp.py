@@ -80,7 +80,10 @@ def welcome():
     # filename = os.path.join(app.instance_path,  'text.txt')
     massage = path
     db = open(path,'r')
-    
+    for x in db:
+        massage = massage + x
+
+
     return render_template('welcome.html',massage=massage)
 
 #cookie response
