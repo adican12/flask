@@ -22,9 +22,9 @@ mysql = MySQL(app)
 def login():
     error = None
     if request.method == 'POST':
-        massage = request.form['username'] 
+        massage = request.form['username']
         return render_template('/welcome.html',massage)
-    else
+    else:
         return render_template('login.html', error=error)
 
     #
