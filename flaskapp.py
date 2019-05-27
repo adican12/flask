@@ -74,18 +74,18 @@ def page(user_id):
     #for row in rows:
     return jsonify(rows)
 
-#
-# @app.route('/users',methods=["GET"])
-# def users():
-#     cur = mysql.connection.cursor()
-#     result_value = cur.execute("SELECT * FROM users")
-#     # print(result_value)
-#     if result_value > 0:
-#         users = cur.fetchall()
-#         #print(users)
-#        #return users[0]
-#     # return jsonify(users)
-#     return render_template('users.html', users=users)
+
+@app.route('/users',methods=["GET"])
+def users():
+    cur = mysql.connection.cursor()
+    result_value = cur.execute("SELECT * FROM users")
+    # print(result_value)
+    if result_value > 0:
+        users = cur.fetchall()
+        #print(users)
+       #return users[0]
+    return jsonify(users)
+    # return render_template('users.html', users=users)
 
 
 @app.route('/')
