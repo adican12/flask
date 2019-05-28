@@ -81,10 +81,9 @@ def sign_up():
                 mysql.connection.commit()
                 return json.dumps({'message': 'User created successfully !'}) ,200
             else:
-                return json.dumps({'error': str(data[0])}) ,200
+                return json.dumps({'error': str(data[0])})
         else:
-             return json.dumps({'html': '<span>Enter the required fields</span>'}) ,200
-
+             return json.dumps({'html': '<span>Enter the required fields</span>'})
 
 
 
