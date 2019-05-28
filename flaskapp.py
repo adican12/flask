@@ -23,14 +23,11 @@ def login():
     massage = None
     if request.method == 'POST':
         username = request.form['username']
-        massage = username + "-----------"
         password = request.form['password']
-        massage = massage + password
+
         try:
             cur = mysql.connection.cursor()
-
             cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-
             rows = cur.fetchall()
 
             if rows > 0:
@@ -40,16 +37,16 @@ def login():
                         "data": rows})
 
             else:
-                massage = massage+ "row < 0"
-                return render_template('login.html',error=massage)
+                return jsonify({
+                "status": "false",
+                "message": "Data fetched fails!",
+                "data": rows})
 
-            # return render_template('welcome.html',massage=massage)
         except Exception as e:
                 return jsonify({
                 "status": "false",
                 "message": "Data fetched fails!",
                 "data": e})
-
 
     else:
         return render_template('login.html',error=massage)
