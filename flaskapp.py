@@ -3,7 +3,7 @@ from flask_mysqldb import MySQL
 import yaml
 import os
 import json
-import logging
+import catlogger
 
 app = Flask(__name__)
 
@@ -53,37 +53,33 @@ def showSignUp():
    return render_template('signup.html')
 
 
-
-@app.route('/signup',methods=['POST'])
+@app.route('/signup',methods=['GET','POST'])
 def sign_up():
- try:
-  if request.method == 'POST':
-    form = request.form
-    _name = request.form['username']
-    _password = request.form['password']
-    _email = request.form['email']
-    _gender = request.form['gender']
-    _phone = request.form['mobile']
-    _birthday = request.form['birthday']
-    _image = request.form['image']
+    # read the posted values from the UI
+    #try:
+        form = request.form
+        _name=request.form['username']
+        _password=request.form['password']
+        _email=request.form['email']
+        _gender=request.form['gender']
+        _phone=request.form['mobile']
+        _birthday=request.form['birthday']
+        _image=request.form['image']
+        catlogger.logger.warning("signup")
+        if _name and _password and _email and _gender and _phone and _birthday and _image:
+            cur = mysql.connection.cursor()
 
-    if _name and _password and _email and _gender and _phone and _birthday and _image:
-        cur = mysql.connection.cursor()
-        cur.execute(
-            'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',
-            (_name, _email, _password, _gender, _phone, _birthday, _image))
-        data = cur.fetchall()
-        logging.error('This is an error message',data)
-        if len(data) is 0:
-            mysql.connection.commit()
-            return json.dumps({'message': 'User created successfully !'}) ,201
+            #_hashed_password = generate_password_hash(_password)
+            cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
+            data = cur.fetchall()
+
+            if len(data) is 0:
+                mysql.connection.commit()
+                return json.dumps({'message': 'User created successfully !'})
+            else:
+                return json.dumps({'error': str(data[0])})
         else:
-            return json.dumps({'error': str(data[0])}) ,201
-  else:
-     return json.dumps({'html': '<span>Enter the required fields</span>'}) ,201
- except Exception as e:
-     logging.error("Exception occurred", exc_info=True)
-
+             return json.dumps({'html': '<span>Enter the required fields</span>'})
 
 
 @app.route('/users/<user_id>')
