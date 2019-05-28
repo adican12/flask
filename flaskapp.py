@@ -66,19 +66,28 @@ def sign_up():
         _image=request.form['image']
 
         if _name and _password and _email and _gender and _phone and _birthday and _image and request.method == 'POST':
-            cur = mysql.connection.cursor()
 
+            query = 'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)'
             #_hashed_password = generate_password_hash(_password)
-            cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
-            data = cur.fetchall()
+            #cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
+            vals = (_name,_email,_password,_gender,_phone,_birthday,_image)
+            cur = mysql.connection.cursor()
+            cur.execute(query, vals)
 
+            data = cur.fetchall()
+            mysql.connection.commit()
+            status_code = 200
             if len(data) is 0:
                 mysql.connection.commit()
-                return json.dumps({'message': 'User created successfully !'})
+                return json.dumps({'message': 'User created successfully !'}) ,200
             else:
-                return json.dumps({'error': str(data[0])})
+                return json.dumps({'error': str(data[0])}) ,200
         else:
-             return json.dumps({'html': '<span>Enter the required fields</span>'})
+             return json.dumps({'html': '<span>Enter the required fields</span>'}) ,200
+
+
+
+
 
 
 @app.route('/users/<user_id>')
