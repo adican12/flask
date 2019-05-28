@@ -4,7 +4,6 @@ import yaml
 import os
 import json
 
-
 app = Flask(__name__)
 
 path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
@@ -89,6 +88,36 @@ def page(user_id):
     cur.execute("""SELECT * FROM users WHERE name = {}""".format(user_id))
     rows = cur.fetchall()
     return jsonify(rows)
+
+
+
+@app.route('/add', methods=['POST'])
+def add_user():
+
+         _json = request.json
+         _name = _json['username']
+         _password = _json['password']
+         _email = _json['email']
+         _gender = _json['gender']
+         _phone = _json['mobile']
+         _birthday = _json['birthday']
+         _image = _json['image']
+		  # validate the received values
+         if _name and _password and _email and _gender and _phone and _birthday and _image and request.method == 'POST':
+			sql = 'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+			data = (_name, _password , _email,_gender , _phone , _birthday , _image)
+			conn = mysql.connect()
+			cursor = conn.cursor()
+			cursor.execute(sql, data)
+			conn.commit()
+			resp = jsonify('User added successfully!')
+			resp.status_code = 200
+			return resp
+         else:
+             return page_not_found
+
+
+
 
 
 
