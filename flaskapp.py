@@ -70,7 +70,8 @@ def sign_up():
             query = 'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)'
             #_hashed_password = generate_password_hash(_password)
             #cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
-            vals = (_name,_email,_password,_gender,_phone,_birthday,_image)
+            #vals = (_name,_email,_password,_gender,_phone,_birthday,_image)
+            vals  = ("yar","222@s",1112,"male",00,121,111)
             cur = mysql.connection.cursor()
             cur.execute(query, vals)
             data = cur.fetchall()
