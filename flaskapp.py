@@ -17,6 +17,10 @@ app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
 
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
+
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -83,7 +87,7 @@ def sign_up():
             else:
                 return json.dumps({'error': str(data[0])})
         else:
-             return render_template('signup.html')
+             return json.dumps({'html': '<span>Enter the required fields</span>'})
 
 
 
@@ -113,10 +117,6 @@ def users():
     "message": "Data fetched successfully!",
     "data": users})
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/welcome')
 def welcome():
