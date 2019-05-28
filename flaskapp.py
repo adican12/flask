@@ -73,15 +73,14 @@ def sign_up():
             vals = (_name,_email,_password,_gender,_phone,_birthday,_image)
             cur = mysql.connection.cursor()
             cur.execute(query, vals)
-
             data = cur.fetchall()
             mysql.connection.commit()
             status_code = 200
-            if len(data) is 0:
-                mysql.connection.commit()
-                return json.dumps({'message': 'User created successfully !'}) ,200
-            else:
-                return json.dumps({'error': str(data[0])})
+            # if len(data) is 0:
+            #     mysql.connection.commit()
+            #     return json.dumps({'message': 'User created successfully !'}) ,200
+            # else:
+            #     return json.dumps({'error': str(data[0])})
         else:
              return json.dumps({'html': '<span>Enter the required fields</span>'})
 
