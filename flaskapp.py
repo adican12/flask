@@ -77,23 +77,14 @@ def sign_up():
             data = cur.fetchall()
             mysql.connection.commit()
             status_code = 200
-            # if len(data) is 0:
-            #     mysql.connection.commit()
-            #     return json.dumps({'message': 'User created successfully !'}) ,200
-            # else:
-            #     return json.dumps({'error': str(data[0])})
+            if len(data) is 0:
+                mysql.connection.commit()
+                return json.dumps({'message': 'User created successfully !'}) ,200
+            else:
+                return json.dumps({'error': str(data[0])})
         else:
              return json.dumps({'html': '<span>Enter the required fields</span>'})
 
-
-@app.route('/check', methods=['POST'])
-def check():
-    credentials = request.get_json()
-    cur = mysql.connection.cursor()
-    cur.execute('''INSERT INTO  users( name , email , password ,gender , mobile , birthday ,image )
-                VALUES (%(name)s, %(email)s, %(password)s, %(gender)s,%(mobile)s,%(birthday)s,%(image)s''',
-                credentials)
-    return "ok"
 
 
 @app.route('/users/<user_id>')
