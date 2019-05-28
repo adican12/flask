@@ -52,7 +52,7 @@ def showSignUp():
    return render_template('signup.html')
 
 
-@app.route('/signup',methods=['GET','POST'])
+@app.route('/signup',methods=['POST'])
 def sign_up():
     # read the posted values from the UI
     #try:
@@ -83,7 +83,7 @@ def sign_up():
             else:
                 return json.dumps({'error': str(data[0])})
         else:
-             return json.dumps({'html': '<span>Enter the required fields</span>'})
+             return render_template('signup.html')
 
 
 
