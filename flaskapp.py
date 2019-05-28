@@ -110,7 +110,7 @@ def aheck_post():
                 'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',
                 (_name, _email, _password, _gender, _phone, _birthday, _image))
             data = cur.fetchall()
-
+        return jsonify({'task': data}), 201
 
 @app.route('/users',methods=["GET"])
 def users():
