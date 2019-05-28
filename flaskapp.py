@@ -89,6 +89,10 @@ def page(user_id):
     rows = cur.fetchall()
     return jsonify(rows)
 
+@app.route('/check1',methods = ['POST'])
+def aheck_post():
+  return jsonify({'task': "check"}), 201
+
 
 @app.route('/users',methods=["GET"])
 def users():
