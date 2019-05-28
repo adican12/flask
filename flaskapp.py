@@ -54,7 +54,7 @@ def showSignUp():
 
 
 
-@app.route('/signup',methods=['GET','POST'])
+@app.route('/signup',methods=['POST'])
 def sign_up():
  if request.method == 'POST':
     form = request.form
