@@ -74,11 +74,11 @@ def sign_up():
 
         if len(data) is 0:
             mysql.connection.commit()
-            return json.dumps({'message': 'User created successfully !'})
+            return json.dumps({'message': 'User created successfully !'}) ,201
         else:
-            return json.dumps({'error': str(data[0])})
+            return json.dumps({'error': str(data[0])}) ,201
  else:
-    return json.dumps({'html': '<span>Enter the required fields</span>'})
+    return json.dumps({'html': '<span>Enter the required fields</span>'}) ,201
 
 
 @app.route('/users/<user_id>')
