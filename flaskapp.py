@@ -26,28 +26,35 @@ def login():
         massage = username + "-----------"
         password = request.form['password']
         massage = massage + password
-
-        try:
-            cur = mysql.connection.cursor()
-
-            cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-
-            rows = cur.fetchall()
-
-            if rows > 0:
-                for r in rows:
-                    massage = massage +"----"
-                    massage = massage + r
-
-                return render_template('login.html',error=massage)
-                # return jsonify(rows)
-            else:
-                massage = massage+ "row < 0"
-                return render_template('login.html',error=massage)
+                return jsonify({
+                "status": "false",
+                "message": "Data fetched fail!",
+                "data": massage})
+        # try:
+        #     cur = mysql.connection.cursor()
+        #
+        #     cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
+        #
+        #     rows = cur.fetchall()
+        #
+        #     if rows > 0:
+        #         for r in rows:
+        #             massage = massage +"----"
+        #             massage = massage + r
+        #
+        #         return render_template('login.html',error=massage)
+        #         # return jsonify(rows)
+        #     else:
+        #         massage = massage+ "row < 0"
+        #         return render_template('login.html',error=massage)
 
             # return render_template('welcome.html',massage=massage)
-        except Exception as e:
-            return render_template('login.html',error=e)
+        # except Exception as e:
+        #         return jsonify({
+        #         "status": "false",
+        #         "message": "Data fetched fail!",
+        #         "data": e})
+
 
     else:
         return render_template('login.html', error=error)
