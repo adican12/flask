@@ -81,6 +81,8 @@ def sign_up():
     return json.dumps({'html': '<span>Enter the required fields</span>'}) ,201
 
 
+
+
 @app.route('/users/<user_id>')
 def page(user_id):
     # print(user_id)
@@ -89,9 +91,25 @@ def page(user_id):
     rows = cur.fetchall()
     return jsonify(rows)
 
+
+
 @app.route('/check1',methods = ['POST'])
 def aheck_post():
-  return jsonify({'task': "check"}), 201
+    if request.method == 'POST':
+        form = request.form
+        _name = request.form['username']
+        _password = request.form['password']
+        _email = request.form['email']
+        _gender = request.form['gender']
+        _phone = request.form['mobile']
+        _birthday = request.form['birthday']
+        _image = request.form['image']
+        if _name and _password and _email and _gender and _phone and _birthday and _image:
+            cur = mysql.connection.cursor()
+            cur.execute(
+                'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',
+                (_name, _email, _password, _gender, _phone, _birthday, _image))
+            data = cur.fetchall()
 
 
 @app.route('/users',methods=["GET"])
