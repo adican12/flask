@@ -26,35 +26,29 @@ def login():
         massage = username + "-----------"
         password = request.form['password']
         massage = massage + password
-        return jsonify({
-                "status": "true",
-                "message": "Data fetched successfully!",
-                "data": massage})
+        try:
+            cur = mysql.connection.cursor()
 
-        # try:
-        #     cur = mysql.connection.cursor()
-        #
-        #     cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-        #
-        #     rows = cur.fetchall()
-        #
-        #     if rows > 0:
-        #         for r in rows:
-        #             massage = massage +"----"
-        #             massage = massage + r
-        #
-        #         return render_template('login.html',error=massage)
-        #         # return jsonify(rows)
-        #     else:
-        #         massage = massage+ "row < 0"
-        #         return render_template('login.html',error=massage)
-        #
-        #     # return render_template('welcome.html',massage=massage)
-        # except Exception as e:
-        #         return jsonify({
-        #         "status": "false",
-        #         "message": "Data fetched fails!",
-        #         "data": users})
+            cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
+
+            rows = cur.fetchall()
+
+            if rows > 0:
+                return jsonify({
+                        "status": "true",
+                        "message": "Data fetched successfully!",
+                        "data": rows})
+
+            else:
+                massage = massage+ "row < 0"
+                return render_template('login.html',error=massage)
+
+            # return render_template('welcome.html',massage=massage)
+        except Exception as e:
+                return jsonify({
+                "status": "false",
+                "message": "Data fetched fails!",
+                "data": e})
 
 
     else:
