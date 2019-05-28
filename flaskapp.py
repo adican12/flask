@@ -36,9 +36,7 @@ def login():
             return jsonify({
                     "status": "true",
                     "message": "Data fetched successfully!",
-                    "data": rows ,
-                "password": password,
-            "username":username})
+                    "data": rows})
 
         else:
             return jsonify({
@@ -67,19 +65,18 @@ def sign_up():
     _phone = request.form['mobile']
     _birthday = request.form['birthday']
     _image = request.form['image']
-    return jsonify({"fd":_image})
-    # if _name and _password and _email and _gender and _phone and _birthday and _image:
-    #     cur = mysql.connection.cursor()
-    #     cur.execute(
-    #         'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',
-    #         (_name, _email, _password, _gender, _phone, _birthday, _image))
-    #     data = cur.fetchall()
-    #
-    #     if len(data) is 0:
-    #         mysql.connection.commit()
-    #         return json.dumps({'message': 'User created successfully !'})
-    #     else:
-    #         return json.dumps({'error': str(data[0])})
+    if _name and _password and _email and _gender and _phone and _birthday and _image:
+        cur = mysql.connection.cursor()
+        cur.execute(
+            'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',
+            (_name, _email, _password, _gender, _phone, _birthday, _image))
+        data = cur.fetchall()
+
+        if len(data) is 0:
+            mysql.connection.commit()
+            return json.dumps({'message': 'User created successfully !'})
+        else:
+            return json.dumps({'error': str(data[0])})
  else:
     return json.dumps({'html': '<span>Enter the required fields</span>'})
 
