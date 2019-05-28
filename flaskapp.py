@@ -25,28 +25,28 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        try:
-            cur = mysql.connection.cursor()
-            cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-            rows = cur.fetchall()
+        # try:
+        cur = mysql.connection.cursor()
+        cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
+        rows = cur.fetchall()
 
-            if rows > 0:
-                return jsonify({
-                        "status": "true",
-                        "message": "Data fetched successfully!",
-                        "data": rows})
+        if rows > 0:
+            return jsonify({
+                    "status": "true",
+                    "message": "Data fetched successfully!",
+                    "data": rows})
 
-            else:
-                return jsonify({
-                "status": "false",
-                "message": "Data fetched fails!",
-                "data": rows})
+        else:
+            return jsonify({
+            "status": "false",
+            "message": "Data fetched fails!",
+            "data": rows})
 
-        except Exception as e:
-                return jsonify({
-                "status": "false",
-                "message": "Data fetched fails!",
-                "data": e})
+        # except Exception as e:
+        #         return jsonify({
+        #         "status": "false",
+        #         "message": "Data fetched fails!",
+        #         "data": e})
 
     else:
         return render_template('login.html',error=massage)
