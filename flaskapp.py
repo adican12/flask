@@ -17,11 +17,6 @@ app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -100,6 +95,11 @@ def page(user_id):
     return jsonify(rows)
 
 
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 
