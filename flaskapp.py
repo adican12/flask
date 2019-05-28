@@ -100,7 +100,10 @@ def users():
     result_value = cur.execute("SELECT * FROM users")
     if result_value > 0:
         users = cur.fetchall()
-    return jsonify(users)
+    return jsonify({
+    "status": "true",
+    "message": "Data fetched successfully!",
+    "data": users})
 
 
 @app.route('/')
