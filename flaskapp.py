@@ -29,9 +29,7 @@ def login():
 
         try:
             cur = mysql.connection.cursor()
-            # cur.execute("""SELECT * FROM users WHERE name = {} AND password = {}""".format(username,password))
-            # cur.execute("SELECT * FROM `users` WHERE `name`=%s AND `password` =%s" , ( username , password) )
-            # cur.execute("SELECT * FROM `users` WHERE `name`=%s " , ( username ) )
+
             cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
 
             rows = cur.fetchall()
