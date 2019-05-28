@@ -3,7 +3,7 @@ from flask_mysqldb import MySQL
 import yaml
 import os
 import json
-import catlogger
+
 
 app = Flask(__name__)
 
@@ -65,7 +65,7 @@ def sign_up():
         _phone=request.form['mobile']
         _birthday=request.form['birthday']
         _image=request.form['image']
-        catlogger.logger.warning("signup")
+        
         if _name and _password and _email and _gender and _phone and _birthday and _image:
             cur = mysql.connection.cursor()
 
