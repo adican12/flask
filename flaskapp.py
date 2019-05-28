@@ -20,42 +20,45 @@ mysql = MySQL(app)
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = None
+    massage = None
     if request.method == 'POST':
         username = request.form['username']
         massage = username + "-----------"
         password = request.form['password']
         massage = massage + password
+        return jsonify({
+                "status": "true",
+                "message": "Data fetched successfully!",
+                "data": massage})
 
-        try:
-            cur = mysql.connection.cursor()
-
-            cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-
-            rows = cur.fetchall()
-
-            if rows > 0:
-                for r in rows:
-                    massage = massage +"----"
-                    massage = massage + r
-
-                return render_template('login.html',error=massage)
-                # return jsonify(rows)
-            else:
-                massage = massage+ "row < 0"
-                return render_template('login.html',error=massage)
-
-            # return render_template('welcome.html',massage=massage)
-        except Exception as e:
-                return jsonify({
-                "status": "false",
-                "message": "Data fetched fails!",
-                "data": users})
+        # try:
+        #     cur = mysql.connection.cursor()
+        #
+        #     cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
+        #
+        #     rows = cur.fetchall()
+        #
+        #     if rows > 0:
+        #         for r in rows:
+        #             massage = massage +"----"
+        #             massage = massage + r
+        #
+        #         return render_template('login.html',error=massage)
+        #         # return jsonify(rows)
+        #     else:
+        #         massage = massage+ "row < 0"
+        #         return render_template('login.html',error=massage)
+        #
+        #     # return render_template('welcome.html',massage=massage)
+        # except Exception as e:
+        #         return jsonify({
+        #         "status": "false",
+        #         "message": "Data fetched fails!",
+        #         "data": users})
 
 
     else:
-        return render_template('login.html', error=error)
-
+        return render_template('welcome.html',massage=massage)
 
 @app.route('/showsignup')
 def showSignUp():
