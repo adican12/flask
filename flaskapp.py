@@ -29,10 +29,12 @@ def login():
         # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
         # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
 
-        sql=" SELECT * FROM `users` WHERE email='(%s)' AND password='2' " % (username)
+        sql=" SELECT * FROM `users` WHERE email='%s' AND password='2' "
         # qry = "SELECT count(*) FROM users where username = (%s)" % (username)
+        # query = "SELECT PERGUNTA_SQL,QUERY_ID FROM PERGUNTA WHERE PERGUNDA_ID = %s"
 
-        cur.execute(sql)
+
+        cur.execute(sql,(username))
         rows = cur.fetchall()
 
         if rows > 0:
