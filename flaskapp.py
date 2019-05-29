@@ -209,7 +209,7 @@ def calc():
     r=4+4
     return r
 
-@app.route('/run',methods=['GET','POST'])
+@app.route('/init',methods=['GET','POST'])
 def init_run():
     #answer=run_campaign()
     xx=calc()
