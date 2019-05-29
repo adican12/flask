@@ -147,7 +147,7 @@ def run_campaign():
     #       "startingDate = {},".format(x[9]), "endDate = {},".format(x[10]))
     # print("location_id  ={}.".format(x[11]), "\n")
     # return x[11] , x[8] ,x[3]
-    return jsonify({"my result":myresult})
+    return myresult
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
