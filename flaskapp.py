@@ -26,15 +26,9 @@ def login():
         password = request.form['password']
 
         cur = mysql.connection.cursor()
-        # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-        # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
+        qry='SELECT * FROM users WHERE email=%s  AND password =%s '
+        cur.execute(qry, (username, password))
 
-
-        cur.execute('SELECT * FROM users WHERE email=%s  AND password =%s ', (username, password))
-
-        # sql=" SELECT * FROM `users` WHERE email='adiadi@gmail.com' AND password='2' "
-
-        # cur.execute(sql)
         rows = cur.fetchall()
 
         if rows > 0:
