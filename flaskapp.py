@@ -25,7 +25,6 @@ def login():
         username = request.form['email']
         password = request.form['password']
         try:
-            pass
             cur = mysql.connection.cursor()
             # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
             # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
@@ -35,7 +34,7 @@ def login():
             # query = "SELECT PERGUNTA_SQL,QUERY_ID FROM PERGUNTA WHERE PERGUNDA_ID = %s"
 
             # cur.execute('SELECT * FROM users WHERE email = %s AND password = %s', (username, password))
-            cur.execute('SELECT * FROM users WHERE email = %s', (username))
+            cur.execute('SELECT * FROM `users` WHERE email =%s ', (username))
 
             # cur.execute(sql, (username,))
             rows = cur.fetchall()
