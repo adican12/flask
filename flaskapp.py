@@ -55,24 +55,24 @@ def showSignUp():
 def sign_up():
     # read the posted values from the UI
     #try:
-        form = request.form
-        _name=request.form['username']
-        _password=request.form['password']
-        _email=request.form['email']
-        _gender=request.form['gender']
-        _phone=request.form['mobile']
-        _birthday=request.form['birthday']
-        _image=request.form['image']
+    form = request.form
+    _name=request.form['username']
+    _password=request.form['password']
+    _email=request.form['email']
+    _gender=request.form['gender']
+    _phone=request.form['mobile']
+    _birthday=request.form['birthday']
+    _image=request.form['image']
 
-        sql="""INSERT INTO `business`(`category`, `couponID`, `business_name`, `bus_latitude`, `bus_longitude`) VALUES ( 'demo' , 12 , 'demo' ,  2.2 , 2.2 );"""
+    sql="""INSERT INTO `business`(`category`, `couponID`, `business_name`, `bus_latitude`, `bus_longitude`) VALUES ( 'demo' , 12 , 'demo' ,  2.2 , 2.2 );"""
 
-        cur = mysql.connection.cursor()
-        cur.execute(sql)
-        data = cur.fetchall()
-            return jsonify({
-                    "status": "true",
-                    "message": "Data fetched successfully!",
-                    "data": data})
+    cur = mysql.connection.cursor()
+    cur.execute(sql)
+    data = cur.fetchall()
+    return jsonify({
+                "status": "true",
+                "message": "Data fetched successfully!",
+                "data": data})
         # if _name and _password and _email and _gender and _phone and _birthday and _image and request.method == 'POST':
         #
         #
