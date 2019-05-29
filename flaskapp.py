@@ -68,11 +68,12 @@ def sign_up():
 
     cur = mysql.connection.cursor()
     cur.execute(sql)
-    data = cur.fetchall()
+    mysql.connection.commit()
+
+    # data = cur.fetchall()
     return jsonify({
                 "status": "true",
-                "message": "Data fetched successfully!",
-                "data": data})
+                "message": "Data fetched successfully!"})
         # if _name and _password and _email and _gender and _phone and _birthday and _image and request.method == 'POST':
         #
         #
