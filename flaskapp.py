@@ -31,7 +31,7 @@ def login():
 
         rows = cur.fetchall()
 
-        if rows > 0:
+        if len(rows) > 0:
             return jsonify({
                     "status": "true",
                     "message": "Data fetched successfully!",
