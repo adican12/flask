@@ -134,15 +134,15 @@ def internal_server_error(e):
 
 
 
-@app.route('/run1',methods=['GET','POST'])
+#@app.route('/run1',methods=['GET','POST'])
 def run_campaign():
   mycursor = mysql.connection.cursor()
   qry = 'SELECT * FROM users WHERE id = 1 '
   mycursor.execute(qry)
   myresult = mycursor.fetchall()
   for x in myresult:
-   jsonify({"x[0]":x[0]})
-  return jsonify
+    print(x)
+  return x[4] ,x[11] ,x[6]
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
@@ -204,7 +204,7 @@ def run_campaign():
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
-    id_user , category_user, location_id=run_campaign()
+    id_user , category_user, location_id = run_campaign()
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
