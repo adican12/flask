@@ -134,7 +134,7 @@ def internal_server_error(e):
 
 
 
-
+@app.route('/run1',methods=['GET','POST'])
 def run_campaign():
   mycursor = mysql.connection.cursor()
   qry = 'SELECT * FROM users WHERE id = 1 '
