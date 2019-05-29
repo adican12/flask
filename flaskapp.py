@@ -64,8 +64,8 @@ def sign_up():
     _birthday=request.form['birthday']
     _image=request.form['image']
 
-    sql="""INSERT INTO `business`(`category`, `couponID`, `business_name`, `bus_latitude`, `bus_longitude`) VALUES ( 'demo' , 12 , 'demo' ,  2.2 , 2.2 );"""
-
+    # sql="""INSERT INTO `business`(`category`, `couponID`, `business_name`, `bus_latitude`, `bus_longitude`) VALUES ( 'demo' , 12 , 'demo' ,  2.2 , 2.2 );"""
+    sql="""INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES('demo','demo@demo','sadf','cat','cat05','ccat','cat','2019-2-5',5,'cat');"""
     cur = mysql.connection.cursor()
     cur.execute(sql)
     mysql.connection.commit()
