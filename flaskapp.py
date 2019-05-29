@@ -66,14 +66,16 @@ def sign_up():
     _birthday='2019-2-5'
     _status=0
     _user_category="Demo"
+
+    cur = mysql.connection.cursor()
     # sql="""INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES('demo','demo@demo','sadf','cat','cat05','ccat','cat','2019-2-5',5,'cat');"""
 
                                 # 1       2        3            4         5          6           7         8          9           10                  1   2     3     4   5    6     7    8   9    10
     qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
     cur.execute(qry, (_name , _email , _password , _gender , _mobile , user_type , _image , _birthday , _status , _user_category ))
 
-    cur = mysql.connection.cursor()
-    cur.execute(sql)
+
+    # cur.execute(sql)
     mysql.connection.commit()
 
     # data = cur.fetchall()
