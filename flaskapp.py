@@ -205,10 +205,14 @@ def run_campaign():
 #         print("exist")
 #     elif row_count > 1 :
 #         print("exist")
+def calc():
+    r=4+4
+    return r
 
 @app.route('/run',methods=['GET','POST'])
 def init_run():
-    answer=run_campaign()
+    #answer=run_campaign()
+    xx=calc()
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
@@ -222,7 +226,7 @@ def init_run():
     #         result_categorey_id = j[0]
     # print("Category result id: ", result_categorey_id)
     # match_adv_to_user(ad_id_returned_value, result_categorey_id)
-    return jsonify({"here":answer})
+    return jsonify({"here":xx})
 
 
 # main
