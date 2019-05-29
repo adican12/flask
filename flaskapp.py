@@ -50,11 +50,6 @@ def showSignUp():
    return render_template('signup.html')
 
 
-app.route('init',metohds=['POST','GET'])
-def init():
-    adx.init_run()
-
-
 
 
 @app.route('/signup',methods=['POST'])
