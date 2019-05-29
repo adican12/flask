@@ -24,13 +24,10 @@ def login():
     if request.method == 'POST':
         username = request.form['email']
         password = request.form['password']
-
         cur = mysql.connection.cursor()
         qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         cur.execute(qry, (username, password))
-
         rows = cur.fetchall()
-
         if len(rows) > 0:
             return jsonify({
                     "status": "true",
@@ -44,8 +41,6 @@ def login():
             "status": "false",
             "message": "Data fetched fails!",
             "data": rows})
-
-
     else:
         return render_template('login.html',error=massage)
 
@@ -60,15 +55,23 @@ def sign_up():
     #try:
     form = request.form
     _name=request.form['username']
-    _password=request.form['password']
     _email=request.form['email']
+    _password=request.form['password']
     _gender=request.form['gender']
-    _phone=request.form['mobile']
-    _birthday=request.form['birthday']
-    _image=request.form['image']
+    _mobile=request.form['mobile']
 
-    # sql="""INSERT INTO `business`(`category`, `couponID`, `business_name`, `bus_latitude`, `bus_longitude`) VALUES ( 'demo' , 12 , 'demo' ,  2.2 , 2.2 );"""
-    sql="""INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES('demo','demo@demo','sadf','cat','cat05','ccat','cat','2019-2-5',5,'cat');"""
+    _user_type="standard_user"
+    _image=request.form['image']
+    # _birthday=request.form['birthday']
+    _birthday='2019-2-5'
+    _status=0
+    _user_category="Demo"
+    # sql="""INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES('demo','demo@demo','sadf','cat','cat05','ccat','cat','2019-2-5',5,'cat');"""
+
+                                # 1       2        3            4         5          6           7         8          9           10                  1   2     3     4   5    6     7    8   9    10
+    qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+    cur.execute(qry, (_name , _email , _password , _gender , _mobile , user_type , _image , _birthday , _status , _user_category ))
+
     cur = mysql.connection.cursor()
     cur.execute(sql)
     mysql.connection.commit()
