@@ -72,7 +72,7 @@ def sign_up():
 
                                 # 1       2        3            4         5          6           7         8          9           10                  1   2     3     4   5    6     7    8   9    10
     qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-    cur.execute(qry, (_name , _email , _password , _gender , _mobile , user_type , _image , _birthday , _status , _user_category ))
+    cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
 
 
     # cur.execute(sql)
