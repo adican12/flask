@@ -51,61 +51,36 @@ def showSignUp():
 
 @app.route('/signup',methods=['POST'])
 def sign_up():
-    # read the posted values from the UI
-    #try:
-    form = request.form
-    _name=request.form['username']
-    _email=request.form['email']
-    _password=request.form['password']
-    _gender=request.form['gender']
-    _mobile=request.form['mobile']
+    try:
+        # read the posted values from the UI
+        #try:
+        form = request.form
+        _name=request.form['username']
+        _email=request.form['email']
+        _password=request.form['password']
+        _gender=request.form['gender']
+        _mobile=request.form['mobile']
 
-    _user_type="standard_user"
-    _image=request.form['image']
-    # _birthday=request.form['birthday']
-    _birthday='2019-2-5'
-    _status=0
-    _user_category="Demo"
+        _user_type="standard_user"
+        _image=request.form['image']
+        # _birthday=request.form['birthday']
+        _birthday='2019-2-5'
+        _status=0
+        _user_category="Demo"
 
-    cur = mysql.connection.cursor()
-    # sql="""INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES('demo','demo@demo','sadf','cat','cat05','ccat','cat','2019-2-5',5,'cat');"""
+        cur = mysql.connection.cursor()
+        # sql="""INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES('demo','demo@demo','sadf','cat','cat05','ccat','cat','2019-2-5',5,'cat');"""
 
-                                # 1       2        3            4         5          6           7         8          9           10                  1   2     3     4   5    6     7    8   9    10
-    qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-    cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
+                                    # 1       2        3            4         5          6           7         8          9           10                  1   2     3     4   5    6     7    8   9    10
+        qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+        cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
+        mysql.connection.commit()
 
-
-    # cur.execute(sql)
-    mysql.connection.commit()
-
-    # data = cur.fetchall()
-    return jsonify({
-                "status": "true",
-                "message": "Data fetched successfully!"})
-        # if _name and _password and _email and _gender and _phone and _birthday and _image and request.method == 'POST':
-        #
-        #
-        #     query = 'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)'
-            #_hashed_password = generate_password_hash(_password)
-            #cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
-            # vals = (_name,_email,_password,_gender,_phone,_birthday,_image)
-            #vals  = ("yar","222@s",1112,"male",00,121,111)
-            # cur = mysql.connection.cursor()
-            # cur.execute(query, vals)
-            # data = cur.fetchall()
-
-            # mysql.connection.commit()
-            # status_code = 200
-            # if len(data) is 0:
-            #     mysql.connection.commit()
-            #     return json.dumps({'message': 'User created successfully !'}) ,200
-            # else:
-            #     return json.dumps({'error': str(data[0])})
-
-        # else:
-        #      return json.dumps({'html': '<span>Enter the required fields</span>'})
-
-
+        return jsonify({
+                    "status": "true",
+                    "message": "Data insert successfully!"})
+    except Exception as e:
+        return jsonify({"status":"fails", "Exception":e}) 
 
 @app.route('/users/<user_id>')
 def page(user_id):
