@@ -24,35 +24,38 @@ def login():
     if request.method == 'POST':
         username = request.form['email']
         password = request.form['password']
+        try:
+            pass
+            cur = mysql.connection.cursor()
+            # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
+            # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
 
-        cur = mysql.connection.cursor()
-        # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-        # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
+            # sql=" SELECT * FROM `users` WHERE email='%s' AND password='2' "
+            # qry = "SELECT count(*) FROM users where username = (%s)" % (username)
+            # query = "SELECT PERGUNTA_SQL,QUERY_ID FROM PERGUNTA WHERE PERGUNDA_ID = %s"
 
-        # sql=" SELECT * FROM `users` WHERE email='%s' AND password='2' "
-        # qry = "SELECT count(*) FROM users where username = (%s)" % (username)
-        # query = "SELECT PERGUNTA_SQL,QUERY_ID FROM PERGUNTA WHERE PERGUNDA_ID = %s"
+            # cur.execute('SELECT * FROM users WHERE email = %s AND password = %s', (username, password))
+            cur.execute('SELECT * FROM users WHERE email = %s', (username))
 
-        cur.execute('SELECT * FROM users WHERE email = %s AND password = %s', (username, password))
+            # cur.execute(sql, (username,))
+            rows = cur.fetchall()
 
-        # cur.execute(sql, (username,))
-        rows = cur.fetchall()
+            if rows > 0:
+                return jsonify({
+                        "status": "true",
+                        "message": "Data fetched successfully!",
+                        "data": rows,
+                        "username":username,
+                        "password":password,
+                        "sql":sql})
 
-        if rows > 0:
-            return jsonify({
-                    "status": "true",
-                    "message": "Data fetched successfully!",
-                    "data": rows,
-                    "username":username,
-                    "password":password,
-                    "sql":sql})
-
-        else:
-            return jsonify({
-            "status": "false",
-            "message": "Data fetched fails!",
-            "data": rows})
-
+            else:
+                return jsonify({
+                "status": "false",
+                "message": "Data fetched fails!",
+                "data": rows})
+        except Exception as e:
+            return jsonify({"data":e})
 
     else:
         return render_template('login.html',error=massage)
