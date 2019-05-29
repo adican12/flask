@@ -29,7 +29,9 @@ def login():
         # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
         # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
 
-        sql=""" SELECT * FROM `users` WHERE email='(%s)' AND password='2' """ % (username)
+        sql=" SELECT * FROM `users` WHERE email='(%s)' AND password='2' " % (username)
+        # qry = "SELECT count(*) FROM users where username = (%s)" % (username)
+
         cur.execute(sql)
         rows = cur.fetchall()
 
@@ -39,7 +41,8 @@ def login():
                     "message": "Data fetched successfully!",
                     "data": rows,
                     "username":username,
-                    "password":password})
+                    "password":password,
+                    "sql":sql})
 
         else:
             return jsonify({
