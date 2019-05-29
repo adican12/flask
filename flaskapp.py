@@ -3,7 +3,7 @@ from flask_mysqldb import MySQL
 import yaml
 import os
 import json
-import adx
+
 
 app = Flask(__name__)
 
