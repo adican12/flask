@@ -64,25 +64,37 @@ def sign_up():
         _birthday=request.form['birthday']
         _image=request.form['image']
 
-        if _name and _password and _email and _gender and _phone and _birthday and _image and request.method == 'POST':
+        sql="""INSERT INTO `business`(`category`, `couponID`, `business_name`, `bus_latitude`, `bus_longitude`) VALUES ( 'demo' , 12 , 'demo' ,  2.2 , 2.2 );"""
 
-            query = 'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+        cur = mysql.connection.cursor()
+        cur.execute(sql)
+        data = cur.fetchall()
+            return jsonify({
+                    "status": "true",
+                    "message": "Data fetched successfully!",
+                    "data": data})
+        # if _name and _password and _email and _gender and _phone and _birthday and _image and request.method == 'POST':
+        #
+        #
+        #     query = 'INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)'
             #_hashed_password = generate_password_hash(_password)
             #cur.execute('INSERT INTO users( name , email , password ,gender , mobile , birthday ,image ) VALUES (%s,%s,%s,%s,%s,%s,%s)',(_name,_email,_password,_gender,_phone,_birthday,_image))
-            vals = (_name,_email,_password,_gender,_phone,_birthday,_image)
+            # vals = (_name,_email,_password,_gender,_phone,_birthday,_image)
             #vals  = ("yar","222@s",1112,"male",00,121,111)
-            cur = mysql.connection.cursor()
-            cur.execute(query, vals)
-            data = cur.fetchall()
-            mysql.connection.commit()
-            status_code = 200
-            if len(data) is 0:
-                mysql.connection.commit()
-                return json.dumps({'message': 'User created successfully !'}) ,200
-            else:
-                return json.dumps({'error': str(data[0])})
-        else:
-             return json.dumps({'html': '<span>Enter the required fields</span>'})
+            # cur = mysql.connection.cursor()
+            # cur.execute(query, vals)
+            # data = cur.fetchall()
+
+            # mysql.connection.commit()
+            # status_code = 200
+            # if len(data) is 0:
+            #     mysql.connection.commit()
+            #     return json.dumps({'message': 'User created successfully !'}) ,200
+            # else:
+            #     return json.dumps({'error': str(data[0])})
+
+        # else:
+        #      return json.dumps({'html': '<span>Enter the required fields</span>'})
 
 
 
@@ -95,16 +107,9 @@ def page(user_id):
     return jsonify(rows)
 
 
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-
-
-
 
 @app.route('/users',methods=["GET"])
 def users():
