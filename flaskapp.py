@@ -142,7 +142,7 @@ def run_campaign():
   myresult = mycursor.fetchall()
   for x in myresult:
     print(x)
-  return x[4] ,x[11] ,x[6]
+  return x[1] ,x[2] ,x[3]
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
