@@ -208,6 +208,7 @@ def run_campaign():
 
 @app.route('/run',methods=['GET','POST'])
 def init_run():
+    mycursor = mysql.connection.cursor()
     answer=run_campaign()
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
