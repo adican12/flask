@@ -140,9 +140,8 @@ def run_campaign():
   qry = 'SELECT * FROM users WHERE id = 1 '
   mycursor.execute(qry)
   myresult = mycursor.fetchall()
-  for x in myresult:
-    print(x)
-  return x[1] ,x[2] ,x[3]
+  #for x in myresult:
+  return myresult
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
@@ -204,7 +203,7 @@ def run_campaign():
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
-    id_user , category_user, location_id = run_campaign()
+    result = run_campaign()
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
@@ -218,7 +217,7 @@ def init_run():
     #         result_categorey_id = j[0]
     # print("Category result id: ", result_categorey_id)
     # match_adv_to_user(ad_id_returned_value, result_categorey_id)
-    return jsonify({"id_user":id_user,"Category:":category_user,"location_id":location_id})
+    return jsonify({"Result":result})
 
 
 # main
