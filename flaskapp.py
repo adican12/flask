@@ -29,7 +29,7 @@ def login():
         # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
         # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
 
-        sql="""SELECT * FROM `users` WHERE email='yaronyaron@gmail.com' AND password='1';"""
+        sql=""" SELECT * FROM `users` WHERE email='adiadi@gmail.com' AND password='2' """
         cur.execute(sql)
         rows = cur.fetchall()
 
