@@ -22,12 +22,15 @@ mysql = MySQL(app)
 def login():
     massage = None
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['email']
         password = request.form['password']
 
         cur = mysql.connection.cursor()
         # cur.execute("""SELECT * FROM users WHERE name = {}""".format(username))
-        cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
+        # cur.execute("""SELECT * FROM users WHERE id = {}""".format(1))
+
+        sql="""SELECT * FROM `users` WHERE email='yaronyaron@gmail.com' AND password='1';"""
+        cur.execute(sql)
         rows = cur.fetchall()
 
         if rows > 0:
