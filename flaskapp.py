@@ -137,7 +137,7 @@ def internal_server_error(e):
 
 def run_campaign():
   mycursor = mysql.connection.cursor()
-  qry = 'SELECT * FROM `users` WHERE id = 1 '
+  qry = 'SELECT * FROM users WHERE id = 1 '
   mycursor.execute(qry)
   myresult = mycursor.fetchall()
   for x in myresult:
