@@ -34,7 +34,7 @@ def login():
         # query = "SELECT PERGUNTA_SQL,QUERY_ID FROM PERGUNTA WHERE PERGUNDA_ID = %s"
 
 
-        cur.execute(sql,(username))
+        cur.execute(sql, (username,))
         rows = cur.fetchall()
 
         if rows > 0:
