@@ -137,7 +137,7 @@ def internal_server_error(e):
 #@app.route('/run1',methods=['GET','POST'])
 def run_campaign():
   mycursor = mysql.connection.cursor()
-  qry = 'SELECT * FROM users WHERE id = 1 '
+  qry = 'SELECT * FROM ad WHERE Adid = 1 '
   mycursor.execute(qry)
   myresult = mycursor.fetchall()
   convert_tuple_to_str = json.dumps(myresult)
@@ -145,7 +145,7 @@ def run_campaign():
   #json_result = json.dump(myresult)
   #json_vars = json.load(json_result)
   #for x in myresult:
-  return json_from_str["id"] 
+  return json_from_str["id"]
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
