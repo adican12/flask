@@ -140,7 +140,7 @@ def run_campaign():
   qry = 'SELECT * FROM ad WHERE adID = 1 '
   mycursor.execute(qry)
   myresult = mycursor.fetchall()
-  dict_myresult=dict(myresult)
+  dict_myresult = dict(myresult)
   #convert_tuple_to_str = json.dumps(myresult)
   #json_from_str = json.loads(convert_tuple_to_str)
   #json_result = json.dump(myresult)
@@ -223,7 +223,7 @@ def init_run():
     #         result_categorey_id = j[0]
     # print("Category result id: ", result_categorey_id)
     # match_adv_to_user(ad_id_returned_value, result_categorey_id)
-    return render_template("welcome.html",massage = type(result))
+    return render_template("welcome.html",massage = result)
 
 
 # main
