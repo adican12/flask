@@ -70,13 +70,13 @@ def sign_up():
         _gender=request.form['gender']
         # _gender="gender"
 
-        # _mobile=request.form['phone']
-        _mobile="phone"
+        _phone=request.form['phone']
+        # _mobile="phone"
 
         _user_type="standard_user"
 
-        # _user_category=request.form['category']
-        _user_category="category"
+        _category=request.form['category']
+        # _user_category="category"
 
         # _image=request.form['image']
         _image="image"
@@ -87,7 +87,9 @@ def sign_up():
                         "email":_email,
                         "password":_password,
                         "birthday":_birthday,
-                        "gender":_gender
+                        "gender":_gender,
+                        "phone":_phone,
+                        "category":_category
                         })
 
 
