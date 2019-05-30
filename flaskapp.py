@@ -220,7 +220,7 @@ def init_run():
     #         result_categorey_id = j[0]
     # print("Category result id: ", result_categorey_id)
     # match_adv_to_user(ad_id_returned_value, result_categorey_id)
-    return jsonify({"Result":result}) ,render_template("welcome.html",massage = type(result))
+    return render_template("welcome.html",massage = type(result))
 
 
 # main
