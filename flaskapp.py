@@ -221,7 +221,7 @@ def run_campaign():
 def init_run():
 
     result1,result2,result3,count = run_campaign()
-    result = "result1: " + result1 + " , result2: " + result2 + " , result3: " + result3 + " , count: " + count
+    result = "result1: " + str(result1) + " , result2: " + str(result2) + " , result3: " + str(result3) + " , count: " + str(count)
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
