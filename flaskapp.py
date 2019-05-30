@@ -57,8 +57,8 @@ def sign_up():
         _name=request.form['name']
         _email=request.form['email']
         _password=request.form['password']
-        _birthday='2019-2-5'
-        # _birthday=request.form['birthday']
+        # _birthday='2019-2-5'
+        _birthday=request.form['birthday']
         _gender=request.form['gender']
         _mobile=request.form['phone']
         _user_type="standard_user"
