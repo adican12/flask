@@ -19,11 +19,12 @@ margin: 0 auto;
   border:1px solid black;
 }
 .container{
-  border-radius: 5px;
+ border-radius: 5px;
  background-color: #f2f2f2;
  padding: 20px;
+ width: 50%;
 }
-input[type=text], select {
+input[type=text],input[type=password] ,select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
