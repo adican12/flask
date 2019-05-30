@@ -53,7 +53,7 @@ def showSignUp():
 @app.route('/signup',methods=['POST'])
 def sign_up():
     try:
-        form = request.form
+        # form = request.form
         _name=request.form['name']
         _email=request.form['email']
         _password=request.form['password']
@@ -71,8 +71,7 @@ def sign_up():
         cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
         mysql.connection.commit()
 
-        return jsonify({
-                    "status": "true",
+        return jsonify({"status": "true",
                     "message": "Data insert successfully!"})
     except Exception as e:
         return jsonify({"status":"fails", "Exception":e})
