@@ -158,7 +158,7 @@ def run_campaign():
   #   for r in rows:
   #       # us
 
-    return rows["id"] ,rows["user_category"] ,rows["location_id"]
+    return rows[1] ,rows[2] ,rows[3]
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
