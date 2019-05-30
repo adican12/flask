@@ -158,7 +158,7 @@ def run_campaign():
   #   for r in rows:
   #       # us
 
-    return rows["id"] ,rows["user_category"] ,  rows["location_id"]
+    return rows["id"] ,rows["user_category"] ,rows["location_id"]
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
@@ -221,8 +221,8 @@ def run_campaign():
 @app.route('/init',methods=['GET','POST'])
 def init_run():
 
-    result = run_campaign()
-
+    result1,result2,result3 = run_campaign()
+    result = "result1: " + result1 + " , result2: " + result2 + " , result3: " + result3
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
