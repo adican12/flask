@@ -130,98 +130,47 @@ def internal_server_error(e):
 
 
 
-
+#des: function that get in order to start process match user to campian
 #@app.route('/run1',methods=['GET','POST'])
 def run_campaign():
     cur = mysql.connection.cursor()
     qry = 'SELECT * FROM users WHERE id = 1 '
     cur.execute(qry)
     rows = cur.fetchall()
-    count=0
     for r in rows:
         id= r["id"]
         user_category=r["user_category"]
         location_id=r["location_id"]
-        count=count+1
-  # mycursor = mysql.connection.cursor()
-  # qry = 'SELECT * FROM ad WHERE adID = 1 '
-  # mycursor.execute(qry)
-  # myresult = mycursor.fetchall()
-  # dict_myresult = dict(myresult)
-  #convert_tuple_to_str = json.dumps(myresult)
-  #json_from_str = json.loads(convert_tuple_to_str)
-  #json_result = json.dump(myresult)
-  #json_vars = json.load(json_result)
-  #for x in myresult:
-  # return dict_myresult['adID']
-  #   for r in rows:
-  #       # us
 
-    return id ,user_category ,location_id , count
-#
-# def all_users_in_specific_router_location(location_id):
-#   mycursor =  mysql.connection.cursor()
-#   sql = "SELECT * FROM locations WHERE location_id = {}".format(location_id)
-#   mycursor.execute(sql)
-#   myresult = mycursor.fetchall()
-#   list_of_id_user = []
-#   for rows in myresult:
-#       print("locationId:={},".format(rows[0]), "lat:{},".format(rows[1]), "lng:{},".format(rows[2]),"info:{},".format(rows[3]), "description:{},".format(rows[4]), "userId:{}.".format(rows[5]))
-#       list_of_id_user.append(rows[5])
-#   #in this point we are returned a list of the users in specspic location
-#   for i in list_of_id_user:
-#       if i == "":
-#           list_of_id_user.remove(i)
-#   return list_of_id_user
-#
-#
-#
-#
-# def match_user_from_location_router(list_of_id_user):
-#     mycursor =  mysql.connection.cursor()
-#
-#     print(list_of_id_user)
-#     list_of_id_and_category = []
-#     for i in list_of_id_user:
-#      sql = "SELECT * FROM users WHERE id = {}".format(i)
-#      mycursor.execute(sql)
-#      myresult = mycursor.fetchall()
-#      #print(myresult)
-#      for rows in myresult:
-#          print("id:={},".format(rows[0]),"name:={},".format(rows[1]), "email:{},".format(rows[2]), "password:{},".format(rows[3]),
-#                "gender:{},".format(rows[4]), "mobile:{},".format(rows[5]), "userType:{}.".format(rows[6]),"image:{}.".format(rows[7]),"birthday:{}.".format(rows[8]),"status:{}.".format(rows[9]),"category:{}.".format(rows[10]),"location_id:{}.".format(rows[11]))
-#          users_id_and_category=(rows[0],rows[10])
-#      list_of_id_and_category.append(users_id_and_category)
-#     return list_of_id_and_category
-#
-#
-# def match_adv_to_user(ad_id,id_user):
-#     print("####")
-#     mycursor =  mysql.connection.cursor()
-#     ##add check for exsist id
-#     print(ad_id,id_user)
-#     cond_query ="SELECT id FROM notification WHERE id".format(id_user)
-#     mycursor.execute(cond_query)
-#     row_count = mycursor.rowcount
-#     #print(row_count)
-#     if row_count == 0:
-#         #print("row_count:",row_count)
-#         sql = "INSERT INTO notification (id, adID) VALUES (%s, %s)"
-#         val = (id_user, ad_id)
-#         mycursor.execute(sql, val)
-#         mysql.connection.commit()
-#         print("Done")
-#     elif row_count == 1:
-#         print("exist")
-#     elif row_count > 1 :
-#         print("exist")
+    return id ,user_category ,location_id
+
+
+
+def ad_match_to_user(user_id ,user_category , _location_id):
+    cur = mysql.connection.cursor()
+    print(_location_id)
+    qry = 'SELECT * FROM `campaign` WHERE location_id ={}'.format(_location_id)
+    cur.execute(qry)
+    rows = cur.fetchall()
+    list_of_info_of_camp = []
+    for row in rows:
+         loc_id = row["location_id"]
+         category = row["category"]
+         ad_id = row["adID"]
+         info_of_ad=(loc_id , category , ad_id)
+         list_of_info_of_camp.append(info_of_ad)
+    # for match_item in list_of_info_of_camp:
+    #     if match_item.loc_id ==_location_id and match_item.category == user_category:
+    #         return match_item.ad_id ,user_id
+    #     else:
 
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
 
-    result1,result2,result3,count = run_campaign()
-    result = "result1: " + str(result1) + " , result2: " + str(result2) + " , result3: " + str(result3) + " , count: " + str(count)
+    id_user,user_category,location_id = run_campaign()
+    result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
+    ad_match_to_user(id_user , user_category , location_id )
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
@@ -235,7 +184,7 @@ def init_run():
     #         result_categorey_id = j[0]
     # print("Category result id: ", result_categorey_id)
     # match_adv_to_user(ad_id_returned_value, result_categorey_id)
-    return render_template("welcome.html",massage = result)
+    return render_template("welcome.html",massage = ad_match_to_user)
 
 
 # main
