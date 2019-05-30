@@ -5,6 +5,7 @@ import os
 import json
 
 
+
 app = Flask(__name__)
 
 path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
@@ -103,6 +104,7 @@ def users():
 @app.route('/welcome')
 def welcome():
     massage = "welcome str"
+
     return render_template('welcome.html',massage=massage)
 
 #cookie response
@@ -124,8 +126,13 @@ def internal_server_error(e):
 
 
 
-
-
+#
+# try:
+#   print(x)
+# except:
+#   print("Something went wrong")
+# finally:
+#   print("The 'try except' is finished")
 
 
 
@@ -133,17 +140,21 @@ def internal_server_error(e):
 #des: function that get in order to start process match user to campian
 #@app.route('/run1',methods=['GET','POST'])
 def run_campaign():
-    cur = mysql.connection.cursor()
-    qry = 'SELECT * FROM users WHERE id = 1 '
-    cur.execute(qry)
-    rows = cur.fetchall()
-    for r in rows:
+    try:
+     cur = mysql.connection.cursor()
+     qry = 'SELECT * FROM users WHERE id = 1 '
+     cur.execute(qry)
+     rows = cur.fetchall()
+     for r in rows:
         id= r["id"]
         user_category=r["user_category"]
         location_id=r["location_id"]
 
-    return id ,user_category ,location_id
-
+     return id ,user_category ,location_id
+    except:
+        print("error")
+    finally:
+        cur.close()
 
 
 def ad_match_to_user(user_id ,user_category , _location_id):
@@ -168,27 +179,32 @@ def ad_match_to_user(user_id ,user_category , _location_id):
             pass
     return list_of_matched_user_and_ad
 
+
+
+def insert_notf_to_db(list_of_matched):
+
+    cur = mysql.connection.cursor()
+    for item in list_of_matched:
+        cond_query = "SELECT * FROM `notification` WHERE user_id={} AND  adid={}".format(item[1],item[0])
+        cur.execute(cond_query)
+        row_count = cur.rowcount
+    # print(row_count)
+    if row_count == 0:
+        qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
+        cur.execute(qry,(item[0], item[1]))
+        mysql.connection.commit()
+
+
+
+
 @app.route('/init',methods=['GET','POST'])
 def init_run():
 
     id_user,user_category,location_id = run_campaign()
     result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
-    match_list_of_users=ad_match_to_user(id_user , user_category , location_id )
+    match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
+    insert_notf_to_db(match_list_of_users)
 
-
-    #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
-    # print("####")
-    # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
-    # users_id = all_users_in_specific_router_location(location_id_returned_value)
-    # # print(users_id)
-    # list_users_info = match_user_from_location_router(users_id)
-    # for j in list_users_info:
-    #     if j[1] != category_id_returned_value:
-    #         pass
-    #     else:
-    #         result_categorey_id = j[0]
-    # print("Category result id: ", result_categorey_id)
-    # match_adv_to_user(ad_id_returned_value, result_categorey_id)
     return render_template("welcome.html",massage = match_list_of_users)
 
 
