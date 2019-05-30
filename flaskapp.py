@@ -137,13 +137,12 @@ def run_campaign():
     qry = 'SELECT * FROM users WHERE id = 1 '
     cur.execute(qry)
     rows = cur.fetchall()
-    # dict_myresult = dict(rows)
-
-    # t="start here"
-    # for r in rows:
-        # rows["id"] ,rows["user_category"] ,  rows["location_id"]
-    #     t= t + "next line:" + m
-
+    count
+    for r in rows:
+        id= r["id"]
+        user_category=r["user_category"]
+        location_id=r["location_id"]
+        count=count+1
   # mycursor = mysql.connection.cursor()
   # qry = 'SELECT * FROM ad WHERE adID = 1 '
   # mycursor.execute(qry)
@@ -158,7 +157,7 @@ def run_campaign():
   #   for r in rows:
   #       # us
 
-    return rows[1] ,rows[2] ,rows[3]
+    return id ,user_category ,location_id , count
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
@@ -221,8 +220,8 @@ def run_campaign():
 @app.route('/init',methods=['GET','POST'])
 def init_run():
 
-    result1,result2,result3 = run_campaign()
-    result = "result1: " + result1 + " , result2: " + result2 + " , result3: " + result3
+    result1,result2,result3,count = run_campaign()
+    result = "result1: " + result1 + " , result2: " + result2 + " , result3: " + result3 + " , count: " + count
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
