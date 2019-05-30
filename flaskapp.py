@@ -64,11 +64,11 @@ def sign_up():
         _password = request.form['password']
         # _password = "password"
 
-        _birthday='2019-2-5'
-        # _birthday=request.form['birthday']
+        # _birthday='2019-2-5'
+        _birthday=request.form['birthday']
 
-        # _gender=request.form['gender']
-        _gender="gender"
+        _gender=request.form['gender']
+        # _gender="gender"
 
         # _mobile=request.form['phone']
         _mobile="phone"
@@ -85,7 +85,9 @@ def sign_up():
         return jsonify({"status": "true",
                         "name":_name,
                         "email":_email,
-                        "password":_password
+                        "password":_password,
+                        "birthday":_birthday,
+                        "gender":_gender
                         })
 
 
