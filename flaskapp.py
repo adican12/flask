@@ -46,10 +46,6 @@ def login():
     else:
         return render_template('login.html',error=massage)
 
-# @app.route('/showsignup')
-# def showSignUp():
-#    return render_template('signup.html')
-
 @app.route('/signup',methods=['GET','POST'])
 def sign_up():
     massage = None
@@ -82,24 +78,24 @@ def sign_up():
         # _image="image"
 
         _status=0
-        return jsonify({"status": "true",
-                        "name":_name,
-                        "email":_email,
-                        "password":_password,
-                        "birthday":_birthday,
-                        "gender":_gender,
-                        "phone":_phone,
-                        "category":_category,
-                        "image":_image
-                        })
+        # return jsonify({"status": "true",
+        #                 "name":_name,
+        #                 "email":_email,
+        #                 "password":_password,
+        #                 "birthday":_birthday,
+        #                 "gender":_gender,
+        #                 "phone":_phone,
+        #                 "category":_category,
+        #                 "image":_image
+        #                 })
 
 
-        # cur = mysql.connection.cursor()
-        # qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-        # cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
-        # mysql.connection.commit()
+        cur = mysql.connection.cursor()
+        qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+        cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
+        mysql.connection.commit()
 
-        # return jsonify({"status": "true","message": "Data insert successfully!"})
+        return jsonify({"status": "true","message": "Data insert successfully!"})
     else:
         return render_template('signup.html',error=massage)
 
