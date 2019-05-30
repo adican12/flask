@@ -137,7 +137,9 @@ def run_campaign():
     qry = 'SELECT * FROM users WHERE id = 1 '
     cur.execute(qry)
     rows = cur.fetchall()
-    
+    for r in rows:
+        m=  r["id"] + r["user_category"] + r["location_id"]
+        t=t+"\n"+m
   # mycursor = mysql.connection.cursor()
   # qry = 'SELECT * FROM ad WHERE adID = 1 '
   # mycursor.execute(qry)
@@ -152,7 +154,7 @@ def run_campaign():
   #   for r in rows:
   #       # us
 
-    return rows
+    return t
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
