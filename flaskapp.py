@@ -46,32 +46,36 @@ def login():
     else:
         return render_template('login.html',error=massage)
 
-@app.route('/showsignup')
-def showSignUp():
-   return render_template('signup.html')
+# @app.route('/showsignup')
+# def showSignUp():
+#    return render_template('signup.html')
 
-@app.route('/signup',methods=['POST'])
+@app.route('/signup',methods=['GET','POST'])
 def sign_up():
-    # form = request.form
-    _name = request.form['name']
-    _email = request.form['email']
-    _password = request.form['password']
-    _birthday='2019-2-5'
-    # _birthday=request.form['birthday']
-    _gender=request.form['gender']
-    _mobile=request.form['phone']
-    _user_type="standard_user"
-    _user_category=request.form['category']
-    _image=request.form['image']
-    _status=0
+    massage = None
+    if request.method == 'POST':
+        # form = request.form
+        _name = request.form['name']
+        _email = request.form['email']
+        _password = request.form['password']
+        _birthday='2019-2-5'
+        # _birthday=request.form['birthday']
+        _gender=request.form['gender']
+        _mobile=request.form['phone']
+        _user_type="standard_user"
+        _user_category=request.form['category']
+        _image=request.form['image']
+        _status=0
 
-    cur = mysql.connection.cursor()
-    qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-    cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
-    mysql.connection.commit()
+        cur = mysql.connection.cursor()
+        qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+        cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
+        mysql.connection.commit()
 
-    return jsonify({"status": "true",
-                "message": "Data insert successfully!"})
+        return jsonify({"status": "true",
+                    "message": "Data insert successfully!"})
+    else:
+        return render_template('signup.html',error=massage)
 
 
 @app.route('/users/<user_id>')
