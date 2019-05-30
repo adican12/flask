@@ -144,7 +144,7 @@ def run_campaign():
   #json_vars = json.load(json_result)
 
   #for x in myresult:
-  return jsonify(myresult)
+  return myresult
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
