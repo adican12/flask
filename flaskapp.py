@@ -148,29 +148,34 @@ def run_campaign():
 
 def ad_match_to_user(user_id ,user_category , _location_id):
     cur = mysql.connection.cursor()
-    print(_location_id)
     qry = 'SELECT * FROM `campaign` WHERE location_id ={}'.format(_location_id)
     cur.execute(qry)
     rows = cur.fetchall()
-    list_of_info_of_camp = []
+    list_of_info_of_campaign = []
+    list_of_matched_user_and_ad = []
     for row in rows:
          loc_id = row["location_id"]
          category = row["category"]
          ad_id = row["adID"]
          info_of_ad=(loc_id , category , ad_id)
-         list_of_info_of_camp.append(info_of_ad)
-    # for match_item in list_of_info_of_camp:
-    #     if match_item.loc_id ==_location_id and match_item.category == user_category:
-    #         return match_item.ad_id ,user_id
-    #     else:
-
+         list_of_info_of_campaign.append(info_of_ad)
+    for match_item in list_of_info_of_campaign:
+        if match_item[1] == user_category:
+            matched_obj=(match_item[2] ,user_id)
+            list_of_matched_user_and_ad.append(matched_obj)
+        else:
+            #bring another adv from general table
+            pass
+    return list_of_matched_user_and_ad
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
 
     id_user,user_category,location_id = run_campaign()
     result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
-    ad_match_to_user(id_user , user_category , location_id )
+    match_list_of_users=ad_match_to_user(id_user , user_category , location_id )
+
+
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
@@ -184,7 +189,7 @@ def init_run():
     #         result_categorey_id = j[0]
     # print("Category result id: ", result_categorey_id)
     # match_adv_to_user(ad_id_returned_value, result_categorey_id)
-    return render_template("welcome.html",massage = ad_match_to_user)
+    return render_template("welcome.html",massage = match_list_of_users)
 
 
 # main
