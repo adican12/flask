@@ -55,14 +55,14 @@ def sign_up():
     massage = None
     if request.method == 'POST':
         # form = request.form
-        # _name = request.form['name']
-        _name = "name"
+        _name = request.form['name']
+        # _name = "name"
 
-        # _email = request.form['email']
-        _email = "email"
+        _email = request.form['email']
+        # _email = "email"
 
-        # _password = request.form['password']
-        _password = "password"
+        _password = request.form['password']
+        # _password = "password"
 
         _birthday='2019-2-5'
         # _birthday=request.form['birthday']
@@ -82,16 +82,22 @@ def sign_up():
         _image="image"
 
         _status=0
-
-
-
-        cur = mysql.connection.cursor()
-        qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-        cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
-        mysql.connection.commit()
-
         return jsonify({"status": "true",
-                    "message": "Data insert successfully!"})
+                        "_name":_name,
+                        "_email":_email,
+                        "_password":_password,
+                        "_gender":_gender,
+                        "_mobile":_mobile
+                        })
+
+
+
+        # cur = mysql.connection.cursor()
+        # qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+        # cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
+        # mysql.connection.commit()
+
+        # return jsonify({"status": "true","message": "Data insert successfully!"})
     else:
         return render_template('signup.html',error=massage)
 
