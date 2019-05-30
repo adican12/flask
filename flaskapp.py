@@ -60,8 +60,8 @@ def sign_up():
         _password = request.form['password']
         # _password = "password"
 
-        # _birthday='2019-2-5'
-        _birthday=request.form['birthday']
+        _birthday='2019-2-5'
+        # _birthday=request.form['birthday']
 
         _gender=request.form['gender']
         # _gender="gender"
