@@ -54,17 +54,18 @@ def showSignUp():
 def sign_up():
     try:
         form = request.form
-        _name=request.form['username']
+        _name=request.form['name']
         _email=request.form['email']
         _password=request.form['password']
-        _gender=request.form['gender']
-        _mobile=request.form['mobile']
-        _user_type="standard_user"
-        _image=request.form['image']
-        # _birthday=request.form['birthday']
         _birthday='2019-2-5'
+        # _birthday=request.form['birthday']
+        _gender=request.form['gender']
+        _mobile=request.form['phone']
+        _user_type="standard_user"
+        _user_category=request.form['category']
+        _image=request.form['image']
         _status=0
-        _user_category="Demo"
+
         cur = mysql.connection.cursor()
         qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
         cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))

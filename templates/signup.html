@@ -8,24 +8,17 @@
   <body>
 
       <div class="jumbotron">
-        <h1>Blog App</h1>
-        <form method="post" action="" >
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-         <input type="text" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-          <input type="text" placeholder="Email" name="email" value="{{
-                  request.form.email }}">
-          <input type="text" placeholder="Gender" name="gender" value="{{
-                 request.form.gender }}">
-         <input type="text" placeholder="Mobile" name="mobile" value="{{
-          request.form.mobile }}">
-             <input type="text" placeholder="Birthday" name="birthday" value="{{
-          request.form.birthday }}">
-            <input type="text" placeholder="Image" name="image" value="{{
-          request.form.image }}">
-
-        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Sign up</button>
+          <h1>Blog App</h1>
+          <form method="post" action="" >
+          <input type="text" placeholder="name" name="name" value="{{request.form.name }}">
+          <input type="text" placeholder="Email" name="email" value="{{request.form.email }}">
+          <input type="text" placeholder="Password" name="password" value="{{request.form.password }}">
+          <input type="date" placeholder="Birthday" name="birthday" value="{{request.form.birthday }}">
+          <input type="text" placeholder="Gender" name="gender" value="{{request.form.gender }}">
+          <input type="text" placeholder="Phone" name="phone" value="{{request.form.phone }}">
+          <input type="text" placeholder="Category" name="category" value="{{request.form.category }}">
+          <input type="text" placeholder="Image" name="image" value="{{request.form.image }}">
+          <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Sign up</button>
       </form>
       </div>
       <footer class="footer">
