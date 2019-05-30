@@ -78,8 +78,8 @@ def sign_up():
         _category=request.form['category']
         # _user_category="category"
 
-        # _image=request.form['image']
-        _image="image"
+        _image=request.form['image']
+        # _image="image"
 
         _status=0
         return jsonify({"status": "true",
@@ -89,7 +89,8 @@ def sign_up():
                         "birthday":_birthday,
                         "gender":_gender,
                         "phone":_phone,
-                        "category":_category
+                        "category":_category,
+                        "image":_image
                         })
 
 
