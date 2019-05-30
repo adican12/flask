@@ -139,7 +139,7 @@ def run_campaign():
     rows = cur.fetchall()
     for r in rows:
         m=  str(r["id"]) + str(r["user_category"]) + str(r["location_id"])
-        t=t+"\n"+m
+        t= t + "next line:" + m
   # mycursor = mysql.connection.cursor()
   # qry = 'SELECT * FROM ad WHERE adID = 1 '
   # mycursor.execute(qry)
