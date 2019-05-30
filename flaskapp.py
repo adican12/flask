@@ -52,29 +52,27 @@ def showSignUp():
 
 @app.route('/signup',methods=['POST'])
 def sign_up():
-    try:
-        # form = request.form
-        _name=request.form['name']
-        _email=request.form['email']
-        _password=request.form['password']
-        # _birthday='2019-2-5'
-        _birthday=request.form['birthday']
-        _gender=request.form['gender']
-        _mobile=request.form['phone']
-        _user_type="standard_user"
-        _user_category=request.form['category']
-        _image=request.form['image']
-        _status=0
+    # form = request.form
+    _name = request.form['name']
+    _email = request.form['email']
+    _password = request.form['password']
+    _birthday='2019-2-5'
+    # _birthday=request.form['birthday']
+    _gender=request.form['gender']
+    _mobile=request.form['phone']
+    _user_type="standard_user"
+    _user_category=request.form['category']
+    _image=request.form['image']
+    _status=0
 
-        cur = mysql.connection.cursor()
-        qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-        cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
-        mysql.connection.commit()
+    cur = mysql.connection.cursor()
+    qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+    cur.execute(qry, (_name , _email , _password , _gender , _mobile , _user_type , _image , _birthday , _status , _user_category ))
+    mysql.connection.commit()
 
-        return jsonify({"status": "true",
-                    "message": "Data insert successfully!"})
-    except Exception as e:
-        return jsonify({"status":"fails", "Exception":e})
+    return jsonify({"status": "true",
+                "message": "Data insert successfully!"})
+
 
 @app.route('/users/<user_id>')
 def page(user_id):
