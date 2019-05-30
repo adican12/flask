@@ -55,8 +55,8 @@ def sign_up():
     massage = None
     if request.method == 'POST':
         # form = request.form
-        _name = request.form['name']
-        # _name = "name"
+        # _name = request.form['name']
+        _name = "name"
 
         _email = request.form['email']
         # _email = "email"
@@ -83,13 +83,9 @@ def sign_up():
 
         _status=0
         return jsonify({"status": "true",
-                        "_name":_name,
-                        "_email":_email,
-                        "_password":_password,
-                        "_gender":_gender,
-                        "_mobile":_mobile
+                        "email":_email,
+                        "password":_password
                         })
-
 
 
         # cur = mysql.connection.cursor()
