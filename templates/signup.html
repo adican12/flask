@@ -1,27 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Sign up catwifi</title>
-    <link href="/static/css/signup.css" rel="stylesheet">
-    <!-- <script src="/static/js/jquery-3.4.1.min.js"></script> -->
-    <!-- <script src="/static/js/signup.js"></script> -->
-  <body>
-
-      <div class="jumbotron">
-          <h1>Blog App</h1>
-          <form method="post" action="" >
-              <input type="text" placeholder="name" name="name"         value="{{request.form.name }}">
-              <input type="text" placeholder="Email" name="email"       value="{{request.form.email }}">
-              <input type="text" placeholder="Password" name="password" value="{{request.form.password }}">
-              <input type="text" placeholder="Birthday" name="birthday" value="{{request.form.birthday }}">
-              <input type="text" placeholder="Gender" name="gender"     value="{{request.form.gender }}">
-              <input type="text" placeholder="Phone" name="phone"       value="{{request.form.phone }}">
-              <input type="text" placeholder="Category" name="category" value="{{request.form.category }}">
-              <input type="text" placeholder="Image" name="image"       value="{{request.form.image }}">
-              <input class="btn btn-default" type="submit"              value="signup">
-          </form>
-      </div>
-      <footer class="footer">
-      </footer>
-  </body>
-</html>
+{%extends 'base.html'  %}
+ {% block body %}
+ <div class="container">
+   <h1>Sign up </h1>
+   <br>
+   <form action="" method="post">
+     <input type="text" placeholder="name"     name="name"         value="{{request.form.name }}">
+     <input type="text" placeholder="Email"    name="email"       value="{{request.form.email }}">
+     <input type="text" placeholder="Password" name="password" value="{{request.form.password }}">
+     <input type="text" placeholder="Birthday" name="birthday" value="{{request.form.birthday }}">
+     <input type="text" placeholder="Gender"   name="gender"     value="{{request.form.gender }}">
+     <input type="text" placeholder="Phone"    name="phone"       value="{{request.form.phone }}">
+     <input type="text" placeholder="Category" name="category" value="{{request.form.category }}">
+     <input type="text" placeholder="Image"    name="image"       value="{{request.form.image }}">
+     <input class="btn btn-default"            type="submit"              value="signup">
+   </form>
+   {% if error %}
+     <p class="error"><strong>Error:</strong> {{ error }}
+   {% endif %}
+ </div>
+ {% endblock %}
