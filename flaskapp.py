@@ -49,9 +49,6 @@ def login():
 def showSignUp():
    return render_template('signup.html')
 
-
-
-
 @app.route('/signup',methods=['POST'])
 def sign_up():
     try:
@@ -136,17 +133,26 @@ def internal_server_error(e):
 
 #@app.route('/run1',methods=['GET','POST'])
 def run_campaign():
-  mycursor = mysql.connection.cursor()
-  qry = 'SELECT * FROM ad WHERE adID = 1 '
-  mycursor.execute(qry)
-  myresult = mycursor.fetchall()
-  dict_myresult = dict(myresult)
+    cur = mysql.connection.cursor()
+    qry = 'SELECT * FROM users WHERE id = 1 '
+    cur.execute(qry)
+    rows = cur.fetchall()
+
+  # mycursor = mysql.connection.cursor()
+  # qry = 'SELECT * FROM ad WHERE adID = 1 '
+  # mycursor.execute(qry)
+  # myresult = mycursor.fetchall()
+  # dict_myresult = dict(myresult)
   #convert_tuple_to_str = json.dumps(myresult)
   #json_from_str = json.loads(convert_tuple_to_str)
   #json_result = json.dump(myresult)
   #json_vars = json.load(json_result)
   #for x in myresult:
-  return dict_myresult['adID']
+  # return dict_myresult['adID']
+  #   for r in rows:
+  #       # us
+
+    return rows
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
@@ -208,6 +214,7 @@ def run_campaign():
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
+
     result = run_campaign()
 
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
