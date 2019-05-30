@@ -137,7 +137,7 @@ def run_campaign():
     qry = 'SELECT * FROM users WHERE id = 1 '
     cur.execute(qry)
     rows = cur.fetchall()
-    count
+    count=0
     for r in rows:
         id= r["id"]
         user_category=r["user_category"]
