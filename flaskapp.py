@@ -55,8 +55,8 @@ def sign_up():
     massage = None
     if request.method == 'POST':
         # form = request.form
-        # _name = request.form['name']
-        _name = "name"
+        _name = request.form['name']
+        # _name = "name"
 
         _email = request.form['email']
         # _email = "email"
@@ -83,6 +83,7 @@ def sign_up():
 
         _status=0
         return jsonify({"status": "true",
+                        "name":_name,
                         "email":_email,
                         "password":_password
                         })
