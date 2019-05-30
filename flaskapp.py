@@ -207,6 +207,7 @@ def run_campaign():
 @app.route('/init',methods=['GET','POST'])
 def init_run():
     result = run_campaign()
+    render_template("welcome.html",message=type(result))
     #location_id_returned_value, category_id_returned_value, ad_id_returned_value = run_campaign()
     # print("####")
     # print("location_id: ,", location_id_returned_value, "category: ", category_id_returned_value)
