@@ -55,17 +55,35 @@ def sign_up():
     massage = None
     if request.method == 'POST':
         # form = request.form
-        _name = request.form['name']
-        _email = request.form['email']
-        _password = request.form['password']
+        # _name = request.form['name']
+        _name = "name"
+
+        # _email = request.form['email']
+        _email = "email"
+
+        # _password = request.form['password']
+        _password = "password"
+
         _birthday='2019-2-5'
         # _birthday=request.form['birthday']
-        _gender=request.form['gender']
-        _mobile=request.form['phone']
+
+        # _gender=request.form['gender']
+        _gender="gender"
+
+        # _mobile=request.form['phone']
+        _mobile="phone"
+
         _user_type="standard_user"
-        _user_category=request.form['category']
-        _image=request.form['image']
+
+        # _user_category=request.form['category']
+        _user_category="category"
+
+        # _image=request.form['image']
+        _image="image"
+
         _status=0
+
+
 
         cur = mysql.connection.cursor()
         qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
