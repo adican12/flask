@@ -140,12 +140,13 @@ def run_campaign():
   qry = 'SELECT * FROM ad WHERE adID = 1 '
   mycursor.execute(qry)
   myresult = mycursor.fetchall()
+  dict_myresult=dict(myresult)
   #convert_tuple_to_str = json.dumps(myresult)
   #json_from_str = json.loads(convert_tuple_to_str)
   #json_result = json.dump(myresult)
   #json_vars = json.load(json_result)
   #for x in myresult:
-  return myresult["adID"]
+  return dict_myresult['adID']
 #
 # def all_users_in_specific_router_location(location_id):
 #   mycursor =  mysql.connection.cursor()
