@@ -78,24 +78,25 @@ def sign_up():
         # _image="image"
 
         _status=0
-        return jsonify({"status": "true",
-                        "name":_name,
-                        "email":_email,
-                        "password":_password,
-                        "birthday":_birthday,
-                        "gender":_gender,
-                        "phone":_phone,
-                        "category":_category,
-                        "image":_image
-                        })
+        # return jsonify({"status": "true",
+        #                 "name":_name,
+        #                 "email":_email,
+        #                 "password":_password,
+        #                 "birthday":_birthday,
+        #                 "gender":_gender,
+        #                 "phone":_phone,
+        #                 "category":_category,
+        #                 "image":_image
+        #                 })
 
-
-        # cur = mysql.connection.cursor()
-        # qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-        # cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
-        # mysql.connection.commit()
-        #
-        # return jsonify({"status": "true","message": "Data insert successfully!"})
+        try:
+            cur = mysql.connection.cursor()
+            qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+            cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
+            mysql.connection.commit()
+            return jsonify({"status": "true","message": "Data insert successfully!"})
+        except Exception as e:
+            return jsonify({"status": "false","message": "Data insert FAILS!"})
     else:
         return render_template('signup.html',error=massage)
 
