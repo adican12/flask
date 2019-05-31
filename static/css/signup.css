@@ -24,7 +24,7 @@ margin: 0 auto;
  padding: 20px;
  width: 50%;
 }
-input[type=text],input[type=password] ,select {
+input[type=text],input[type=password] ,input[type="date"] , select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
