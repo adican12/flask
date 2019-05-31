@@ -60,8 +60,8 @@ def sign_up():
         _password = request.form['password']
         # _password = "password"
 
-        _birthday='2019-2-5'
-        # _birthday=request.form['birthday']
+        # _birthday='2019-2-5'
+        _birthday=request.form['birthday']
 
         _gender=request.form['gender']
         # _gender="gender"
@@ -78,24 +78,24 @@ def sign_up():
         # _image="image"
 
         _status=0
-        # return jsonify({"status": "true",
-        #                 "name":_name,
-        #                 "email":_email,
-        #                 "password":_password,
-        #                 "birthday":_birthday,
-        #                 "gender":_gender,
-        #                 "phone":_phone,
-        #                 "category":_category,
-        #                 "image":_image
-        #                 })
+        return jsonify({"status": "true",
+                        "name":_name,
+                        "email":_email,
+                        "password":_password,
+                        "birthday":_birthday,
+                        "gender":_gender,
+                        "phone":_phone,
+                        "category":_category,
+                        "image":_image
+                        })
 
 
-        cur = mysql.connection.cursor()
-        qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-        cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
-        mysql.connection.commit()
-
-        return jsonify({"status": "true","message": "Data insert successfully!"})
+        # cur = mysql.connection.cursor()
+        # qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+        # cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
+        # mysql.connection.commit()
+        #
+        # return jsonify({"status": "true","message": "Data insert successfully!"})
     else:
         return render_template('signup.html',error=massage)
 
