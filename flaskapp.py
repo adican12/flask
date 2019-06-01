@@ -22,23 +22,27 @@ def image():
     if request.method == 'POST':
         # _image = request.form['imagefile']['name']
         _image = request.files['imagefile']
-        image = open(_image).read()
-        # massage=image
 
-        # cursor.execute("select * from image")
-        # data = cursor.fetchall()
-        # for row in dataw:
-        #     file_like = io.BytesIO(row['image'])
-        #     file = PIL.Image.open(file_like)
-        #     target = os.path.join("/path-to-save/", 'folder-save')
-        #     if not os.path.isdir(target):
-        #        os.makedirs(target)
-        #     destination = "/".join([target, file.filename])
-        #     file.save(destination)
-
+        # cur = mysql.connection.cursor()
+        #
+        # qry='SELECT * FROM users WHERE email=%s  AND password =%s '
+        # cur.execute(qry, (username, password))
+        # image = open(_image).read()
+        # # massage=image
+        #
+        # # cursor.execute("select * from image")
+        # # data = cursor.fetchall()
+        # # for row in dataw:
+        # #     file_like = io.BytesIO(row['image'])
+        # #     file = PIL.Image.open(file_like)
+        # #     target = os.path.join("/path-to-save/", 'folder-save')
+        # #     if not os.path.isdir(target):
+        # #        os.makedirs(target)
+        # #     destination = "/".join([target, file.filename])
+        # #     file.save(destination)
         return jsonify({"image":_image.filename})
-        # return render_template('image.html',error=massage)
 
+        # return render_template('image.html',error=massage)
     else:
         return render_template('image.html',error=massage)
 
