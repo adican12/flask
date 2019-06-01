@@ -22,7 +22,7 @@ def image():
     massage=None
     if request.method == 'POST':
         # _image = request.form['imagefile']['name']
-        _image = request.form['imagefile']
+        _image = request.files['imagefile']
 
         # cursor.execute("select * from image")
         # data = cursor.fetchall()
@@ -35,7 +35,7 @@ def image():
         #     destination = "/".join([target, file.filename])
         #     file.save(destination)
 
-        return jsonify({"image":_image})
+        return jsonify({"image":_image.filename})
     else:
         return render_template('image.html',error=massage)
 
