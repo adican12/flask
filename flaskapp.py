@@ -21,7 +21,8 @@ mysql = MySQL(app)
 def image():
     massage=None
     if request.method == 'POST':
-        _image = request.form['imagefile']['name']
+        # _image = request.form['imagefile']['name']
+        _image = request.form['imagefile']
 
         # cursor.execute("select * from image")
         # data = cursor.fetchall()
