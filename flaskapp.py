@@ -4,8 +4,6 @@ import yaml
 import os
 import json
 
-
-
 app = Flask(__name__)
 
 path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
@@ -18,6 +16,27 @@ app.config['MYSQL_DB']=db['mysql_db']
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
 
+
+@app.route('/image', methods=['GET', 'POST'])
+def image():
+    massage=None
+    if request.method == 'POST':
+        _image = request.form['imagefile']['name']
+
+        # cursor.execute("select * from image")
+        # data = cursor.fetchall()
+        # for row in dataw:
+        #     file_like = io.BytesIO(row['image'])
+        #     file = PIL.Image.open(file_like)
+        #     target = os.path.join("/path-to-save/", 'folder-save')
+        #     if not os.path.isdir(target):
+        #        os.makedirs(target)
+        #     destination = "/".join([target, file.filename])
+        #     file.save(destination)
+
+        return jsonify({"image":_image})
+    else:
+        return render_template('image.html',error=massage)
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -50,45 +69,25 @@ def login():
 def sign_up():
     massage = None
     if request.method == 'POST':
-        # form = request.form
         _name = request.form['name']
         # _name = "name"
-
         _email = request.form['email']
         # _email = "email"
-
         _password = request.form['password']
         # _password = "password"
-
         # _birthday='2019-2-5'
         _birthday=request.form['birthday']
-
         _gender=request.form['gender']
         # _gender="gender"
-
         _phone=request.form['phone']
         # _mobile="phone"
-
         _user_type="standard_user"
-
         _category=request.form['category']
         # _user_category="category"
-
         _image=request.form['image']
         # _image="image"
-
         _status=0
-        # return jsonify({"status": "true",
-        #                 "name":_name,
-        #                 "email":_email,
-        #                 "password":_password,
-        #                 "birthday":_birthday,
-        #                 "gender":_gender,
-        #                 "phone":_phone,
-        #                 "category":_category,
-        #                 "image":_image
-        #                 })
-
+        # return jsonify({"status": "true","name":_name,"email":_email,"password":_password,"birthday":_birthday,"gender":_gender,"phone":_phone,"category":_category,"image":_image})
         try:
             cur = mysql.connection.cursor()
             qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
@@ -148,20 +147,6 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
-
-
-
-#
-# try:
-#   print(x)
-# except:
-#   print("Something went wrong")
-# finally:
-#   print("The 'try except' is finished")
-
-
-
-
 #des: function that get in order to start process match user to campian
 #@app.route('/run1',methods=['GET','POST'])
 def run_campaign():
@@ -207,7 +192,6 @@ def ad_match_to_user(user_id ,user_category , _location_id):
 
 
 def insert_notf_to_db(list_of_matched):
-
     cur = mysql.connection.cursor()
     for item in list_of_matched:
         cond_query = "SELECT * FROM `notification` WHERE user_id={} AND  adid={}".format(item[1],item[0])
@@ -218,8 +202,6 @@ def insert_notf_to_db(list_of_matched):
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
         cur.execute(qry,(item[0], item[1]))
         mysql.connection.commit()
-
-
 
 
 @app.route('/init',methods=['GET','POST'])
