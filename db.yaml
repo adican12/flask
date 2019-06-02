@@ -1,5 +1,5 @@
-mysql_host: 'localhost'
-mysql_user: 'cat'
-mysql_password: 'catwifi808'
-mysql_db: 'catifi'
 
+mysql_host: '10.154.0.4'
+mysql_user: 'root'
+mysql_password: 'Abc123D!'
+mysql_db: 'catifi'
