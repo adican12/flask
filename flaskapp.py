@@ -308,7 +308,8 @@ def extract_image_from_ad_id(ad_id_app):
         cur.execute(qry)
         rows = cur.fetchall()
         for items in rows:
-            app_image = items["image"]
+            #app_image = items["image"]
+            app_image = "sdd"
         return app_image
 
     except:
