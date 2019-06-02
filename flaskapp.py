@@ -308,11 +308,10 @@ def extract_image_from_ad_id(ad_id_app):
         cur.execute(qry)
         rows = cur.fetchall()
         for items in rows:
-            app_image = items["image"]
-
+            app_image = items["user_id"]
         return app_image
     except:
-        return render_template("welcome.html", massage=rows)
+        return render_template("welcome.html", massage=items)
     finally:
         cur.close()
 
