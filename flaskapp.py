@@ -278,11 +278,14 @@ def push_notification():
             user_id_app = int(user_id_app_send)
             #user_id_app=1
             ad_id_from_user= bring_user_id_form_notf(user_id_app)
-            image_info = extract_image_from_ad_id(ad_id_from_user)
+            #image_info = extract_image_from_ad_id(ad_id_from_user)
         except:
             return render_template("welcome.html", massage="push main problem")
         finally:
-           return render_template("welcome.html", massage=image_info)
+            return jsonify({
+                "status": "true",
+                "message": "Data fetched successfully!",
+                "data": ad_id_from_user})
     else:
         return render_template("push.html",error=massage)
 
