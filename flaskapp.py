@@ -1,8 +1,12 @@
+
 from flask import Flask, render_template, send_file, request, session, redirect, url_for,make_response, jsonify
 from flask_mysqldb import MySQL
 import yaml
 import os
 import json
+import base64
+
+
 
 app = Flask(__name__)
 
@@ -251,18 +255,17 @@ def insert_notf_to_db(list_of_matched):
 @app.route('/init',methods=['GET','POST'])
 def init_run():
     try:
-         num_of_row = count_row_users()
-         num_of_row =num_of_row-1
-         # for i in range(1,num_of_row):
-         id_user,user_category,location_id = run_campaign(1)
-         result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
-         match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
-         insert_notf_to_db(match_list_of_users)
-         #return jsonify({"id , ad-d" :match_list_of_users})
-         return render_template("welcome.html", massage=match_list_of_users)
+        # num_of_row = count_row_users()
+        # num_of_row =num_of_row-1
+        #  for i in range(1,num_of_row):
+        id_user,user_category,location_id = run_campaign(1)
+        result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
+        match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
+        insert_notf_to_db(match_list_of_users)
+        #return jsonify({"id , ad-d" :match_list_of_users})
+        return render_template("welcome.html", massage=match_list_of_users)
     except:
       return render_template("welcome.html", massage="init_run_problem")
-
 
 
 
@@ -301,6 +304,8 @@ def bring_user_id_form_notf(user_id_app):
  finally:
     cur.close()
 
+
+
 def extract_image_from_ad_id(ad_id_app):
     try:
         cur = mysql.connection.cursor()
@@ -308,10 +313,10 @@ def extract_image_from_ad_id(ad_id_app):
         cur.execute(qry)
         rows = cur.fetchall()
         for items in rows:
-            app_image = items["user_id"]
+            app_image = items["image"]
         return app_image
     except:
-        return render_template("welcome.html", massage=app_image)
+        return render_template("welcome.html", massage="image problem from extarct")
     finally:
         cur.close()
 
