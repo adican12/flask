@@ -155,31 +155,53 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+#count the number of users
+def count_row_users():
+    try:
+        cur = mysql.connection.cursor()
+        sql = 'SELECT * FROM users'
+        cur.execute(sql)
+        num_of_row = cur.rowcount
+        cur.execute(sql)
+        # result = cur.fetchall()
+        # print(result)
+        return num_of_row
+    except:
+        return render_template("welcome.html", massage="count raw doesnt work")
+    finally:
+        cur.close()
+
 #des: function that get in order to start process match user to campian
 #@app.route('/run1',methods=['GET','POST'])
-def run_campaign():
+def run_campaign(num):
     try:
      cur = mysql.connection.cursor()
-     qry = 'SELECT * FROM users WHERE id = 1 '
+     qry = 'SELECT * FROM users WHERE id = {} '.format(num)
      cur.execute(qry)
      rows = cur.fetchall()
      for r in rows:
         id= r["id"]
         user_category=r["user_category"]
         location_id=r["location_id"]
-
+     if location_id =="NULL":
+         location_id =1123 #TODO
      return id ,user_category ,location_id
     except:
-        print("error")
+        return render_template("welcome.html", massage="run campaign doesnt work")
     finally:
         cur.close()
 
 
 def ad_match_to_user(user_id ,user_category , _location_id):
+  try:
     cur = mysql.connection.cursor()
     qry = 'SELECT * FROM `campaign` WHERE location_id ={}'.format(_location_id)
     cur.execute(qry)
     rows = cur.fetchall()
+    if len(rows)==0 : #TODO
+        qry_defualt_2 = 'SELECT * FROM `campaign` WHERE location_id ={}'.format(1123)
+        cur.execute(qry_defualt_2)
+        rows = cur.fetchall()
     list_of_info_of_campaign = []
     list_of_matched_user_and_ad = []
     for row in rows:
@@ -192,35 +214,56 @@ def ad_match_to_user(user_id ,user_category , _location_id):
         if match_item[1] == user_category:
             matched_obj=(match_item[2] ,user_id)
             list_of_matched_user_and_ad.append(matched_obj)
-        else:
-            #bring another adv from general table
-            pass
+        else: #TODO
+            defulat_ad = 'SELECT * FROM random_ad '
+            cur.execute(defulat_ad)
+            defualt_ad = cur.fetchone()
+            for var in defualt_ad:
+                ad_id_defult = row["adID"]
+            matched_obj = (ad_id_defult, user_id)
+            list_of_matched_user_and_ad.append(matched_obj)
     return list_of_matched_user_and_ad
-
+  except:
+      return render_template("welcome.html", massage="ad matching doesnt work")
+  finally:
+      cur.close()
 
 
 def insert_notf_to_db(list_of_matched):
+  try:
     cur = mysql.connection.cursor()
     for item in list_of_matched:
         cond_query = "SELECT * FROM `notification` WHERE user_id={} AND  adid={}".format(item[1],item[0])
         cur.execute(cond_query)
+        notf_= cur.fetchone()
         row_count = cur.rowcount
     # print(row_count)
     if row_count == 0:
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
         cur.execute(qry,(item[0], item[1]))
         mysql.connection.commit()
+    return render_template("welcome.html", massage="add notf success")
+  except:
+      return render_template("welcome.html", massage="add notf doesnt success")
+  finally:
+      cur.close()
 
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
+  try:
+     num_of_row = count_row_users()
+     num_of_row =num_of_row-1
+     for i in range(1,num_of_row):
+      id_user,user_category,location_id = run_campaign(i)
+      result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
+      match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
+      insert_notf_to_db(match_list_of_users)
+      #return jsonify({"id , ad-d" :match_list_of_users})
+     return render_template("welcome.html", massage=match_list_of_users)
+  except:
+      return render_template("welcome.html", massage="init_run_problem")
 
-    id_user,user_category,location_id = run_campaign()
-    result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
-    match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
-    insert_notf_to_db(match_list_of_users)
-
-    return render_template("welcome.html",massage = match_list_of_users)
 
 
 # main
