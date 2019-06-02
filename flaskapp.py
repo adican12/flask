@@ -136,7 +136,6 @@ def users():
 @app.route('/welcome')
 def welcome():
     massage = "welcome str"
-
     return render_template('welcome.html',massage=massage)
 
 #cookie response
@@ -254,12 +253,13 @@ def init_run():
   try:
      num_of_row = count_row_users()
      num_of_row =num_of_row-1
-     for i in range(1,num_of_row):
-      id_user,user_category,location_id = run_campaign(i)
-      result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
-      match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
-      insert_notf_to_db(match_list_of_users)
-      #return jsonify({"id , ad-d" :match_list_of_users})
+     # for i in range(1,num_of_row):
+     id_user,user_category,location_id = run_campaign(1)
+     result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
+     match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
+     insert_notf_to_db(match_list_of_users)
+     #return jsonify({"id , ad-d" :match_list_of_users})
+
      return render_template("welcome.html", massage=match_list_of_users)
   except:
       return render_template("welcome.html", massage="init_run_problem")
