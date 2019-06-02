@@ -259,10 +259,62 @@ def init_run():
          match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
          insert_notf_to_db(match_list_of_users)
          #return jsonify({"id , ad-d" :match_list_of_users})
-
-     return render_template("welcome.html", massage=match_list_of_users)
-  except:
+         return render_template("welcome.html", massage=match_list_of_users)
+    except:
       return render_template("welcome.html", massage="init_run_problem")
+
+
+
+
+@app.route('/push',methods=['GET','POST'])
+def push_notification():
+    massage = None
+    if request.method == 'POST':
+        try:
+            user_id_app_send = request.form['user_id']
+            user_id_app = int(user_id_app_send)
+            user_id_app=1
+            ad_id_from_user= bring_user_id_form_notf(user_id_app)
+            image_info = extract_image_from_ad_id(ad_id_from_user)
+        except:
+            return render_template("welcome.html", massage="push main problem")
+        finally:
+           return render_template("welcome.html", massage=image_info)
+    else:
+        return render_template("push.html",error=massage)
+
+
+def bring_user_id_form_notf(user_id_app):
+ try:
+     cur = mysql.connection.cursor()
+     qry = 'SELECT * FROM `notification` WHERE user_id = {} '.format(user_id_app)
+     cur.execute(qry)
+     rows = cur.fetchall()
+     for items in rows:
+         not_id_app = items["noteid"]
+         ad_id_app = items["adid"]
+         ad_user_id_app = items["user_id"]
+     print(not_id_app,ad_id_app,ad_user_id_app)
+     return ad_id_app
+ except:
+     return render_template("welcome.html", massage="problem in push notification(adid)")
+ finally:
+    cur.close()
+
+def extract_image_from_ad_id(ad_id_app):
+    try:
+        cur = mysql.connection.cursor()
+        qry = 'SELECT * FROM `ad` WHERE adID = {} '.format(ad_id_app)
+        cur.execute(qry)
+        rows = cur.fetchall()
+        for items in rows:
+            app_image = items["image"]
+        return app_image
+
+    except:
+        return render_template("welcome.html", massage="problem in push notification(image)")
+    finally:
+        cur.close()
 
 
 
