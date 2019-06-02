@@ -309,11 +309,9 @@ def extract_image_from_ad_id(ad_id_app):
         rows = cur.fetchall()
         for items in rows:
             app_image = items["image"]
-            #app_image = "sdd"
         return app_image
-
     except:
-        return render_template("welcome.html", massage="problem in push notification(image)")
+        return render_template("welcome.html", massage=app_image)
     finally:
         cur.close()
 
