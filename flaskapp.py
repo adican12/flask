@@ -273,7 +273,7 @@ def push_notification():
         try:
             user_id_app_send = request.form['user_id']
             user_id_app = int(user_id_app_send)
-            user_id_app=1
+            #user_id_app=1
             ad_id_from_user= bring_user_id_form_notf(user_id_app)
             image_info = extract_image_from_ad_id(ad_id_from_user)
         except:
@@ -308,8 +308,8 @@ def extract_image_from_ad_id(ad_id_app):
         cur.execute(qry)
         rows = cur.fetchall()
         for items in rows:
-            #app_image = items["image"]
-            app_image = "sdd"
+            app_image = items["image"]
+            #app_image = "sdd"
         return app_image
 
     except:
