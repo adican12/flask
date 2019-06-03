@@ -43,9 +43,9 @@ def get_img():
             return jsonify({"status": "false","message":massage ,"data":"0"})
 
             # return render_template('welcome.html',error=massage)
-        finally:
-            massage = "finally"
-            return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
+        # finally:
+        #     massage = "finally"
+        #     return jsonify({"status": "true","message": massage,"data":"5"})
 
             # return render_template('welcome.html',error=massage)
     else:
