@@ -37,7 +37,7 @@ def image():
             cur = mysql.connection.cursor()
             query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
             cur.execute(query, (_image.filename, img ) )
-            cur.commit()
+            mysql.connection.commit()
             return jsonify({"status": "true","message": "Data fetched successfully!"})
         except Exception as e:
             massage= " Error Exception: "+ str(e)
