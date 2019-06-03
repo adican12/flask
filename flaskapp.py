@@ -46,7 +46,7 @@ def image():
         except Exception as e:
             # return jsonify({"status":"false",
             #                 "Exception":e})
-            return render_template('welcome.html',massage=e)
+            return render_template('image.html',error=e)
 
         # qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         # cur.execute(qry, (username, password))
