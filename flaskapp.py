@@ -31,8 +31,13 @@ def get_img():
             query = "SELECT * FROM `image` WHERE image_id=%s"
             cur.execute(query, (image_id) )
             rows = cur.fetchall()
-            if len(rows) > 0:
-                return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
+            for r in record:
+                img= r[2]
+
+            return jsonify({"status": "true","message": "Data fetched successfully!","data":img})
+
+            # if len(rows) > 0:
+            #     return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
         except Exception as e:
             massage= " Error Exception: "+ str(e)
             return jsonify({"status": "false","message":massage ,"data":"0"})
