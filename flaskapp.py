@@ -39,10 +39,14 @@ def image():
             # query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
             # cur.execute(qry, (_image.filename, img ) )
             # cur.commit()
-            return jsonify({"status":success,"data":"works ! "})
+                return jsonify({
+                        "status": "true",
+                        "message": "Data fetched successfully!"})
+
         except Exception as e:
-            return jsonify({"status":"false",
-                            "Exception":e})
+            # return jsonify({"status":"false",
+            #                 "Exception":e})
+            return render_template('welcome.html',massage=e)
 
         # qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         # cur.execute(qry, (username, password))
