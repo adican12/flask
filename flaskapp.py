@@ -31,14 +31,14 @@ def image():
             # with open(_image, 'rb') as file:
                 # binaryData = file.read()
 
-            image = open(_image)
-            img = image.read()
+            # image = open(_image)
+            # img = image.read()
             # data = binary
-
-            cur = mysql.connection.cursor()
-            query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
-            cur.execute(qry, (_image.filename, img ) )
-            cur.commit()
+            #
+            # cur = mysql.connection.cursor()
+            # query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
+            # cur.execute(qry, (_image.filename, img ) )
+            # cur.commit()
             return jsonify({"status":success,"data":"works ! "})
         except Exception as e:
             return jsonify({"status":"false",
