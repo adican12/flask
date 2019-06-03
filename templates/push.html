@@ -1,0 +1,14 @@
+{%extends 'base.html'  %}
+ {% block body %}
+ <div class="container">
+   <h1>push</h1>
+   <br>
+   <form action="" method="post">
+     <input type="number" placeholder="user id" name="user_id"    value="{{request.form.user_id}}">
+     <input class="btn btn-default" type="submit"  value="Push">
+   </form>
+   {% if error %}
+     <p class="error"><strong>Error:</strong> {{ error }}
+   {% endif %}
+ </div>
+{% endblock %}
