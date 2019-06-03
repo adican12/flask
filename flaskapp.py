@@ -30,8 +30,8 @@ def image():
             # with open(_image, 'rb') as file:
                 # binaryData = file.read()
 
-            # image = open(_image)
-            # img = image.read()
+            image = open(_image)
+            img = image.read()
             # data = binary
             #
             # cur = mysql.connection.cursor()
