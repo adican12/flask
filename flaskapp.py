@@ -27,11 +27,17 @@ def image():
         # _image = request.form['imagefile']['name']
         try:
             _image = request.files['imagefile']
-            image = open(_image).read_file()
+
+            with open(_image, 'rb') as file:
+                binaryData = file.read()
+
+            # image = open(_image)
+            # img = image.read()
+            # data = binary
 
             cur = mysql.connection.cursor()
             query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
-            cur.execute(qry, (_image.filename, image ) )
+            cur.execute(qry, (_image.filename, binaryData ) )
             cur.commit()
             return jsonify({"status":success,"data":"works ! "})
         except Exception as e:
