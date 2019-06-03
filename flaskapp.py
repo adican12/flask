@@ -31,7 +31,7 @@ def image():
                 # binaryData = file.read()
 
             image = open(_image)
-            img = image.read()
+            # img = image.read()
             # data = binary
             #
             # cur = mysql.connection.cursor()
@@ -41,8 +41,9 @@ def image():
             return jsonify({"status": "true","message": "Data fetched successfully!"})
 
         except Exception as e:
-            massage= " Error Exception "
+            massage= " Error Exception: "+e
             return render_template('image.html',error=massage)
+
     else:
         return render_template('image.html',error=massage)
 
