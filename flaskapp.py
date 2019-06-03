@@ -21,13 +21,22 @@ def image():
     massage=None
     if request.method == 'POST':
         # _image = request.form['imagefile']['name']
-        _image = request.files['imagefile']
+        try:
+            _image = request.files['imagefile']
+            image = open(_image).read_file()
 
-        # cur = mysql.connection.cursor()
-        #
+            cur = mysql.connection.cursor()
+            query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
+            cur.execute(qry, (_image.filename, image ) )
+            cur.commit()
+            return jsonify({"status":success,"data":"works ! "})
+        except Exception as e:
+            return jsonify({"status":"false",
+                            "Exception":e})
+
         # qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         # cur.execute(qry, (username, password))
-        # image = open(_image).read()
+
         # # massage=image
         #
         # # cursor.execute("select * from image")
@@ -40,7 +49,6 @@ def image():
         # #        os.makedirs(target)
         # #     destination = "/".join([target, file.filename])
         # #     file.save(destination)
-        return jsonify({"image":_image.filename})
 
         # return render_template('image.html',error=massage)
     else:
