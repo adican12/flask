@@ -31,10 +31,7 @@ def get_img():
             query = "SELECT * FROM `image` WHERE image_id=%s"
             cur.execute(query, (image_id) )
             rows = cur.fetchall()
-            for r in record:
-                img= r[2]
-
-            return jsonify({"status": "true","message": "Data fetched successfully!","data":img})
+            return jsonify({"status": "true","message": "Data fetched successfully!","data":rows})
 
             # if len(rows) > 0:
             #     return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
