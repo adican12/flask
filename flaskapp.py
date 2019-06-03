@@ -36,11 +36,9 @@ def image():
             #
             cur = mysql.connection.cursor()
             query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
-            cur.execute(qry, (_image.filename, img ) )
+            cur.execute(query, (_image.filename, img ) )
             cur.commit()
-
             return jsonify({"status": "true","message": "Data fetched successfully!"})
-
         except Exception as e:
             massage= " Error Exception: "+ str(e)
             return render_template('image.html',error=massage)
