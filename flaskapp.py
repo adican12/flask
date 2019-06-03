@@ -23,7 +23,7 @@ mysql = MySQL(app)
 
 @app.route('/get_img', methods=['GET', 'POST'])
 def get_img():
-    massage=None
+    massage="get_img"
     if request.method == 'POST':
         try:
             image_id = request.form['image_id']
@@ -35,12 +35,16 @@ def get_img():
                 return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
         except Exception as e:
             massage= " Error Exception: "+ str(e)
-            return render_template('Welcome.html',error=massage)
+            return jsonify({"status": "false","message":massage ,"data":"0"})
+
+            # return render_template('welcome.html',error=massage)
         finally:
             massage = "finally"
-            return render_template('Welcome.html',error=massage)
+            return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
+
+            # return render_template('welcome.html',error=massage)
     else:
-        return render_template('Welcome.html',error=massage)
+        return render_template('welcome.html',error=massage)
 
 
 
