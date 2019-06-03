@@ -25,7 +25,7 @@ def image():
     massage=None
     if request.method == 'POST':
         try:
-            _image = request.files['imagefile']
+            _image = request.file['imagefile']
 
             # with open(_image, 'rb') as file:
                 # binaryData = file.read()
@@ -41,7 +41,7 @@ def image():
             return jsonify({"status": "true","message": "Data fetched successfully!"})
 
         except Exception as e:
-            massage= " Error Exception: "+e
+            massage= " Error Exception: "+ str(e)
             return render_template('image.html',error=massage)
 
     else:
