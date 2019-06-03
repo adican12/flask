@@ -24,47 +24,25 @@ mysql = MySQL(app)
 def image():
     massage=None
     if request.method == 'POST':
-        # _image = request.form['imagefile']['name']
-        # try:
-        #     _image = request.files['imagefile']
-        #
-        #     # with open(_image, 'rb') as file:
-        #         # binaryData = file.read()
-        #
-        #     # image = open(_image)
-        #     # img = image.read()
-        #     # data = binary
-        #     #
-        #     # cur = mysql.connection.cursor()
-        #     # query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
-        #     # cur.execute(qry, (_image.filename, img ) )
-        #     # cur.commit()
-        #         return jsonify({"status": "true",
-        #                 "message": "Data fetched successfully!"})
-        #
-        # except Exception as e:
-        #     # return jsonify({"status":"false",
-        #     #                 "Exception":e})
-        #     return render_template('image.html',error=e)
+        try:
+            _image = request.files['imagefile']
 
-        # qry='SELECT * FROM users WHERE email=%s  AND password =%s '
-        # cur.execute(qry, (username, password))
+            # with open(_image, 'rb') as file:
+                # binaryData = file.read()
 
-        # # massage=image
-        #
-        # # cursor.execute("select * from image")
-        # # data = cursor.fetchall()
-        # # for row in dataw:
-        # #     file_like = io.BytesIO(row['image'])
-        # #     file = PIL.Image.open(file_like)
-        # #     target = os.path.join("/path-to-save/", 'folder-save')
-        # #     if not os.path.isdir(target):
-        # #        os.makedirs(target)
-        # #     destination = "/".join([target, file.filename])
-        # #     file.save(destination)
+            # image = open(_image)
+            # img = image.read()
+            # data = binary
+            #
+            # cur = mysql.connection.cursor()
+            # query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
+            # cur.execute(qry, (_image.filename, img ) )
+            # cur.commit()
+            return jsonify({"status": "true","message": "Data fetched successfully!"})
 
-        return jsonify({"status": "true","message": "Data fetched successfully!"})
-
+        except Exception as e:
+            massage= " Error Exception "
+            return render_template('image.html',error=massage)
     else:
         return render_template('image.html',error=massage)
 
