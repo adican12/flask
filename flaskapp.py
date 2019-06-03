@@ -20,20 +20,37 @@ app.config['MYSQL_DB']=db['mysql_db']
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
 
+
+@app.route('/get_img', methods=['GET', 'POST'])
+def get_img():
+    massage=None
+    if request.method == 'POST':
+        try:
+            image_id = request.form['image_id']
+            cur = mysql.connection.cursor()
+            query = "SELECT * FROM `image` WHERE image_id=%s"
+            cur.execute(query, (image_id) )
+            rows = cur.fetchall()
+            if len(rows) > 0:
+                return jsonify({"status": "true","message": "Data fetched successfully!"})
+        except Exception as e:
+            massage= " Error Exception: "+ str(e)
+            return render_template('Welcome.html',error=massage)
+        finally:
+            massage = "finally"
+            return render_template('Welcome.html',error=massage)
+    else:
+        return render_template('Welcome.html',error=massage)
+
+
+
 @app.route('/image', methods=['GET', 'POST'])
 def image():
     massage=None
     if request.method == 'POST':
         try:
             _image = request.files['imagefile']
-
-            # with open(_image, 'rb') as file:
-                # binaryData = file.read()
-
-            # image = open(_image)
             img = _image.read()
-            # data = binary
-            #
             cur = mysql.connection.cursor()
             query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
             cur.execute(query, (_image.filename, img ) )
