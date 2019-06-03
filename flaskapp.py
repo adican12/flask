@@ -34,10 +34,11 @@ def image():
             img = _image.read()
             # data = binary
             #
-            # cur = mysql.connection.cursor()
-            # query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
-            # cur.execute(qry, (_image.filename, img ) )
-            # cur.commit()
+            cur = mysql.connection.cursor()
+            query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
+            cur.execute(qry, (_image.filename, img ) )
+            cur.commit()
+
             return jsonify({"status": "true","message": "Data fetched successfully!"})
 
         except Exception as e:
