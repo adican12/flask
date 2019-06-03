@@ -25,28 +25,27 @@ def image():
     massage=None
     if request.method == 'POST':
         # _image = request.form['imagefile']['name']
-        try:
-            _image = request.files['imagefile']
-
-            # with open(_image, 'rb') as file:
-                # binaryData = file.read()
-
-            # image = open(_image)
-            # img = image.read()
-            # data = binary
-            #
-            # cur = mysql.connection.cursor()
-            # query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
-            # cur.execute(qry, (_image.filename, img ) )
-            # cur.commit()
-                return jsonify({
-                        "status": "true",
-                        "message": "Data fetched successfully!"})
-
-        except Exception as e:
-            # return jsonify({"status":"false",
-            #                 "Exception":e})
-            return render_template('image.html',error=e)
+        # try:
+        #     _image = request.files['imagefile']
+        #
+        #     # with open(_image, 'rb') as file:
+        #         # binaryData = file.read()
+        #
+        #     # image = open(_image)
+        #     # img = image.read()
+        #     # data = binary
+        #     #
+        #     # cur = mysql.connection.cursor()
+        #     # query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
+        #     # cur.execute(qry, (_image.filename, img ) )
+        #     # cur.commit()
+        #         return jsonify({"status": "true",
+        #                 "message": "Data fetched successfully!"})
+        #
+        # except Exception as e:
+        #     # return jsonify({"status":"false",
+        #     #                 "Exception":e})
+        #     return render_template('image.html',error=e)
 
         # qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         # cur.execute(qry, (username, password))
@@ -64,7 +63,8 @@ def image():
         # #     destination = "/".join([target, file.filename])
         # #     file.save(destination)
 
-        # return render_template('image.html',error=massage)
+        return jsonify({"status": "true","message": "Data fetched successfully!"})
+
     else:
         return render_template('image.html',error=massage)
 
