@@ -32,7 +32,7 @@ def get_img():
             cur.execute(query, (image_id) )
             rows = cur.fetchall()
             if len(rows) > 0:
-                return jsonify({"status": "true","message": "Data fetched successfully!","data"="5"})
+                return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
         except Exception as e:
             massage= " Error Exception: "+ str(e)
             return render_template('Welcome.html',error=massage)
