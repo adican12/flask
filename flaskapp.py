@@ -25,7 +25,7 @@ def image():
     massage=None
     if request.method == 'POST':
         try:
-            _image = request.file['imagefile']
+            _image = request.files['imagefile']
 
             # with open(_image, 'rb') as file:
                 # binaryData = file.read()
