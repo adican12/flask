@@ -12,7 +12,9 @@ from google.cloud import storage
 storage_client = storage.Client()
 bucket_name = "catifi1"
 bucket = storage_client.get_bucket(bucket_name)
-blob = bucket.blob(source_blob_name)
+labels = bucket.labels
+pprint.pprint(labels)
+# blob = bucket.blob(source_blob_name)
 
 
 app = Flask(__name__)
