@@ -32,7 +32,7 @@ def bucket():
         blobs = bucket.list_blobs()
         labels = []
         for blob in blobs:
-            labels.append(blob) 
+            labels.append(blob.name) 
         # labels = bucket.labels
         #
         # pprint.pprint(labels)
