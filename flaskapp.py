@@ -11,7 +11,7 @@ from google.cloud import storage
 
 app = Flask(__name__)
 
-path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
+path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
 y=open(path)
 db = yaml.load(y)
 app.config['MYSQL_HOST']=db['mysql_host']
@@ -27,7 +27,7 @@ def upload_bucket():
     if request.method == 'POST':
         storage_client = storage.Client()
         image_id = request.files['image_id']
-        
+
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         destination_blob_name="/"
