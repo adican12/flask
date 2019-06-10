@@ -21,34 +21,40 @@ app.config['MYSQL_DB']=db['mysql_db']
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
 
-@app.route('/bucket', methods=['GET', 'POST'])
-def bucket():
-    massage="bucket"
+@app.route('/upload_bucket', methods=['GET', 'POST'])
+def upload_bucket():
+    massage="upload_bucket"
     if request.method == 'POST':
-        # Instantiates a client
+        storage_client = storage.Client()
+        image_id = request.form['image_id']
+        bucket_name = "catifi1"
+        bucket = storage_client.get_bucket(bucket_name)
+        destination_blob_name="/"
+        blob = bucket.blob(destination_blob_name)
+
+        blob.upload_from_filename(image_id)
+
+        return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+    else:
+        return render_template('upload_bucket.html',error=massage)
+
+
+
+@app.route('/list_bucket', methods=['GET', 'POST'])
+def list_bucket():
+    massage="list_bucket"
+    if request.method == 'POST':
+        # bucket_name = request.form['bucket_name']
         storage_client = storage.Client()
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         blobs = bucket.list_blobs()
         labels = []
         for blob in blobs:
-            labels.append(blob.name) 
-        # labels = bucket.labels
-        #
-        # pprint.pprint(labels)
-        # blob = bucket.blob(source_blob_name)
-
-        # try:
-        #     image_id = request.form['image_id']
-        #     cur = mysql.connection.cursor()
-        #     query = "SELECT * FROM `image` WHERE image_id=%s"
-        #     cur.execute(query, (image_id) )
-        #     rows = cur.fetchall()
+            labels.append(blob.name)
         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
-        # return render_template('bucket.html',error=massage)
-
     else:
-        return render_template('bucket.html',error=massage)
+        return render_template('list_bucket.html',error=massage)
 
 
 
