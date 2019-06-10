@@ -27,6 +27,7 @@ def upload_bucket():
     if request.method == 'POST':
         storage_client = storage.Client()
         image_id = request.files['image_id']
+        img = image_id.read()
 
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
