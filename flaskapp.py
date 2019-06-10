@@ -27,16 +27,16 @@ def upload_bucket():
     if request.method == 'POST':
         storage_client = storage.Client()
         image_id = request.files['image_id']
-        img = image_id.read()
+        # img = image_id.read()
 
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         # destination_blob_name="/"
         # blob = bucket.blob(destination_blob_name)
-        f = image_id.read()
+        # f = open(image_id,'rb')
 
         blob = bucket.blob(image_id.filename)
-        blob.upload_from_file(f)
+        blob.upload_from_file(image_id)
 
         # with open(image_id, 'rb') as f:
           # blob.upload_from_file(f)
@@ -45,6 +45,7 @@ def upload_bucket():
         # except Exception as e:
         #     return render_template('upload_bucket.html',error=str(e))
         labels="labels here"
+        labels.append(image_id.filename)
         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
     else:
         return render_template('upload_bucket.html',error=massage)
