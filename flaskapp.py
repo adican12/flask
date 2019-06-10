@@ -37,7 +37,7 @@ def upload_bucket():
         g = "newImages/"+image_id.filename
         blob = bucket.blob(g)
         try:
-            blob.upload_from_file(image_id,content_type='image/jpeg')
+            blob.upload_from_file(image_id,image_id.content_type)
         except:
             return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
