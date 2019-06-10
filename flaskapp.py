@@ -8,14 +8,6 @@ import base64
 # Imports the Google Cloud client library
 from google.cloud import storage
 
-# Instantiates a client
-storage_client = storage.Client()
-bucket_name = "catifi1"
-bucket = storage_client.get_bucket(bucket_name)
-labels = bucket.labels
-# pprint.pprint(labels)
-# blob = bucket.blob(source_blob_name)
-
 
 app = Flask(__name__)
 
@@ -28,6 +20,29 @@ app.config['MYSQL_PASSWORD']=db['mysql_password']
 app.config['MYSQL_DB']=db['mysql_db']
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
+
+@app.route('/bucket', methods=['GET', 'POST'])
+def bucket():
+    massage="bucket"
+    if request.method == 'POST':
+        # Instantiates a client
+        storage_client = storage.Client()
+        bucket_name = "catifi1"
+        bucket = storage_client.get_bucket(bucket_name)
+        labels = bucket.labels
+        # pprint.pprint(labels)
+        # blob = bucket.blob(source_blob_name)
+
+        # try:
+        #     image_id = request.form['image_id']
+        #     cur = mysql.connection.cursor()
+        #     query = "SELECT * FROM `image` WHERE image_id=%s"
+        #     cur.execute(query, (image_id) )
+        #     rows = cur.fetchall()
+        return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+    else:
+        return render_template('bucket.html',error=massage)
+
 
 
 @app.route('/get_img', methods=['GET', 'POST'])
