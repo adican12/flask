@@ -28,9 +28,9 @@ def upload_bucket():
         storage_client = storage.Client()
         image_id = request.files['image_id']
         # img = image_id.read()
-        labels="labels here"
+        labels=["labels here"]
         labels.append(image_id.filename)
-        
+
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         # destination_blob_name="/"
