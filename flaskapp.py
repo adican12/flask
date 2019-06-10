@@ -10,12 +10,10 @@ from google.cloud import storage
 
 # Instantiates a client
 storage_client = storage.Client()
+bucket_name = "catifi1"
+bucket = storage_client.get_bucket(bucket_name)
 
-# The name for the new bucket
-bucket_name = 'my-new-bucket'
 
-# Creates the new bucket
-bucket = storage_client.create_bucket(bucket_name)
 app = Flask(__name__)
 
 path = os.path.join('.', os.path.dirname(__file__), 'db.yaml')
