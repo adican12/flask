@@ -30,13 +30,14 @@ def upload_bucket():
         # img = image_id.read()
         labels=["labels here"]
         labels.append(image_id.filename)
+        labels.append(image_id.content_type)
 
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         g = "newImages/"+image_id.filename
         blob = bucket.blob(g)
         try:
-            blob.upload_from_file(image_id)
+            blob.upload_from_file(image_id,content_type='image/jpeg')
         except:
             return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
