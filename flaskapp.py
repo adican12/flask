@@ -30,10 +30,13 @@ def upload_bucket():
 
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
-        destination_blob_name="/"
-        blob = bucket.blob(destination_blob_name)
-
-        blob.upload_from_filename(image_id)
+        # destination_blob_name="/"
+        # blob = bucket.blob(destination_blob_name)
+        blob = bucket.blob()
+        try:
+            blob.upload_from_file(image_id)
+        except Exception as e:
+            return render_template('upload_bucket.html',error=str(e))
 
         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
     else:
