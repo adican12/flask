@@ -33,10 +33,13 @@ def upload_bucket():
         bucket = storage_client.get_bucket(bucket_name)
         # destination_blob_name="/"
         # blob = bucket.blob(destination_blob_name)
-
+        f = image_id.read()
+        
         blob = bucket.blob('image.jpg')
-        with open(image_id, 'rb') as f:
-          blob.upload_from_file(f)
+        blob.upload_from_file(f)
+
+        # with open(image_id, 'rb') as f:
+        #   blob.upload_from_file(f)
         # try:
         #     blob.upload_from_file(image_id)
         # except Exception as e:
