@@ -19,7 +19,7 @@ app = Flask(__name__)
 # app.config['MYSQL_DB']=db['mysql_db']
 # app.config['MYSQL_CURSORCLASS']='DictCursor'
 # mysql = MySQL(app)
-#
+
 # @app.route('/upload_bucket', methods=['GET', 'POST'])
 # def upload_bucket():
 #     massage="upload_bucket"
@@ -197,28 +197,28 @@ def index():
 #     "message": "Data fetched successfully!",
 #     "data": users})
 
+
+@app.route('/welcome')
+def welcome():
+    massage = "welcome str"
+    return render_template('welcome.html',massage=massage)
+
+#cookie response
+@app.route('/cookie')
+def coockie():
+    response = make_response('<h1>This document carries a cookie!</h1>')
+    response.set_cookie('answer', '42')
+    return response
+
+#error handler
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
 #
-# @app.route('/welcome')
-# def welcome():
-#     massage = "welcome str"
-#     return render_template('welcome.html',massage=massage)
-#
-# #cookie response
-# @app.route('/cookie')
-# def coockie():
-#     response = make_response('<h1>This document carries a cookie!</h1>')
-#     response.set_cookie('answer', '42')
-#     return response
-#
-# #error handler
-# @app.errorhandler(404)
-# def page_not_found(e):
-#     return render_template('404.html'), 404
-#
-# @app.errorhandler(500)
-# def internal_server_error(e):
-#     return render_template('500.html'), 500
-# #
 # #count the number of users
 # def count_row_users():
 #     try:
