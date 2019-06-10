@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "firecatwifi",
+  "private_key_id": "c5769cd87e5b503b014b478b7cf846783e1630e8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDz3Z5W7OTv+VM+\nRUZNLVqsRmGtZZ2gXrlWR5XimHQ8gIG4Is0In0cKN955SIWGV8jz3X2GJASfrf7L\nFPEdy74pgV8dmTjwv25c/UBvCXCkjc0EsZ0ipMxttNjZ6Pnpf6ZrObuysn94NytI\npdVIyom+qmdSnFSv9SnFXuVolqL5xI1wA8Vrccb7jcNQkviRYlrT8BSTHHBz+ozi\n1k4IQ5Tn/gge4pS9SDQNyk3bhO4FrH4chUTHHQgcg8ajx6hdygley6WioS+EXXhe\nram9xCByghVc5sVlMIQDugonx1OxT5eeQmyeSCpSG5FjC139B/cTzihh6FJSqDly\n4mZO1fL7AgMBAAECggEABd60RIBgRFx6gfm15v6r+5CYIk3bXPRavrZrZ7Bmv9wS\nA0YnLEl1MsxEeSPjPugXCLOwpU1xpQxRoT7ITQDN+37HNNWu1rCs7eUUq3eNNBDL\nugyybRaNayiavagLd/DgJx2VJIiCY/jj/FQtjZp+dU3xvb3QlgmvLzaJDBrwIlXq\nUCQ1kOMPck7fViAjUVSDk11sTLZgTI9YZh+xMirv5B78w8I0NLSC9wdVr+FJWfgh\nXgtPwFNdA9mR+EdCaBzF2qNzRaYeAdDDLJLEQlN662O4rZWHdecIZBMDQefiXIbI\negJGyWQaCyr90lxE+dfwJRQ5H7yuagYIJBjoDAlAGQKBgQD8jpGFGtWdaZ0aFlhd\nWwHwMjjdNSFeVMa0CG7gOaoz/6dkEd/0btHujpxc6lHZ+WGnnafSOBWIHYeoS+8D\nneFk8h9IOnEZB4iLBpw0bYyxNmqi46zTFxoMUJ0835CAFvo/Iflgg51XspepRtNm\nuFiP5iAJSYstCRccEotcyy+w4wKBgQD3MLesn2ChwuXDwssgsdHJLkCPtS3INndx\nulapd+s9hUjyT+AlotA6stFTAcGvzBzbf3wxTI5h26y18G90aQ8HBnejQNo3HgPo\n06fW/ftZrB/f9uFVTuZ3Mghhs8jBhdzFATwESZW8lxImC30f5tGlffM4f7Ag31yr\nwgavIehJCQKBgHOzvOcFzCc5Y0e4RPM/5jtsRrDQzmCw5fdEhccjo93+mWk25yrM\nOlDX9Lp8ftMldJ+dkmy0VOju3l8zqmQ1yDS+16X3YCjfUqaeeKFsLrBhBalqNJrg\nUoahx+dDZKfJ3wtdPSoCIeszXlemouLEQY5rFvIqRyBysauis0XnsAmRAoGAXocs\n1kCkjXegsfn9/+TAWvTrD4mzlkrt5nnhxjDrrr0XpkJRb1MR2kCjt+CGFxoxNudL\nsPabxGRjabgmhxfd/UvF2JJmYImD6Td3icnaovIlxln81ci0bYSem+5KqWbthBDy\nyJjzQAltkUr3cImuRmEh78s0qX2BTNWIBNUspTECgYAb5sODWushm2uFQvDAptMa\netbi712gih8RPia2/wW4cwpUQ9rmgDBroWGsAPXFOfLxMrxaPu5Y75uU9jKuhxIi\nfs96f5F/WQ9YcBthd9vuqS0gVvG41rogT4TCTRvdsKXgDLGsRWNoG7vEgcXIfcO7\np4qAyl/+ebdr9E2kxe+XvA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "catifi@firecatwifi.iam.gserviceaccount.com",
+  "client_id": "118003229479876788092",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/catifi%40firecatwifi.iam.gserviceaccount.com"
+}
