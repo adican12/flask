@@ -4,9 +4,8 @@ from flask_mysqldb import MySQL
 import yaml
 import os
 import json
-# import base64
 # # Imports the Google Cloud client library
-# from google.cloud import storage
+from google.cloud import storage
 
 
 app = Flask(__name__)
