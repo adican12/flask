@@ -27,8 +27,6 @@ def upload_bucket():
     if request.method == 'POST':
         storage_client = storage.Client()
         image_id = request.files['image_id']
-        mime_type = image_id.content_type
-
         # img = image_id.read()
         labels=["labels here"]
         labels.append(image_id.filename)
@@ -36,7 +34,7 @@ def upload_bucket():
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         g = "newImages/"+image_id.filename
-        blob = bucket.blob(g,content_settings=ContentSettings(content_type=mime_type))
+        blob = bucket.blob(g)
         try:
             blob.upload_from_file(image_id)
         except:
