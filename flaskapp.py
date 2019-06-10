@@ -33,23 +33,12 @@ def upload_bucket():
 
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
-        # destination_blob_name="/"
-        # blob = bucket.blob(destination_blob_name)
-        # f = open(image_id,'rb')
-
-        blob = bucket.blob(image_id.filename)
+        g = "newImages/"+image_id.filename
+        blob = bucket.blob(g)
         try:
             blob.upload_from_file(image_id)
         except:
             return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
-
-        # with open(image_id, 'rb') as f:
-          # blob.upload_from_file(f)
-        # try:
-        #     blob.upload_from_file(image_id)
-        # except Exception as e:
-        #     return render_template('upload_bucket.html',error=str(e))
-
         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
     else:
         return render_template('upload_bucket.html',error=massage)
