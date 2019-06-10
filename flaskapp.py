@@ -30,6 +30,7 @@ def bucket():
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         labels = bucket.labels
+        massage=labels
         # pprint.pprint(labels)
         # blob = bucket.blob(source_blob_name)
 
@@ -39,7 +40,9 @@ def bucket():
         #     query = "SELECT * FROM `image` WHERE image_id=%s"
         #     cur.execute(query, (image_id) )
         #     rows = cur.fetchall()
-        return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+        # return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+        return render_template('bucket.html',error=massage)
+
     else:
         return render_template('bucket.html',error=massage)
 
