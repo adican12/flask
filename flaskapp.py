@@ -26,7 +26,8 @@ def upload_bucket():
     massage="upload_bucket"
     if request.method == 'POST':
         storage_client = storage.Client()
-        image_id = request.form['image_id']
+        image_id = request.files['image_id']
+        
         bucket_name = "catifi1"
         bucket = storage_client.get_bucket(bucket_name)
         destination_blob_name="/"
