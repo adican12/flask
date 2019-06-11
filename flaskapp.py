@@ -111,7 +111,7 @@ mysql = MySQL(app)
 #     else:
 #         return render_template('image.html',error=massage)
 #
-Route for handling the login page logic
+# Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     massage = None
@@ -186,16 +186,16 @@ def page(user_id):
 def index():
     return render_template('index.html')
 
-@app.route('/users',methods=["GET"])
-def users():
-    cur = mysql.connection.cursor()
-    result_value = cur.execute("SELECT * FROM users")
-    if result_value > 0:
-        users = cur.fetchall()
-    return jsonify({
-    "status": "true",
-    "message": "Data fetched successfully!",
-    "data": users})
+# @app.route('/users',methods=["GET"])
+# def users():
+#     cur = mysql.connection.cursor()
+#     result_value = cur.execute("SELECT * FROM users")
+#     if result_value > 0:
+#         users = cur.fetchall()
+#     return jsonify({
+#     "status": "true",
+#     "message": "Data fetched successfully!",
+#     "data": users})
 
 
 @app.route('/welcome')
