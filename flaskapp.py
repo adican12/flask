@@ -6,6 +6,7 @@ import os
 import json
 
 # from google.cloud import storage
+from google.cloud import storage
 
 app = Flask(__name__)
 
