@@ -198,9 +198,7 @@ def users():
 
 @app.route('/welcome')
 def welcome():
-    # massage = "welcome str"
-    massage =str(sys.version_info[0])
-
+    massage = "welcome str"
     return render_template('welcome.html',massage=massage)
 
 #cookie response
