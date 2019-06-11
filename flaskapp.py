@@ -5,7 +5,7 @@ import yaml
 import os
 import json
 # # # Imports the Google Cloud client library
-# from google.cloud import storage
+from google.cloud import storage
 #
 
 app = Flask(__name__)
@@ -186,16 +186,16 @@ def page(user_id):
 def index():
     return render_template('index.html')
 
-# @app.route('/users',methods=["GET"])
-# def users():
-#     cur = mysql.connection.cursor()
-#     result_value = cur.execute("SELECT * FROM users")
-#     if result_value > 0:
-#         users = cur.fetchall()
-#     return jsonify({
-#     "status": "true",
-#     "message": "Data fetched successfully!",
-#     "data": users})
+@app.route('/users',methods=["GET"])
+def users():
+    cur = mysql.connection.cursor()
+    result_value = cur.execute("SELECT * FROM users")
+    if result_value > 0:
+        users = cur.fetchall()
+    return jsonify({
+    "status": "true",
+    "message": "Data fetched successfully!",
+    "data": users})
 
 
 @app.route('/welcome')
