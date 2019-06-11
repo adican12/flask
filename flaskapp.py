@@ -4,8 +4,7 @@ from flask_mysqldb import MySQL
 import yaml
 import os
 import json
-# from google.cloud import storage
-from google import storage
+from google.cloud import storage
 
 app = Flask(__name__)
 
