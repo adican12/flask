@@ -1,65 +1,65 @@
 
 from flask import Flask, render_template, send_file, request, session, redirect, url_for,make_response, jsonify
-from flask_mysqldb import MySQL
-import yaml
-import os
-import json
-# # Imports the Google Cloud client library
-from google.cloud import storage
-
+# from flask_mysqldb import MySQL
+# import yaml
+# import os
+# import json
+# # # Imports the Google Cloud client library
+# from google.cloud import storage
+#
 
 app = Flask(__name__)
 
-path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
-y=open(path)
-db = yaml.load(y)
-app.config['MYSQL_HOST']=db['mysql_host']
-app.config['MYSQL_USER']=db['mysql_user']
-app.config['MYSQL_PASSWORD']=db['mysql_password']
-app.config['MYSQL_DB']=db['mysql_db']
-app.config['MYSQL_CURSORCLASS']='DictCursor'
-mysql = MySQL(app)
-
-@app.route('/upload_bucket', methods=['GET', 'POST'])
-def upload_bucket():
-    massage="upload_bucket"
-    if request.method == 'POST':
-        storage_client = storage.Client()
-        image_id = request.files['image_id']
-        # img = image_id.read()
-        labels=["labels here"]
-        labels.append(image_id.filename)
-        labels.append(image_id.content_type)
-
-        bucket_name = "catifi2"
-        bucket = storage_client.get_bucket(bucket_name)
-        g = "newImages/"+image_id.filename
-        blob = bucket.blob(g)
-        try:
-            blob.upload_from_file(image_id,content_type=image_id.content_type)
-        except:
-            return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
-        return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
-    else:
-        return render_template('upload_bucket.html',error=massage)
-
-
-
-@app.route('/list_bucket', methods=['GET', 'POST'])
-def list_bucket():
-    massage="list_bucket"
-    if request.method == 'POST':
-        # bucket_name = request.form['bucket_name']
-        storage_client = storage.Client()
-        bucket_name = "catifi2"
-        bucket = storage_client.get_bucket(bucket_name)
-        blobs = bucket.list_blobs()
-        labels = []
-        for blob in blobs:
-            labels.append(blob.name)
-        return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
-    else:
-        return render_template('list_bucket.html',error=massage)
+# path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
+# y=open(path)
+# db = yaml.load(y)
+# app.config['MYSQL_HOST']=db['mysql_host']
+# app.config['MYSQL_USER']=db['mysql_user']
+# app.config['MYSQL_PASSWORD']=db['mysql_password']
+# app.config['MYSQL_DB']=db['mysql_db']
+# app.config['MYSQL_CURSORCLASS']='DictCursor'
+# mysql = MySQL(app)
+#
+# @app.route('/upload_bucket', methods=['GET', 'POST'])
+# def upload_bucket():
+#     massage="upload_bucket"
+#     if request.method == 'POST':
+#         storage_client = storage.Client()
+#         image_id = request.files['image_id']
+#         # img = image_id.read()
+#         labels=["labels here"]
+#         labels.append(image_id.filename)
+#         labels.append(image_id.content_type)
+#
+#         bucket_name = "catifi2"
+#         bucket = storage_client.get_bucket(bucket_name)
+#         g = "newImages/"+image_id.filename
+#         blob = bucket.blob(g)
+#         try:
+#             blob.upload_from_file(image_id,content_type=image_id.content_type)
+#         except:
+#             return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
+#         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+#     else:
+#         return render_template('upload_bucket.html',error=massage)
+#
+#
+#
+# @app.route('/list_bucket', methods=['GET', 'POST'])
+# def list_bucket():
+#     massage="list_bucket"
+#     if request.method == 'POST':
+#         # bucket_name = request.form['bucket_name']
+#         storage_client = storage.Client()
+#         bucket_name = "catifi2"
+#         bucket = storage_client.get_bucket(bucket_name)
+#         blobs = bucket.list_blobs()
+#         labels = []
+#         for blob in blobs:
+#             labels.append(blob.name)
+#         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+#     else:
+#         return render_template('list_bucket.html',error=massage)
 #
 #
 #
@@ -112,90 +112,90 @@ def list_bucket():
 #         return render_template('image.html',error=massage)
 #
 # Route for handling the login page logic
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    massage = None
-    if request.method == 'POST':
-        username = request.form['email']
-        password = request.form['password']
-        cur = mysql.connection.cursor()
-        qry='SELECT * FROM users WHERE email=%s  AND password =%s '
-        cur.execute(qry, (username, password))
-        rows = cur.fetchall()
-        if len(rows) > 0:
-            return jsonify({
-                    "status": "true",
-                    "message": "Data fetched successfully!",
-                    "data": rows,
-                    "username":username,
-                    "password":password})
-
-        else:
-            return jsonify({
-            "status": "false",
-            "message": "Data fetched fails!",
-            "data": rows})
-    else:
-        return render_template('login.html',error=massage)
-
-@app.route('/signup',methods=['GET','POST'])
-def sign_up():
-    massage = None
-    if request.method == 'POST':
-        _name = request.form['name']
-        # _name = "name"
-        _email = request.form['email']
-        # _email = "email"
-        _password = request.form['password']
-        # _password = "password"
-        # _birthday='2019-2-5'
-        _birthday=request.form['birthday']
-        _gender=request.form['gender']
-        # _gender="gender"
-        _phone=request.form['phone']
-        # _mobile="phone"
-        _user_type="standard_user"
-        _category=request.form['category']
-        # _user_category="category"
-        _image=request.form['image']
-        # _image="image"
-        _status=0
-        # return jsonify({"status": "true","name":_name,"email":_email,"password":_password,"birthday":_birthday,"gender":_gender,"phone":_phone,"category":_category,"image":_image})
-        try:
-            cur = mysql.connection.cursor()
-            qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-            cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
-            mysql.connection.commit()
-            return jsonify({"status": "true","message": "Data insert successfully!"})
-        except Exception as e:
-            return jsonify({"status": "false","message": "Data insert FAILS!"})
-    else:
-        return render_template('signup.html',error=massage)
-
-
-@app.route('/users/<user_id>')
-def page(user_id):
-    # print(user_id)
-    cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM users WHERE name = {}""".format(user_id))
-    rows = cur.fetchall()
-    return jsonify(rows)
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     massage = None
+#     if request.method == 'POST':
+#         username = request.form['email']
+#         password = request.form['password']
+#         cur = mysql.connection.cursor()
+#         qry='SELECT * FROM users WHERE email=%s  AND password =%s '
+#         cur.execute(qry, (username, password))
+#         rows = cur.fetchall()
+#         if len(rows) > 0:
+#             return jsonify({
+#                     "status": "true",
+#                     "message": "Data fetched successfully!",
+#                     "data": rows,
+#                     "username":username,
+#                     "password":password})
+#
+#         else:
+#             return jsonify({
+#             "status": "false",
+#             "message": "Data fetched fails!",
+#             "data": rows})
+#     else:
+#         return render_template('login.html',error=massage)
+#
+# @app.route('/signup',methods=['GET','POST'])
+# def sign_up():
+#     massage = None
+#     if request.method == 'POST':
+#         _name = request.form['name']
+#         # _name = "name"
+#         _email = request.form['email']
+#         # _email = "email"
+#         _password = request.form['password']
+#         # _password = "password"
+#         # _birthday='2019-2-5'
+#         _birthday=request.form['birthday']
+#         _gender=request.form['gender']
+#         # _gender="gender"
+#         _phone=request.form['phone']
+#         # _mobile="phone"
+#         _user_type="standard_user"
+#         _category=request.form['category']
+#         # _user_category="category"
+#         _image=request.form['image']
+#         # _image="image"
+#         _status=0
+#         # return jsonify({"status": "true","name":_name,"email":_email,"password":_password,"birthday":_birthday,"gender":_gender,"phone":_phone,"category":_category,"image":_image})
+#         try:
+#             cur = mysql.connection.cursor()
+#             qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+#             cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
+#             mysql.connection.commit()
+#             return jsonify({"status": "true","message": "Data insert successfully!"})
+#         except Exception as e:
+#             return jsonify({"status": "false","message": "Data insert FAILS!"})
+#     else:
+#         return render_template('signup.html',error=massage)
+#
+#
+# @app.route('/users/<user_id>')
+# def page(user_id):
+#     # print(user_id)
+#     cur = mysql.connection.cursor()
+#     cur.execute("""SELECT * FROM users WHERE name = {}""".format(user_id))
+#     rows = cur.fetchall()
+#     return jsonify(rows)
 
 #
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/users',methods=["GET"])
-def users():
-    cur = mysql.connection.cursor()
-    result_value = cur.execute("SELECT * FROM users")
-    if result_value > 0:
-        users = cur.fetchall()
-    return jsonify({
-    "status": "true",
-    "message": "Data fetched successfully!",
-    "data": users})
+# @app.route('/users',methods=["GET"])
+# def users():
+#     cur = mysql.connection.cursor()
+#     result_value = cur.execute("SELECT * FROM users")
+#     if result_value > 0:
+#         users = cur.fetchall()
+#     return jsonify({
+#     "status": "true",
+#     "message": "Data fetched successfully!",
+#     "data": users})
 
 
 @app.route('/welcome')
