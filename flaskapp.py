@@ -9,16 +9,16 @@ import json
 
 
 app = Flask(__name__)
-#
-# path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
-# y=open(path)
-# db = yaml.load(y)
-# app.config['MYSQL_HOST']=db['mysql_host']
-# app.config['MYSQL_USER']=db['mysql_user']
-# app.config['MYSQL_PASSWORD']=db['mysql_password']
-# app.config['MYSQL_DB']=db['mysql_db']
-# app.config['MYSQL_CURSORCLASS']='DictCursor'
-# mysql = MySQL(app)
+
+path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
+y=open(path)
+db = yaml.load(y)
+app.config['MYSQL_HOST']=db['mysql_host']
+app.config['MYSQL_USER']=db['mysql_user']
+app.config['MYSQL_PASSWORD']=db['mysql_password']
+app.config['MYSQL_DB']=db['mysql_db']
+app.config['MYSQL_CURSORCLASS']='DictCursor'
+mysql = MySQL(app)
 
 # @app.route('/upload_bucket', methods=['GET', 'POST'])
 # def upload_bucket():
