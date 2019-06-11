@@ -8,15 +8,15 @@ import json
 
 app = Flask(__name__)
 
-# path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
-# y=open(path)
-# db = yaml.load(y)
-# app.config['MYSQL_HOST']=db['mysql_host']
-# app.config['MYSQL_USER']=db['mysql_user']
-# app.config['MYSQL_PASSWORD']=db['mysql_password']
-# app.config['MYSQL_DB']=db['mysql_db']
-# app.config['MYSQL_CURSORCLASS']='DictCursor'
-# mysql = MySQL(app)
+path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
+y=open(path)
+db = yaml.load(y)
+app.config['MYSQL_HOST']=db['mysql_host']
+app.config['MYSQL_USER']=db['mysql_user']
+app.config['MYSQL_PASSWORD']=db['mysql_password']
+app.config['MYSQL_DB']=db['mysql_db']
+app.config['MYSQL_CURSORCLASS']='DictCursor'
+mysql = MySQL(app)
 #
 # @app.route('/upload_bucket', methods=['GET', 'POST'])
 # def upload_bucket():
@@ -171,29 +171,29 @@ app = Flask(__name__)
 #         return render_template('signup.html',error=massage)
 # #
 # #
-# @app.route('/users/<user_id>')
-# def page(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM users WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
-# #
+@app.route('/users/<user_id>')
+def page(user_id):
+    # print(user_id)
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT * FROM users WHERE user_id = {}""".format(user_id))
+    rows = cur.fetchall()
+    return jsonify(rows)
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# @app.route('/users',methods=["GET"])
-# def users():
-#     cur = mysql.connection.cursor()
-#     result_value = cur.execute("SELECT * FROM users")
-#     if result_value > 0:
-#         users = cur.fetchall()
-#     return jsonify({
-#     "status": "true",
-#     "message": "Data fetched successfully!",
-#     "data": users})
+@app.route('/users',methods=["GET"])
+def users():
+    cur = mysql.connection.cursor()
+    result_value = cur.execute("SELECT * FROM users")
+    if result_value > 0:
+        users = cur.fetchall()
+    return jsonify({
+    "status": "true",
+    "message": "Data fetched successfully!",
+    "data": users})
 
 
 @app.route('/welcome')
