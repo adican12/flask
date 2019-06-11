@@ -185,17 +185,17 @@ mysql = MySQL(app)
 @app.route('/')
 def index():
     return render_template('index.html')
-#
-# @app.route('/users',methods=["GET"])
-# def users():
-#     cur = mysql.connection.cursor()
-#     result_value = cur.execute("SELECT * FROM users")
-#     if result_value > 0:
-#         users = cur.fetchall()
-#     return jsonify({
-#     "status": "true",
-#     "message": "Data fetched successfully!",
-#     "data": users})
+
+@app.route('/users',methods=["GET"])
+def users():
+    cur = mysql.connection.cursor()
+    result_value = cur.execute("SELECT * FROM users")
+    if result_value > 0:
+        users = cur.fetchall()
+    return jsonify({
+    "status": "true",
+    "message": "Data fetched successfully!",
+    "data": users})
 
 
 @app.route('/welcome')
