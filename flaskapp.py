@@ -199,7 +199,7 @@ def users():
 @app.route('/welcome')
 def welcome():
     # massage = "welcome str"
-    massage =sys.version_info[0]
+    massage =str(sys.version_info[0])
 
     return render_template('welcome.html',massage=massage)
 
