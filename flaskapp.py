@@ -227,7 +227,6 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
-
 #count the number of users
 def count_row_users():
     try:
@@ -342,9 +341,9 @@ def init_run():
          elif status == 0:
              pass
         return render_template("welcome.html", massage = match_list_of_users)
-    except Exception as e :
-        # return render_template("welcome.html", massage="init_run_problem")
-        return jsonify({"status":"Fails","execption":str(e)})
+    except:
+      return render_template("welcome.html", massage="init_run_problem")
+
 
 
 @app.route('/push',methods=['GET','POST'])
