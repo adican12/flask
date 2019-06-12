@@ -6,6 +6,7 @@ import os
 import json
 
 # from google.cloud import storage
+import sys
 
 app = Flask(__name__)
 
@@ -200,7 +201,14 @@ def users():
 @app.route('/welcome')
 def welcome():
     massage = "welcome str"
-    return render_template('welcome.html',massage=massage)
+    # 
+    # print("Python version")
+    # print (sys.version)
+    # print("Version info.")
+    # print (sys.version_info)
+    return jsonify({"python v":sys.version,
+                    "version info":sys.version_info})
+    # return render_template('welcome.html',massage=massage)
 
 #cookie response
 @app.route('/cookie')
