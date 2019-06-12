@@ -18,48 +18,48 @@ app.config['MYSQL_PASSWORD']=db['mysql_password']
 app.config['MYSQL_DB']=db['mysql_db']
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
-#
-# @app.route('/upload_bucket', methods=['GET', 'POST'])
-# def upload_bucket():
-#     massage="upload_bucket"
-#     if request.method == 'POST':
-#         storage_client = storage.Client()
-#         image_id = request.files['image_id']
-#         # img = image_id.read()
-#         labels=["labels here"]
-#         labels.append(image_id.filename)
-#         labels.append(image_id.content_type)
-#
-#         bucket_name = "catifi2"
-#         bucket = storage_client.get_bucket(bucket_name)
-#         g = "newImages/"+image_id.filename
-#         blob = bucket.blob(g)
-#         try:
-#             blob.upload_from_file(image_id,content_type=image_id.content_type)
-#         except:
-#             return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
-#         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
-#     else:
-#         return render_template('upload_bucket.html',error=massage)
-#
-#
-#
-# @app.route('/list_bucket', methods=['GET', 'POST'])
-# def list_bucket():
-#     massage="list_bucket"
-#     if request.method == 'POST':
-#         # bucket_name = request.form['bucket_name']
-#         storage_client = storage.Client()
-#         bucket_name = "catifi2"
-#         bucket = storage_client.get_bucket(bucket_name)
-#         blobs = bucket.list_blobs()
-#         labels = []
-#         for blob in blobs:
-#             labels.append(blob.name)
-#         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
-#     else:
-#         return render_template('list_bucket.html',error=massage)
-#
+
+@app.route('/upload_bucket', methods=['GET', 'POST'])
+def upload_bucket():
+    massage="upload_bucket"
+    if request.method == 'POST':
+        storage_client = storage.Client()
+        image_id = request.files['image_id']
+        # img = image_id.read()
+        labels=["labels here"]
+        labels.append(image_id.filename)
+        labels.append(image_id.content_type)
+
+        bucket_name = "catifi2"
+        bucket = storage_client.get_bucket(bucket_name)
+        g = "newImages/"+image_id.filename
+        blob = bucket.blob(g)
+        try:
+            blob.upload_from_file(image_id,content_type=image_id.content_type)
+        except:
+            return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
+        return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+    else:
+        return render_template('upload_bucket.html',error=massage)
+
+
+
+@app.route('/list_bucket', methods=['GET', 'POST'])
+def list_bucket():
+    massage="list_bucket"
+    if request.method == 'POST':
+        # bucket_name = request.form['bucket_name']
+        storage_client = storage.Client()
+        bucket_name = "catifi2"
+        bucket = storage_client.get_bucket(bucket_name)
+        blobs = bucket.list_blobs()
+        labels = []
+        for blob in blobs:
+            labels.append(blob.name)
+        return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
+    else:
+        return render_template('list_bucket.html',error=massage)
+
 #
 #
 # @app.route('/get_img', methods=['GET', 'POST'])
