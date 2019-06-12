@@ -205,11 +205,11 @@ def welcome():
     # print (sys.version)
     # print("Version info.")
     # print (sys.version_info)
-    v= str(sys.version)
-    x=str(sys.version_info)
-    return jsonify({"python v":v,
-                    "version info":x})
-    # return render_template('welcome.html',massage=massage)
+    # v= str(sys.version)
+    # x=str(sys.version_info)
+    # return jsonify({"python v":v,
+    #                 "version info":x})
+    return render_template('welcome.html',massage=massage)
 
 #cookie response
 @app.route('/cookie')
