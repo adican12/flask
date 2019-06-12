@@ -342,9 +342,9 @@ def init_run():
          elif status == 0:
              pass
         return render_template("welcome.html", massage = match_list_of_users)
-    except:
-      return render_template("welcome.html", massage="init_run_problem")
-
+    except Exception as e :
+        # return render_template("welcome.html", massage="init_run_problem")
+        return jsonify({"status":"Fails","execption":str(e)})
 
 
 @app.route('/push',methods=['GET','POST'])
