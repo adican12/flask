@@ -5,7 +5,7 @@ import yaml
 import os
 import json
 
-from google.cloud import storage
+# from google.cloud import storage
 import sys
 
 app = Flask(__name__)
