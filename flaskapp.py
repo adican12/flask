@@ -227,6 +227,7 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+
 #count the number of users
 def count_row_users():
     try:
@@ -296,7 +297,7 @@ def ad_match_to_user(user_id ,user_category , _location_id):
             cur.execute(defulat_ad)
             defualt_ad = cur.fetchone()
             for var in defualt_ad:
-                ad_id_defult = row["adID"]
+                ad_id_defult = defualt_ad["adID"]
             matched_obj = (ad_id_defult, user_id)
             list_of_matched_user_and_ad.append(matched_obj)
     return list_of_matched_user_and_ad
@@ -399,7 +400,7 @@ def extract_image_from_ad_id(ad_id_app):
         return render_template("welcome.html", massage="image problem from extarct")
     finally:
         cur.close()
-
+        
 # main
 if __name__ == '__main__':
     app.run(debug=True)
