@@ -248,11 +248,11 @@ def count_row_users():
 def run_campaign(num):
     try:
      cur = mysql.connection.cursor()
-     qry = 'SELECT * FROM users WHERE id = {} '.format(num)
+     qry = 'SELECT * FROM users WHERE user_id = {} '.format(num)
      cur.execute(qry)
      rows = cur.fetchall()
      for r in rows:
-        id = r["id"]
+        id = r["user_id"]
         user_category = r["user_category"]
         location_id = r["location_id"]
         status_user = r["status"]
@@ -271,17 +271,17 @@ def run_campaign(num):
 def ad_match_to_user(user_id ,user_category , _location_id):
   try:
     cur = mysql.connection.cursor()
-    qry = 'SELECT * FROM `campaign` WHERE location_id ={}'.format(_location_id)
+    qry = 'SELECT * FROM `campaign` WHERE locationID ={}'.format(_location_id)
     cur.execute(qry)
     rows = cur.fetchall()
     if len(rows)==0 : #TODO
-        qry_defualt_2 = 'SELECT * FROM `campaign` WHERE location_id ={}'.format(_location_id)
+        qry_defualt_2 = 'SELECT * FROM `campaign` WHERE locationID ={}'.format(_location_id)
         cur.execute(qry_defualt_2)
         rows = cur.fetchall()
     list_of_info_of_campaign = []
     list_of_matched_user_and_ad = []
     for row in rows:
-         loc_id = row["location_id"]
+         loc_id = row["locationID"]
          category = row["category"]
          ad_id = row["adID"]
          info_of_ad=(loc_id , category , ad_id)
@@ -291,7 +291,7 @@ def ad_match_to_user(user_id ,user_category , _location_id):
             matched_obj=(match_item[2] ,user_id)
             list_of_matched_user_and_ad.append(matched_obj)
         else: #TODO
-            defulat_ad = 'SELECT * FROM `ad` WHERE adID ={}'.format(3)
+            defulat_ad = 'SELECT * FROM `ad` WHERE adID ={}'.format(2)
             print("check not match")
             cur.execute(defulat_ad)
             defualt_ad = cur.fetchone()
