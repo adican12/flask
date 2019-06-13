@@ -400,7 +400,7 @@ def extract_image_from_ad_id(ad_id_app):
         return render_template("welcome.html", massage="image problem from extarct")
     finally:
         cur.close()
-        
+
 # main
 if __name__ == '__main__':
     app.run(debug=True)
