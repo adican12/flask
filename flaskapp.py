@@ -314,6 +314,7 @@ def insert_notf_to_db(list_of_matched):
     cur = mysql.connection.cursor()
     for item in list_of_matched:
         cond_query = "SELECT * FROM `notification` WHERE user_id={} AND  adid={}".format(item[1],item[0])
+        print("insert db problem")
         cur.execute(cond_query)
         notf_= cur.fetchone()
         row_count = cur.rowcount
@@ -340,7 +341,9 @@ def init_run():
          if status ==1:
             result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
             match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
+            print("after ad match")
             insert_notf_to_db(match_list_of_users)
+            print("after insert")
          elif status == 0:
              pass
         return render_template("welcome.html", massage = match_list_of_users)
