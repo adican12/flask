@@ -9,7 +9,8 @@ proxy_dict = {
           "http"  : "http://127.0.0.1",
 
         }
-push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bGdb1U8UlPAdGJh8fuetr0znEDDdCWIaE0xu7_GBRcg2nFJCW8xtr_-H2mcqPYPCal60wQszlJk_bepAiu1DBCdnQ3NzLGUPk4SPq11fizESsTQbMplpKrAd7aQERdnAf2Bhnf0", proxy_dict=proxy_dict)
+# push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bGdb1U8UlPAdGJh8fuetr0znEDDdCWIaE0xu7_GBRcg2nFJCW8xtr_-H2mcqPYPCal60wQszlJk_bepAiu1DBCdnQ3NzLGUPk4SPq11fizESsTQbMplpKrAd7aQERdnAf2Bhnf0", proxy_dict=proxy_dict)
+push_service = FCMNotification(api_key="c0WuKlThF5U:APA91bFUT3AiSm567KGaYgGAGqLQ9UYSsVhzUIQTr63ycsnE1C7ab-Hzlf04Ifiu15T74b27rVcDLbDCpaitLDUacNItXnC00HVJbl4uZad00QPr25tqMCKe5K6x0181ACY1yuTvvJuk", proxy_dict=proxy_dict)
 
 # Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
 
