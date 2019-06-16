@@ -117,6 +117,8 @@ def login():
     if request.method == 'POST':
         username = request.form['email']
         password = request.form['password']
+        token = request.form['token']
+
         cur = mysql.connection.cursor()
         qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         cur.execute(qry, (username, password))
@@ -125,6 +127,7 @@ def login():
             return jsonify({
                     "status": "true",
                     "message": "Data fetched successfully!",
+                    "token": token,
                     "data": rows,
                     "username":username,
                     "password":password})
