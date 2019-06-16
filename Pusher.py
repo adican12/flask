@@ -11,6 +11,7 @@ proxy_dict = {
         }
 # push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bGdb1U8UlPAdGJh8fuetr0znEDDdCWIaE0xu7_GBRcg2nFJCW8xtr_-H2mcqPYPCal60wQszlJk_bepAiu1DBCdnQ3NzLGUPk4SPq11fizESsTQbMplpKrAd7aQERdnAf2Bhnf0", proxy_dict=proxy_dict)
 push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bFtQ2a3nky1IkOwF0BNBH0DVUTV4Hr6U7s0FKYkUFRMQ_0P8zpckqgQprBTEjjylmQYH898D533iW5-dUk1xFfP_xkz1c_vpmQcqfx1jU_bjuTjhkrV0vih-H6GsSZPh9nrPD0A", proxy_dict=proxy_dict)
+#server key : AAAABw6N4YM:APA91bFtQ2a3nky1IkOwF0BNBH0DVUTV4Hr6U7s0FKYkUFRMQ_0P8zpckqgQprBTEjjylmQYH898D533iW5-dUk1xFfP_xkz1c_vpmQcqfx1jU_bjuTjhkrV0vih-H6GsSZPh9nrPD0A
 
 # Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
 

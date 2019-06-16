@@ -109,69 +109,69 @@ mysql = MySQL(app)
 #
 #     else:
 #         return render_template('image.html',error=massage)
-#
+
 # Route for handling the login page logic
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     massage = None
-#     if request.method == 'POST':
-#         username = request.form['email']
-#         password = request.form['password']
-#         cur = mysql.connection.cursor()
-#         qry='SELECT * FROM users WHERE email=%s  AND password =%s '
-#         cur.execute(qry, (username, password))
-#         rows = cur.fetchall()
-#         if len(rows) > 0:
-#             return jsonify({
-#                     "status": "true",
-#                     "message": "Data fetched successfully!",
-#                     "data": rows,
-#                     "username":username,
-#                     "password":password})
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    massage = None
+    if request.method == 'POST':
+        username = request.form['email']
+        password = request.form['password']
+        cur = mysql.connection.cursor()
+        qry='SELECT * FROM users WHERE email=%s  AND password =%s '
+        cur.execute(qry, (username, password))
+        rows = cur.fetchall()
+        if len(rows) > 0:
+            return jsonify({
+                    "status": "true",
+                    "message": "Data fetched successfully!",
+                    "data": rows,
+                    "username":username,
+                    "password":password})
+
+        else:
+            return jsonify({
+            "status": "false",
+            "message": "Data fetched fails!",
+            "data": rows})
+    else:
+        return render_template('login.html',error=massage)
 #
-#         else:
-#             return jsonify({
-#             "status": "false",
-#             "message": "Data fetched fails!",
-#             "data": rows})
-#     else:
-#         return render_template('login.html',error=massage)
-# #
-# @app.route('/signup',methods=['GET','POST'])
-# def sign_up():
-#     massage = None
-#     if request.method == 'POST':
-#         _name = request.form['name']
-#         # _name = "name"
-#         _email = request.form['email']
-#         # _email = "email"
-#         _password = request.form['password']
-#         # _password = "password"
-#         # _birthday='2019-2-5'
-#         _birthday=request.form['birthday']
-#         _gender=request.form['gender']
-#         # _gender="gender"
-#         _phone=request.form['phone']
-#         # _mobile="phone"
-#         _user_type="standard_user"
-#         _category=request.form['category']
-#         # _user_category="category"
-#         _image=request.form['image']
-#         # _image="image"
-#         _status=0
-#         # return jsonify({"status": "true","name":_name,"email":_email,"password":_password,"birthday":_birthday,"gender":_gender,"phone":_phone,"category":_category,"image":_image})
-#         try:
-#             cur = mysql.connection.cursor()
-#             qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
-#             cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
-#             mysql.connection.commit()
-#             return jsonify({"status": "true","message": "Data insert successfully!"})
-#         except Exception as e:
-#             return jsonify({"status": "false","message": "Data insert FAILS!"})
-#     else:
-#         return render_template('signup.html',error=massage)
-# #
-# #
+@app.route('/signup',methods=['GET','POST'])
+def sign_up():
+    massage = None
+    if request.method == 'POST':
+        _name = request.form['name']
+        # _name = "name"
+        _email = request.form['email']
+        # _email = "email"
+        _password = request.form['password']
+        # _password = "password"
+        # _birthday='2019-2-5'
+        _birthday=request.form['birthday']
+        _gender=request.form['gender']
+        # _gender="gender"
+        _phone=request.form['phone']
+        # _mobile="phone"
+        _user_type="standard_user"
+        _category=request.form['category']
+        # _user_category="category"
+        _image=request.form['image']
+        # _image="image"
+        _status=0
+        # return jsonify({"status": "true","name":_name,"email":_email,"password":_password,"birthday":_birthday,"gender":_gender,"phone":_phone,"category":_category,"image":_image})
+        try:
+            cur = mysql.connection.cursor()
+            qry='INSERT INTO `users`( `name`, `email`, `password`, `gender`, `mobile`, `user_type`, `image`, `birthday`, `status`, `user_category`) VALUES( %s , %s , %s , %s , %s , %s , %s , %s , %s , %s)'
+            cur.execute(qry,(_name  , _email , _password , _gender , _phone , _user_type , _image , _birthday , _status , _category ))
+            mysql.connection.commit()
+            return jsonify({"status": "true","message": "Data insert successfully!"})
+        except Exception as e:
+            return jsonify({"status": "false","message": "Data insert FAILS!"})
+    else:
+        return render_template('signup.html',error=massage)
+#
+#
 @app.route('/users/<user_id>')
 def page(user_id):
     # print(user_id)
