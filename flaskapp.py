@@ -207,6 +207,15 @@ def page(user_id):
     return jsonify(rows)
 
 
+@app.route('/notf/<user_id>')
+def notf_user(user_id):
+    # print(user_id)
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT * FROM `notification` WHERE user_id = {}""".format(user_id))
+    rows = cur.fetchall()
+    return jsonify(rows)
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -417,20 +426,20 @@ def bring_user_id_form_notf(user_id_app):
     cur.close()
 
 
-
-def extract_image_from_ad_id(ad_id_app):
-    try:
-        cur = mysql.connection.cursor()
-        qry = 'SELECT * FROM `ad` WHERE adID = {} '.format(ad_id_app)
-        cur.execute(qry)
-        rows = cur.fetchall()
-        for items in rows:
-            app_image = items["image"]
-        return app_image
-    except:
-        return render_template("welcome.html", massage="image problem from extarct")
-    finally:
-        cur.close()
+#
+# def extract_image_from_ad_id(ad_id_app):
+#     try:
+#         cur = mysql.connection.cursor()
+#         qry = 'SELECT * FROM `ad` WHERE adID = {} '.format(ad_id_app)
+#         cur.execute(qry)
+#         rows = cur.fetchall()
+#         for items in rows:
+#             app_image = items["image"]
+#         return app_image
+#     except:
+#         return render_template("welcome.html", massage="image problem from extarct")
+#     finally:
+#         cur.close()
 
 # main
 if __name__ == '__main__':
