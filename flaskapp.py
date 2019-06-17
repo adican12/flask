@@ -175,6 +175,29 @@ def sign_up():
         return render_template('signup.html',error=massage)
 #
 #
+
+@app.route('/feedback',methods=['GET','POST'])
+def feedback():
+    massage = None
+    if request.method == 'POST':
+        _user_id = request.form['user_id']
+        # _user_id = "user_id"
+        _ad_id = request.form['adID']
+        # _ad_id = "adID"
+        _rate = request.form['rate']
+        try:
+            cur = mysql.connection.cursor()
+            qry='INSERT INTO `feedback`( `adID`,`user_id`,`rate`) VALUES( %s , %s , %s )'
+            cur.execute(qry,(_user_id , _ad_id , _rate))
+            mysql.connection.commit()
+            return jsonify({"status": "true","message": "Data insert feedback successfully!"})
+        except Exception as e:
+            return jsonify({"status": "false","message": "Data insert feedback FAILS!"})
+    else:
+        return render_template('signup.html',error=massage)
+
+
+
 @app.route('/users/<user_id>')
 def page(user_id):
     # print(user_id)
