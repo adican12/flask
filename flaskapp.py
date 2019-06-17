@@ -216,6 +216,21 @@ def notf_user(user_id):
     return jsonify(rows)
 
 
+
+
+@app.route('/notf/<coupon>',methods=['GET'])
+def coupon_user(user_id):
+    # print(user_id)
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT * FROM `coupon` WHERE user_id = {}""".format(user_id))
+    rows = cur.fetchall()
+    return jsonify(rows)
+
+
+
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
