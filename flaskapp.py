@@ -126,8 +126,8 @@ def login():
         rows = cur.fetchall()
         for row in rows:
             _id = row["user_id"]
-        qry = 'INSERT INTO `devices`( `user_id`,`email`, `token` ) VALUES( %s , %s , %s )'
-        cur.execute(qry, (_id, username, token))
+        qry1 = 'INSERT INTO `devices`( `user_id`,`email`, `token` ) VALUES( %s , %s , %s )'
+        cur.execute(qry1, (_id, username, token))
         mysql.connection.commit()
         if len(rows) > 0:
             return jsonify({
