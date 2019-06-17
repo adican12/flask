@@ -6,6 +6,7 @@ import os
 import json
 #from google.cloud import storage
 import sys
+#import Pusher as pus
 
 app = Flask(__name__)
 
@@ -123,6 +124,11 @@ def login():
         qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         cur.execute(qry, (username, password))
         rows = cur.fetchall()
+        for row in rows:
+            _id = row["user_id"]
+        qry = 'INSERT INTO `devices`( `user_id`,`email`, `token` ) VALUES( %s , %s , %s )'
+        cur.execute(qry, (_id, username, token))
+        mysql.connection.commit()
         if len(rows) > 0:
             return jsonify({
                     "status": "true",
@@ -217,15 +223,37 @@ def notf_user(user_id):
 
 
 
+#
+# @app.route('/coupon/<user_id>',methods=['GET'])
+# def coupon_user(user_id):
+#     # print(user_id)
+#     cur = mysql.connection.cursor()
+#     cur.execute("""SELECT * FROM `coupon` WHERE user_id = {}""".format(user_id))
+#     rows = cur.fetchall()
+#     return jsonify(rows)
+#
+#
 
-@app.route('/notf/<coupon>',methods=['GET'])
-def coupon_user(user_id):
-    # print(user_id)
-    cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM `coupon` WHERE user_id = {}""".format(user_id))
-    rows = cur.fetchall()
-    return jsonify(rows)
-
+# @app.route('/send_coupon/<location_id>',methods=['GET','POST'])
+# def send_coupon(location_id):
+#   try:
+#     cur = mysql.connection.cursor()
+#     qry = 'SELECT * FROM `users` WHERE locationID ={}'.format(location_id)
+#     cur.execute(qry)
+#     rows = cur.fetchall()
+#     qry1 = 'SELECT * FROM `location` WHERE locationID ={}'.format(location_id)
+#     cur.execute(qry1)
+#     rows1 = cur.fetchall()
+#     for r1 in rows1:
+#         _business = r1["businessID"]
+#     qry2 = 'SELECT * FROM `coupon` WHERE busID ={}'.format(_business)
+#     cur.execute(qry2)
+#     rows2 = cur.fetchall()
+#     for r in rows:
+#         user_id = r["user_id"]
+#     for r2 in rows2:
+#         coupon_id = r2["couponID"]
+#
 
 
 
@@ -401,26 +429,24 @@ def init_run():
       return render_template("welcome.html", massage="init_run_problem")
 
 
-
-@app.route('/push',methods=['GET','POST'])
-def push_notification():
-    massage = None
-    if request.method == 'POST':
-        try:
-            user_id_app_send = request.form['user_id']
-            user_id_app = int(user_id_app_send)
-            #user_id_app=1
-            ad_id_from_user= bring_user_id_form_notf(user_id_app)
-            #image_info = extract_image_from_ad_id(ad_id_from_user)
-        except:
-            return render_template("welcome.html", massage="push main problem")
-        finally:
-            return jsonify({
-                "status": "true",
-                "message": "Data fetched successfully!",
-                "data": ad_id_from_user})
-    else:
-        return render_template("push.html",error=massage)
+#
+# @app.route('/push',methods=['GET','POST'])
+# def push_notification(index_token):
+#         try:
+#             cur = mysql.connection.cursor()
+#             qry = 'SELECT * FROM `device` WHERE id ={}'.format(index_token)
+#             cur.execute(qry)
+#             rows = cur.fetchall()
+#             for row in rows:
+#                 _token=row["token"]
+#             pus.push_notf(_token)
+#         except:
+#             return render_template("welcome.html", massage="push main problem")
+#         finally:
+#             return jsonify({
+#                 "status": "true",
+#                 "message": "Data fetched successfully!",
+#                 "data": "data check"})
 
 
 def bring_user_id_form_notf(user_id_app):
