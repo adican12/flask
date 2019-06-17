@@ -207,7 +207,7 @@ def page(user_id):
     return jsonify(rows)
 
 
-@app.route('/notf/<user_id>')
+@app.route('/notf/<user_id>',methods=['GET'])
 def notf_user(user_id):
     # print(user_id)
     cur = mysql.connection.cursor()
