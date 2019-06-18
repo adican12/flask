@@ -259,7 +259,7 @@ def send_coupon(_location_id):
     qry = 'SELECT * FROM `users` WHERE location_id ={}'.format(_location_id)
     cur.execute(qry)
     rows = cur.fetchall()
-    qry1 = 'SELECT * FROM `location` WHERE location_id ={}'.format(_location_id)
+    qry1 = 'SELECT * FROM `locations` WHERE locationID ={}'.format(_location_id)
     cur.execute(qry1)
     rows1 = cur.fetchall()
     for r1 in rows1:
@@ -269,11 +269,11 @@ def send_coupon(_location_id):
         rows2 = cur.fetchall()
         for r in rows:
             _user_id = r["user_id"]
-        for r2 in rows2:
-            _coupon_id = r2["couponID"]
-        qry3 = 'INSERT INTO `users_coupon`( `user_id`, `coupon_id`) VALUES( %s , %s )'
-        cur.execute(qry3, (_user_id,_coupon_id ))
-        mysql.connection.commit()
+            for r2 in rows2:
+                _coupon_id = r2["couponID"]
+                qry3 = 'INSERT INTO `users_coupon`( `user_id`, `coupon_id`,`counter`) VALUES( %s , %s ,%s )'
+                cur.execute(qry3, (_user_id,_coupon_id ,0 ))
+                mysql.connection.commit()
   except Exception as e:
       return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
 
