@@ -120,11 +120,10 @@ def handle_token(user_id,token):
   cur.execute(qry1, (user_id, token))
   mysql.connection.commit()
  else:
-     qry1 = 'UPDATE  `devices` SET token={} WHERE `user_id`={} VALUES( %s , %s )'
-     cur.execute(qry1, (token,user_id))
-     cur.execute(qry1)
+     sql = "UPDATE `devices` SET token = %s WHERE user_id = %s"
+     val = (token, user_id)
+     cur.execute(sql,val)
      mysql.connection.commit()
-
 
 
 
@@ -142,7 +141,7 @@ def login():
         rows = cur.fetchall()
         for row in rows:
             _id = row["user_id"]
-            handle_token(_id, token)
+        handle_token(_id, token)
         if len(rows) > 0:
             return jsonify({
                     "status": "true",
@@ -253,14 +252,14 @@ def notf_user(user_id):
 #
 #
 
-@app.route('/send_coupon/<location_id>',methods=['GET','POST'])
-def send_coupon(location_id):
+@app.route('/send_coupon/<_location_id>',methods=['GET','POST'])
+def send_coupon(_location_id):
   try:
     cur = mysql.connection.cursor()
-    qry = 'SELECT * FROM `users` WHERE location_id ={}'.format(location_id)
+    qry = 'SELECT * FROM `users` WHERE location_id ={}'.format(_location_id)
     cur.execute(qry)
     rows = cur.fetchall()
-    qry1 = 'SELECT * FROM `location` WHERE location_id ={}'.format(location_id)
+    qry1 = 'SELECT * FROM `location` WHERE location_id ={}'.format(_location_id)
     cur.execute(qry1)
     rows1 = cur.fetchall()
     for r1 in rows1:
