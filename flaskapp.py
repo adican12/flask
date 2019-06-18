@@ -110,7 +110,7 @@ def login():
         for row in rows:
             _id = row["user_id"]
             user_type = row["user_type"]
-            
+
         if user_type == "standard_user":
             handle_token(_id, token)
             if len(rows) > 0:
@@ -440,7 +440,7 @@ def init_run():
 def push_notification(index_token):
         try:
             cur = mysql.connection.cursor()
-            qry = 'SELECT * FROM `devices` WHERE id ={}'.format(index_token)
+            qry = 'SELECT * FROM `devices` WHERE user_id ={}'.format(index_token)
             cur.execute(qry)
             rows = cur.fetchall()
             for row in rows:
