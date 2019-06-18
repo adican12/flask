@@ -110,6 +110,23 @@ mysql = MySQL(app)
 #
 #     else:
 #         return render_template('image.html',error=massage)
+def handle_token(user_id,token):
+ cur = mysql.connection.cursor()
+ cond_query = "SELECT * FROM `devices` WHERE user_id={}".format(user_id)
+ cur.execute(cond_query)
+ row_count = cur.rowcount
+ if row_count == 0 :
+  qry1 = 'INSERT INTO `devices`(`user_id`, `token` ) VALUES( %s , %s )'
+  cur.execute(qry1, (user_id, token))
+  mysql.connection.commit()
+ else:
+     qry1 = 'UPDATE  `devices` SET token={} WHERE `user_id`={} VALUES( %s , %s )'
+     cur.execute(qry1, (token,user_id))
+     cur.execute(qry1)
+     mysql.connection.commit()
+
+
+
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -119,16 +136,13 @@ def login():
         username = request.form['email']
         password = request.form['password']
         token = request.form['token']
-
         cur = mysql.connection.cursor()
         qry='SELECT * FROM users WHERE email=%s  AND password =%s '
         cur.execute(qry, (username, password))
         rows = cur.fetchall()
         for row in rows:
             _id = row["user_id"]
-        qry1 = 'INSERT INTO `devices`(`user_id`, `token` ) VALUES( %s , %s )'
-        cur.execute(qry1, (_id, token))
-        mysql.connection.commit()
+            handle_token(_id, token)
         if len(rows) > 0:
             return jsonify({
                     "status": "true",
@@ -146,6 +160,11 @@ def login():
     else:
         return render_template('login.html',error=massage)
 #
+
+
+
+
+
 @app.route('/signup',methods=['GET','POST'])
 def sign_up():
     massage = None
@@ -238,21 +257,21 @@ def notf_user(user_id):
 def send_coupon(location_id):
   try:
     cur = mysql.connection.cursor()
-    qry = 'SELECT * FROM `users` WHERE locationID ={}'.format(location_id)
+    qry = 'SELECT * FROM `users` WHERE location_id ={}'.format(location_id)
     cur.execute(qry)
     rows = cur.fetchall()
-    qry1 = 'SELECT * FROM `location` WHERE locationID ={}'.format(location_id)
+    qry1 = 'SELECT * FROM `location` WHERE location_id ={}'.format(location_id)
     cur.execute(qry1)
     rows1 = cur.fetchall()
     for r1 in rows1:
         _business = r1["businessID"]
-    qry2 = 'SELECT * FROM `coupon` WHERE busID ={}'.format(_business)
-    cur.execute(qry2)
-    rows2 = cur.fetchall()
-    for r in rows:
-        _user_id = r["user_id"]
-    for r2 in rows2:
-        _coupon_id = r2["couponID"]
+        qry2 = 'SELECT * FROM `coupon` WHERE busID ={}'.format(_business)
+        cur.execute(qry2)
+        rows2 = cur.fetchall()
+        for r in rows:
+            _user_id = r["user_id"]
+        for r2 in rows2:
+            _coupon_id = r2["couponID"]
     qry = 'INSERT INTO `users_coupon`( `user_id`, `coupon_id`) VALUES( %s , %s )'
     cur.execute(qry, (_user_id,_coupon_id ))
     mysql.connection.commit()
@@ -426,7 +445,7 @@ def init_run():
             print("after ad match")
             insert_notf_to_db(match_list_of_users)
             print("after insert")
-
+            push_notification(i)
          elif status == 0:
              pass
         return render_template("welcome.html", massage = match_list_of_users)
@@ -435,7 +454,7 @@ def init_run():
 
 
 
-@app.route('/push',methods=['GET','POST'])
+@app.route('/push>',methods=['GET','POST'])
 def push_notification(index_token):
         try:
             cur = mysql.connection.cursor()
