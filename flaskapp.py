@@ -272,9 +272,9 @@ def send_coupon(location_id):
             _user_id = r["user_id"]
         for r2 in rows2:
             _coupon_id = r2["couponID"]
-    qry = 'INSERT INTO `users_coupon`( `user_id`, `coupon_id`) VALUES( %s , %s )'
-    cur.execute(qry, (_user_id,_coupon_id ))
-    mysql.connection.commit()
+        qry3 = 'INSERT INTO `users_coupon`( `user_id`, `coupon_id`) VALUES( %s , %s )'
+        cur.execute(qry3, (_user_id,_coupon_id ))
+        mysql.connection.commit()
   except Exception as e:
       return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
 
@@ -454,7 +454,7 @@ def init_run():
 
 
 
-@app.route('/push>',methods=['GET','POST'])
+@app.route('/push',methods=['GET','POST'])
 def push_notification(index_token):
         try:
             cur = mysql.connection.cursor()
