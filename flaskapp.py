@@ -61,59 +61,6 @@ mysql = MySQL(app)
 #     else:
 #         return render_template('list_bucket.html',error=massage)
 
-#
-#
-# @app.route('/get_img', methods=['GET', 'POST'])
-# def get_img():
-#     massage="get_img"
-#     if request.method == 'POST':
-#         try:
-#             image_id = request.form['image_id']
-#             cur = mysql.connection.cursor()
-#             query = "SELECT * FROM `image` WHERE image_id=%s"
-#             cur.execute(query, (image_id) )
-#             rows = cur.fetchall()
-#             return jsonify({"status": "true","message": "Data fetched successfully!","data":rows})
-#
-#             # if len(rows) > 0:
-#             #     return jsonify({"status": "true","message": "Data fetched successfully!","data":"5"})
-#         except Exception as e:
-#             massage= " Error Exception: "+ str(e)
-#             return jsonify({"status": "false","message":massage ,"data":"0"})
-#
-#             # return render_template('welcome.html',error=massage)
-#         # finally:
-#         #     massage = "finally"
-#         #     return jsonify({"status": "true","message": massage,"data":"5"})
-#
-#             # return render_template('welcome.html',error=massage)
-#     else:
-#         return render_template('welcome.html',error=massage)
-#
-#
-#
-# @app.route('/image', methods=['GET', 'POST'])
-# def image():
-#     massage=None
-#     if request.method == 'POST':
-#         try:
-#             _image = request.files['imagefile']
-#             img = _image.read()
-#             cur = mysql.connection.cursor()
-#             query = "INSERT INTO `image` (`name`,`image`) VALUES(%s,%s)"
-#             cur.execute(query, (_image.filename, img ) )
-#             mysql.connection.commit()
-#             return jsonify({"status": "true","message": "Data fetched successfully!"})
-#         except Exception as e:
-#             massage= " Error Exception: "+ str(e)
-#             return render_template('image.html',error=massage)
-#
-#     else:
-#         return render_template('image.html',error=massage)
-
-
-
-
 
 
 def push_notf(token_device):
@@ -127,15 +74,6 @@ def push_notf(token_device):
  message_title = "Cantor the cat"
  message_body = "Hope you're remmber to go out with ligal tonight"
  push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -170,21 +108,28 @@ def login():
         rows = cur.fetchall()
         for row in rows:
             _id = row["user_id"]
-        handle_token(_id, token)
-        if len(rows) > 0:
-            return jsonify({
-                    "status": "true",
-                    "message": "Data fetched successfully!",
-                    "token": token,
-                    "data": rows,
-                    "username":username,
-                    "password":password})
+            user_type= row["user_type"]
+        if user_type == "standard_user":
+            handle_token(_id, token)
+            if len(rows) > 0:
+                return jsonify({
+                        "status": "true",
+                        "message": "Data fetched successfully!",
+                        "token": token,
+                        "data": rows,
+                        "username":username,
+                        "password":password})
 
+            else:
+                return jsonify({
+                "status": "false",
+                "message": "Data fetched fails!",
+                "data": rows})
         else:
             return jsonify({
             "status": "false",
-            "message": "Data fetched fails!",
-            "data": rows})
+            "message": "not standard_user !"})
+
     else:
         return render_template('login.html',error=massage)
 #
