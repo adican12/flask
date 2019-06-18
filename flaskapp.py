@@ -469,14 +469,14 @@ def push_notification(index_token):
             rows = cur.fetchall()
             for row in rows:
                 _token=row["token"]
-            pus.push_notf(_token)
+            result = pus.push_notf(_token)
         except:
             return render_template("welcome.html", massage="push main problem")
         finally:
             return jsonify({
                 "status": "true",
                 "message": "Data fetched successfully!",
-                "data": "data check"})
+                "data": result})
 
 
 # def bring_user_id_form_notf(user_id_app):

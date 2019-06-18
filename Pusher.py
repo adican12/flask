@@ -27,3 +27,4 @@ def push_notf(token_device):
  message_title = "Cantor the cat"
  message_body = "Hope you're remmber to go out with ligal tonight"
  result = push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
+ return result
