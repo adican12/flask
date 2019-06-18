@@ -19,49 +19,24 @@ app.config['MYSQL_PASSWORD']=db['mysql_password']
 app.config['MYSQL_DB']=db['mysql_db']
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
-#
-# @app.route('/upload_bucket', methods=['GET', 'POST'])
-# def upload_bucket():
-#     massage="upload_bucket"
-#     if request.method == 'POST':
-#         storage_client = storage.Client()
-#         image_id = request.files['image_id']
-#         # img = image_id.read()
-#         labels=["labels here"]
-#         labels.append(image_id.filename)
-#         labels.append(image_id.content_type)
-#
-#         bucket_name = "catifi2"
-#         bucket = storage_client.get_bucket(bucket_name)
-#         g = "newImages/"+image_id.filename
-#         blob = bucket.blob(g)
-#         try:
-#             blob.upload_from_file(image_id,content_type=image_id.content_type)
-#         except:
-#             return jsonify({"status": "false","message": "Data uplaud FAILS!","data":labels})
-#         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
-#     else:
-#         return render_template('upload_bucket.html',error=massage)
-#
-#
-#
-# @app.route('/list_bucket', methods=['GET', 'POST'])
-# def list_bucket():
-#     massage="list_bucket"
-#     if request.method == 'POST':
-#         # bucket_name = request.form['bucket_name']
-#         storage_client = storage.Client()
-#         bucket_name = "catifi2"
-#         bucket = storage_client.get_bucket(bucket_name)
-#         blobs = bucket.list_blobs()
-#         labels = []
-#         for blob in blobs:
-#             labels.append(blob.name)
-#         return jsonify({"status": "true","message": "Data fetched successfully!","data":labels})
-#     else:
-#         return render_template('list_bucket.html',error=massage)
 
 
+@app.route('/get_ads', methods=['GET', 'POST'])
+def get_ads():
+    massage = None
+    if request.method == 'POST':
+        user_id = request.form['user_id']
+        cur = mysql.connection.cursor()
+        qry='SELECT * FROM notification WHERE user_id =%s '
+        cur.execute(qry, (user_id))
+        rows = cur.fetchall()
+        # for row in rows:
+        #     _id = row["user_id"]
+        #     user_type = row["user_type"]
+
+        return jsonify({"status":"success" , "data":rows})
+    else:
+        return render_template('get_ads.html',error=massage)
 
 def push_notf(token_device):
     try:
@@ -79,7 +54,6 @@ def push_notf(token_device):
     except:
         print("push_notf not working", result)
 
-
 def handle_token(user_id,token):
     cur = mysql.connection.cursor()
     cond_query = "SELECT * FROM `devices` WHERE user_id={}".format(user_id)
@@ -94,8 +68,6 @@ def handle_token(user_id,token):
          val = (token, user_id)
          cur.execute(sql,val)
          mysql.connection.commit()
-
-
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -194,7 +166,6 @@ def feedback():
         return render_template('signup.html',error=massage)
 
 
-
 @app.route('/users/<user_id>')
 def page(user_id):
     # print(user_id)
@@ -202,7 +173,6 @@ def page(user_id):
     cur.execute("""SELECT * FROM users WHERE user_id = {}""".format(user_id))
     rows = cur.fetchall()
     return jsonify(rows)
-
 
 @app.route('/notf/<user_id>',methods=['GET'])
 def notf_user(user_id):
@@ -212,9 +182,6 @@ def notf_user(user_id):
     rows = cur.fetchall()
     return jsonify(rows)
 
-
-
-#
 @app.route('/coupon/<user_id>',methods=['GET'])
 def coupon_user(user_id):
     # print(user_id)
@@ -222,7 +189,6 @@ def coupon_user(user_id):
     cur.execute("""SELECT * FROM `users_coupon` WHERE user_id = {}""".format(user_id))
     rows = cur.fetchall()
     return jsonify(rows)
-
 
 
 @app.route('/send_coupon/<_location_id>',methods=['GET','POST'])
@@ -256,11 +222,6 @@ def send_coupon(_location_id):
   finally:
       cur.close()
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/users',methods=["GET"])
 def users():
     cur = mysql.connection.cursor()
@@ -271,6 +232,10 @@ def users():
     "status": "true",
     "message": "Data fetched successfully!",
     "data": users})
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/welcome')
@@ -341,9 +306,6 @@ def run_campaign(num):
     finally:
         cur.close()
 
-#def filter_by_location():
-
-
 
 def ad_match_to_user(user_id ,user_category , _location_id):
   try:
@@ -384,7 +346,6 @@ def ad_match_to_user(user_id ,user_category , _location_id):
   finally:
       cur.close()
 
-
 def insert_notf_to_db(list_of_matched):
   try:
     cur = mysql.connection.cursor()
@@ -404,7 +365,6 @@ def insert_notf_to_db(list_of_matched):
       return render_template("welcome.html", massage="add notf doesnt success")
   finally:
       cur.close()
-
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
@@ -429,28 +389,22 @@ def init_run():
       return render_template("welcome.html", massage="init_run_problem")
 
 
-
 @app.route('/push/<index_token>',methods=['GET','POST'])
 def push_notification(index_token):
-        # try:
-            cur = mysql.connection.cursor()
-            qry = 'SELECT * FROM `devices` WHERE user_id ={}'.format(index_token)
-            cur.execute(qry)
-            rows = cur.fetchall()
-            for row in rows:
-                _token=row["token"]
-            push_notf(_token)
+    try:
+        cur = mysql.connection.cursor()
+        qry = 'SELECT * FROM `devices` WHERE user_id ={}'.format(index_token)
+        cur.execute(qry)
+        rows = cur.fetchall()
+        for row in rows:
+            _token=row["token"]
+        push_notf(_token)
 
-            return jsonify({"status": "true",
-            "message": "Data fetched successfully!",
-            "data": "result"})
-        # except:
-        #     return render_template("welcome.html", massage="push main problem")
-        # finally:
-        #     return jsonify({
-        #         "status": "true",
-        #         "message": "Data fetched successfully!",
-        #         "data": "check"})
+        return jsonify({"status": "true",
+        "message": "Data fetched successfully!",
+        "data": "result"})
+    except:
+        return render_template("welcome.html", massage="push main problem")
 
 
 # def bring_user_id_form_notf(user_id_app):
