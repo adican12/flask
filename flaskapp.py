@@ -29,7 +29,7 @@ def get_coupnon():
         try:
             user_id = request.form['user_id']
             cur = mysql.connection.cursor()
-            qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s) '
+            qry='SELECT * from coupon WHERE couponID in (SELECT coupon_id FROM users_coupon WHERE user_id = %s) '
             cur.execute(qry, (user_id))
             rows = cur.fetchall()
 
