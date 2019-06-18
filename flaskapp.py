@@ -70,7 +70,6 @@ def push_notf(token_device):
         proxy_dict = {
               "http"  : "http://127.0.0.1",
             }
-        # push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bGdb1U8UlPAdGJh8fuetr0znEDDdCWIaE0xu7_GBRcg2nFJCW8xtr_-H2mcqPYPCal60wQszlJk_bepAiu1DBCdnQ3NzLGUPk4SPq11fizESsTQbMplpKrAd7aQERdnAf2Bhnf0", proxy_dict=proxy_dict)
         registration_id = token_device
         # registration_id = "fBAt-6vVxt0:APA91bGUo8K6BYKm3tdyjD90xR6pp7D1mC8RaivskNJVUcPh5tqVRJouZeCc76IxRJdRf3HXASAMOmbI_pxVwAZrlGiKTL3wLQgN3dSx_sE4muuyZoFaRGjPQgB7j2f-1JD9Stzfa6Z4"
         message_title = "Cantor the cat"
@@ -136,10 +135,6 @@ def login():
 
     else:
         return render_template('login.html',error=massage)
-#
-
-
-
 
 
 @app.route('/signup',methods=['GET','POST'])
@@ -260,10 +255,6 @@ def send_coupon(_location_id):
       return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
   finally:
       cur.close()
-
-
-
-
 
 
 @app.route('/')
