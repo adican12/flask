@@ -21,6 +21,25 @@ app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
 
 
+
+@app.route('/get_coupnon', methods=['GET', 'POST'])
+def get_coupnon():
+    massage = None
+    if request.method == 'POST':
+        try:
+            user_id = request.form['user_id']
+            cur = mysql.connection.cursor()
+            qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s) '
+            cur.execute(qry, (user_id))
+            rows = cur.fetchall()
+
+            return jsonify({"status":"true" , "data":rows})
+        except Exception as e:
+            return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
+    else:
+        return render_template('get_coupnon.html',error=massage)
+
+
 @app.route('/get_ads', methods=['GET', 'POST'])
 def get_ads():
     massage = None
