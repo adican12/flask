@@ -109,14 +109,14 @@ def login():
         rows = cur.fetchall()
         for row in rows:
             _id = row["user_id"]
-            user_type= row["user_type"]
+            user_type = row["user_type"]
+            
         if user_type == "standard_user":
             handle_token(_id, token)
             if len(rows) > 0:
                 return jsonify({
                         "status": "true",
                         "message": "Data fetched successfully!",
-                        "token": token,
                         "data": rows,
                         "username":username,
                         "password":password})
