@@ -31,7 +31,7 @@ def get_ads():
         cur.execute(qry, (user_id))
         rows = cur.fetchall()
 
-        return jsonify({"status":"success" , "data":rows})
+        return jsonify({"status":"true" , "data":rows})
     else:
         return render_template('get_ads.html',error=massage)
 
