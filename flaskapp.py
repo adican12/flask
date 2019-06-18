@@ -73,24 +73,25 @@ def push_notf(token_device):
  registration_ids = token_device
  message_title = "Cantor the cat"
  message_body = "Hope you're remmber to go out with ligal tonight"
- push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
+ push_service.notify_single_device(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
+ # push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
 
 
 
 def handle_token(user_id,token):
- cur = mysql.connection.cursor()
- cond_query = "SELECT * FROM `devices` WHERE user_id={}".format(user_id)
- cur.execute(cond_query)
- row_count = cur.rowcount
- if row_count == 0 :
-  qry1 = 'INSERT INTO `devices`(`user_id`, `token` ) VALUES( %s , %s )'
-  cur.execute(qry1, (user_id, token))
-  mysql.connection.commit()
- else:
-     sql = "UPDATE `devices` SET token = %s WHERE user_id = %s"
-     val = (token, user_id)
-     cur.execute(sql,val)
-     mysql.connection.commit()
+    cur = mysql.connection.cursor()
+    cond_query = "SELECT * FROM `devices` WHERE user_id={}".format(user_id)
+    cur.execute(cond_query)
+    row_count = cur.rowcount
+    if row_count == 0 :
+        qry1 = 'INSERT INTO `devices`(`user_id`, `token` ) VALUES( %s , %s )'
+        cur.execute(qry1, (user_id, token))
+        mysql.connection.commit()
+    else:
+         sql = "UPDATE `devices` SET token = %s WHERE user_id = %s"
+         val = (token, user_id)
+         cur.execute(sql,val)
+         mysql.connection.commit()
 
 
 
