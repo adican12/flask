@@ -6,7 +6,7 @@ import os
 import json
 #from google.cloud import storage
 import sys
-#import Pusher as pus
+import Pusher as pus
 
 app = Flask(__name__)
 
@@ -234,26 +234,30 @@ def notf_user(user_id):
 #
 #
 
-# @app.route('/send_coupon/<location_id>',methods=['GET','POST'])
-# def send_coupon(location_id):
-#   try:
-#     cur = mysql.connection.cursor()
-#     qry = 'SELECT * FROM `users` WHERE locationID ={}'.format(location_id)
-#     cur.execute(qry)
-#     rows = cur.fetchall()
-#     qry1 = 'SELECT * FROM `location` WHERE locationID ={}'.format(location_id)
-#     cur.execute(qry1)
-#     rows1 = cur.fetchall()
-#     for r1 in rows1:
-#         _business = r1["businessID"]
-#     qry2 = 'SELECT * FROM `coupon` WHERE busID ={}'.format(_business)
-#     cur.execute(qry2)
-#     rows2 = cur.fetchall()
-#     for r in rows:
-#         user_id = r["user_id"]
-#     for r2 in rows2:
-#         coupon_id = r2["couponID"]
-#
+@app.route('/send_coupon/<location_id>',methods=['GET','POST'])
+def send_coupon(location_id):
+  try:
+    cur = mysql.connection.cursor()
+    qry = 'SELECT * FROM `users` WHERE locationID ={}'.format(location_id)
+    cur.execute(qry)
+    rows = cur.fetchall()
+    qry1 = 'SELECT * FROM `location` WHERE locationID ={}'.format(location_id)
+    cur.execute(qry1)
+    rows1 = cur.fetchall()
+    for r1 in rows1:
+        _business = r1["businessID"]
+    qry2 = 'SELECT * FROM `coupon` WHERE busID ={}'.format(_business)
+    cur.execute(qry2)
+    rows2 = cur.fetchall()
+    for r in rows:
+        _user_id = r["user_id"]
+    for r2 in rows2:
+        _coupon_id = r2["couponID"]
+    qry = 'INSERT INTO `users_coupon`( `user_id`, `coupon_id`) VALUES( %s , %s )'
+    cur.execute(qry, (_user_id,_coupon_id ))
+    mysql.connection.commit()
+  except Exception as e:
+      return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
 
 
 
@@ -422,6 +426,7 @@ def init_run():
             print("after ad match")
             insert_notf_to_db(match_list_of_users)
             print("after insert")
+
          elif status == 0:
              pass
         return render_template("welcome.html", massage = match_list_of_users)
@@ -429,42 +434,45 @@ def init_run():
       return render_template("welcome.html", massage="init_run_problem")
 
 
-#
-# @app.route('/push',methods=['GET','POST'])
-# def push_notification(index_token):
-#         try:
-#             cur = mysql.connection.cursor()
-#             qry = 'SELECT * FROM `device` WHERE id ={}'.format(index_token)
-#             cur.execute(qry)
-#             rows = cur.fetchall()
-#             for row in rows:
-#                 _token=row["token"]
-#             pus.push_notf(_token)
-#         except:
-#             return render_template("welcome.html", massage="push main problem")
-#         finally:
-#             return jsonify({
-#                 "status": "true",
-#                 "message": "Data fetched successfully!",
-#                 "data": "data check"})
+
+@app.route('/push',methods=['GET','POST'])
+def push_notification(index_token):
+        try:
+            cur = mysql.connection.cursor()
+            qry = 'SELECT * FROM `device` WHERE id ={}'.format(index_token)
+            cur.execute(qry)
+            rows = cur.fetchall()
+            for row in rows:
+                _token=row["token"]
+            pus.push_notf(_token)
+        except:
+            return render_template("welcome.html", massage="push main problem")
+        finally:
+            return jsonify({
+                "status": "true",
+                "message": "Data fetched successfully!",
+                "data": "data check"})
 
 
-def bring_user_id_form_notf(user_id_app):
- try:
-     cur = mysql.connection.cursor()
-     qry = 'SELECT * FROM `notification` WHERE user_id = {} '.format(user_id_app)
-     cur.execute(qry)
-     rows = cur.fetchall()
-     for items in rows:
-         not_id_app = items["noteid"]
-         ad_id_app = items["adid"]
-         ad_user_id_app = items["user_id"]
-     print(not_id_app,ad_id_app,ad_user_id_app)
-     return ad_id_app
- except:
-     return render_template("welcome.html", massage="problem in push notification(adid)")
- finally:
-    cur.close()
+# def bring_user_id_form_notf(user_id_app):
+#  try:
+#      cur = mysql.connection.cursor()
+#      qry = 'SELECT * FROM `notification` WHERE user_id = {} '.format(user_id_app)
+#      cur.execute(qry)
+#      rows = cur.fetchall()
+#      if len(rows) ==1:
+#       for items in rows:
+#          not_id_app = items["noteid"]
+#          ad_id_app = items["adid"]
+#          ad_user_id_app = items["user_id"]
+#       print(not_id_app,ad_id_app,ad_user_id_app)
+#       return ad_id_app
+#      else:
+#          pass
+#  except:
+#      return render_template("welcome.html", massage="problem in push notification(adid)")
+#  finally:
+#     cur.close()
 
 
 #
