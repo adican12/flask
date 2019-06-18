@@ -6,7 +6,7 @@ import os
 import json
 #from google.cloud import storage
 import sys
-import Pusher as pus
+from pyfcm import FCMNotification
 
 app = Flask(__name__)
 
@@ -110,6 +110,35 @@ mysql = MySQL(app)
 #
 #     else:
 #         return render_template('image.html',error=massage)
+
+
+
+
+
+
+def push_notf(token_device):
+ push_service = FCMNotification(api_key="<api-key>")
+ # OR initialize with proxies
+ proxy_dict = {
+          "http"  : "http://127.0.0.1",
+        }
+ push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bGdb1U8UlPAdGJh8fuetr0znEDDdCWIaE0xu7_GBRcg2nFJCW8xtr_-H2mcqPYPCal60wQszlJk_bepAiu1DBCdnQ3NzLGUPk4SPq11fizESsTQbMplpKrAd7aQERdnAf2Bhnf0", proxy_dict=proxy_dict)
+ registration_ids = token_device
+ message_title = "Cantor the cat"
+ message_body = "Hope you're remmber to go out with ligal tonight"
+ res=push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
+ return res
+
+
+
+
+
+
+
+
+
+
+
 def handle_token(user_id,token):
  cur = mysql.connection.cursor()
  cond_query = "SELECT * FROM `devices` WHERE user_id={}".format(user_id)
@@ -469,14 +498,19 @@ def push_notification(index_token):
             rows = cur.fetchall()
             for row in rows:
                 _token=row["token"]
-            result = pus.push_notf(_token)
+            result = push_notf(_token)
+            print(result)
+            return jsonify({
+            "status": "true",
+            "message": "Data fetched successfully!",
+            "data": result})
         except:
             return render_template("welcome.html", massage="push main problem")
         finally:
             return jsonify({
                 "status": "true",
                 "message": "Data fetched successfully!",
-                "data": result})
+                "data": "check"})
 
 
 # def bring_user_id_form_notf(user_id_app):
