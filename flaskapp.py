@@ -274,8 +274,15 @@ def send_coupon(_location_id):
                 qry3 = 'INSERT INTO `users_coupon`( `user_id`, `coupon_id`,`counter`) VALUES( %s , %s ,%s )'
                 cur.execute(qry3, (_user_id,_coupon_id ,0 ))
                 mysql.connection.commit()
+    return jsonify({
+        "status": "true",
+        "message": "Data fetched successfully!",
+        "data": "update"})
   except Exception as e:
       return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
+  finally:
+      cur.close()
+
 
 
 
