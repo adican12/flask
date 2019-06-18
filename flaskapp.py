@@ -74,10 +74,10 @@ def push_notf(token_device):
         registration_id = token_device
         message_title = "Cantor the cat"
         message_body = "Hope you're remmber to go out with ligal tonight"
-        push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
+        result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
     # push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
     except:
-        print("push_notf not working", token_device)
+        print("push_notf not working", result)
 
 
 def handle_token(user_id,token):
