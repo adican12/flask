@@ -27,12 +27,9 @@ def get_ads():
     if request.method == 'POST':
         user_id = request.form['user_id']
         cur = mysql.connection.cursor()
-        qry='SELECT * FROM notification WHERE user_id =%s '
+        qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s) '
         cur.execute(qry, (user_id))
         rows = cur.fetchall()
-        # for row in rows:
-        #     _id = row["user_id"]
-        #     user_type = row["user_type"]
 
         return jsonify({"status":"success" , "data":rows})
     else:
