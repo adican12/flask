@@ -242,15 +242,15 @@ def notf_user(user_id):
 
 
 #
-# @app.route('/coupon/<user_id>',methods=['GET'])
-# def coupon_user(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM `coupon` WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
-#
+@app.route('/coupon/<user_id>',methods=['GET'])
+def coupon_user(user_id):
+    # print(user_id)
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT * FROM `users_coupon` WHERE user_id = {}""".format(user_id))
+    rows = cur.fetchall()
+    return jsonify(rows)
+
+
 
 @app.route('/send_coupon/<_location_id>',methods=['GET','POST'])
 def send_coupon(_location_id):
@@ -460,7 +460,7 @@ def init_run():
 
 
 
-@app.route('/push',methods=['GET','POST'])
+@app.route('/push/<index_token>',methods=['GET','POST'])
 def push_notification(index_token):
         try:
             cur = mysql.connection.cursor()
