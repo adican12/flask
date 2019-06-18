@@ -182,7 +182,7 @@ def feedback():
         except Exception as e:
             return jsonify({"status": "false","message": "Data insert feedback FAILS!"})
     else:
-        return render_template('signup.html',error=massage)
+        return render_template('feedback.html',error=massage)
 
 
 @app.route('/users/<user_id>')
