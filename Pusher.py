@@ -7,7 +7,7 @@ def push_notf(token_device):
  push_service = FCMNotification(api_key="<api-key>")
  # OR initialize with proxies
  proxy_dict = {
-          "http"  : "http://127.0.0.1",
+          "http"  : "http://35.198.137.84",
         }
  # push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bGdb1U8UlPAdGJh8fuetr0znEDDdCWIaE0xu7_GBRcg2nFJCW8xtr_-H2mcqPYPCal60wQszlJk_bepAiu1DBCdnQ3NzLGUPk4SPq11fizESsTQbMplpKrAd7aQERdnAf2Bhnf0", proxy_dict=proxy_dict)
  push_service = FCMNotification(api_key="AAAABw6N4YM:APA91bGdb1U8UlPAdGJh8fuetr0znEDDdCWIaE0xu7_GBRcg2nFJCW8xtr_-H2mcqPYPCal60wQszlJk_bepAiu1DBCdnQ3NzLGUPk4SPq11fizESsTQbMplpKrAd7aQERdnAf2Bhnf0", proxy_dict=proxy_dict)
@@ -27,4 +27,5 @@ def push_notf(token_device):
  message_title = "Cantor the cat"
  message_body = "Hope you're remmber to go out with ligal tonight"
  result = push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
+ print(result)
  return result
