@@ -126,8 +126,8 @@ def push_notf(token_device):
  registration_ids = token_device
  message_title = "Cantor the cat"
  message_body = "Hope you're remmber to go out with ligal tonight"
- res=push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
- return res
+ push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
+
 
 
 
@@ -480,7 +480,8 @@ def init_run():
             print("after ad match")
             insert_notf_to_db(match_list_of_users)
             print("after insert")
-            push_notification(i)
+            result=push_notification(i)
+            print(result)
          elif status == 0:
              pass
         return render_template("welcome.html", massage = match_list_of_users)
@@ -493,17 +494,17 @@ def init_run():
 def push_notification(index_token):
         try:
             cur = mysql.connection.cursor()
-            qry = 'SELECT * FROM `device` WHERE id ={}'.format(index_token)
+            qry = 'SELECT * FROM `devices` WHERE id ={}'.format(index_token)
             cur.execute(qry)
             rows = cur.fetchall()
             for row in rows:
                 _token=row["token"]
-            result = push_notf(_token)
-            print(result)
+            push_notf(_token)
+
             return jsonify({
             "status": "true",
             "message": "Data fetched successfully!",
-            "data": result})
+            "data": "result"})
         except:
             return render_template("welcome.html", massage="push main problem")
         finally:
