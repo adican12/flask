@@ -438,7 +438,7 @@ def init_run():
 
 @app.route('/push/<index_token>',methods=['GET','POST'])
 def push_notification(index_token):
-        try:
+        # try:
             cur = mysql.connection.cursor()
             qry = 'SELECT * FROM `devices` WHERE user_id ={}'.format(index_token)
             cur.execute(qry)
@@ -447,17 +447,16 @@ def push_notification(index_token):
                 _token=row["token"]
             push_notf(_token)
 
-            return jsonify({
-            "status": "true",
+            return jsonify({"status": "true",
             "message": "Data fetched successfully!",
             "data": "result"})
-        except:
-            return render_template("welcome.html", massage="push main problem")
-        finally:
-            return jsonify({
-                "status": "true",
-                "message": "Data fetched successfully!",
-                "data": "check"})
+        # except:
+        #     return render_template("welcome.html", massage="push main problem")
+        # finally:
+        #     return jsonify({
+        #         "status": "true",
+        #         "message": "Data fetched successfully!",
+        #         "data": "check"})
 
 
 # def bring_user_id_form_notf(user_id_app):
