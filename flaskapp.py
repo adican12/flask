@@ -25,13 +25,16 @@ mysql = MySQL(app)
 def get_ads():
     massage = None
     if request.method == 'POST':
-        user_id = request.form['user_id']
-        cur = mysql.connection.cursor()
-        qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s) '
-        cur.execute(qry, (user_id))
-        rows = cur.fetchall()
+        try:
+            user_id = request.form['user_id']
+            cur = mysql.connection.cursor()
+            qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s) '
+            cur.execute(qry, (user_id))
+            rows = cur.fetchall()
 
-        return jsonify({"status":"true" , "data":rows})
+            return jsonify({"status":"true" , "data":rows})
+        except Exception as e:
+            return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
     else:
         return render_template('get_ads.html',error=massage)
 
