@@ -32,8 +32,6 @@ def get_coupnon():
             cur = mysql.connection.cursor()
             cur.execute("""SELECT * from coupon WHERE couponID in (SELECT coupon_id FROM users_coupon WHERE user_id = {})""".format(user_id))
 
-            # qry='SELECT * from coupon WHERE couponID in (SELECT coupon_id FROM users_coupon WHERE user_id = %s) '
-            # cur.execute(qry, (user_id))
             rows = cur.fetchall()
 
             if rows:
@@ -44,7 +42,6 @@ def get_coupnon():
             return jsonify({"status": "false", "message": "get coupon FAILS!", "Exception":str(e)})
     else:
         return render_template('get_coupnon.html',error=massage)
-
 
 @app.route('/get_ads', methods=['GET', 'POST'])
 def get_ads():
@@ -169,8 +166,6 @@ def sign_up():
             return jsonify({"status": "false","message": "Data insert FAILS!"})
     else:
         return render_template('signup.html',error=massage)
-#
-#
 
 @app.route('/feedback',methods=['GET','POST'])
 def feedback():
@@ -191,7 +186,6 @@ def feedback():
             return jsonify({"status": "false","message": "Data insert feedback FAILS!"})
     else:
         return render_template('feedback.html',error=massage)
-
 
 @app.route('/users/<user_id>')
 def page(user_id):
@@ -417,10 +411,10 @@ def init_run():
 
 
 @app.route('/push/<index_token>',methods=['GET','POST'])
-def push_notification(index_token):
+def push_notification(user_id):
     try:
         cur = mysql.connection.cursor()
-        qry = 'SELECT * FROM `devices` WHERE user_id ={}'.format(index_token)
+        qry = 'SELECT * FROM `devices` WHERE user_id ={}'.format(user_id)
         cur.execute(qry)
         rows = cur.fetchall()
         for row in rows:
