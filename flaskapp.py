@@ -37,7 +37,7 @@ def push_user():
         except Exception as e:
             return jsonify({"status": "false", "message": "get ads FAILS!", "Exception":str(e),"user_id":user_id})
     else:
-        return render_template('get_ads.html',error=massage)
+        return render_template('push_user.html',error=massage)
 
 
 @app.route('/get_coupnon', methods=['GET', 'POST'])
