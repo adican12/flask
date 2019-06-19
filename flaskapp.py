@@ -20,6 +20,24 @@ app.config['MYSQL_DB']=db['mysql_db']
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
 
+@app.route('/push_user', methods=['GET', 'POST'])
+def push_user():
+    massage = None
+    if request.method == 'POST':
+        try:
+            user_id = request.form['user_id']
+            # user_id = str(user_id)
+            cur = mysql.connection.cursor()
+            cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {})""".format(user_id))
+            rows = cur.fetchone()
+            if rows:
+                return jsonify({"status":"true" , "data":rows})
+            else:
+                return jsonify({"status":"true" , "data":rows ,"massage":"row is empty"})
+        except Exception as e:
+            return jsonify({"status": "false", "message": "get ads FAILS!", "Exception":str(e),"user_id":user_id})
+    else:
+        return render_template('get_ads.html',error=massage)
 
 
 @app.route('/get_coupnon', methods=['GET', 'POST'])
@@ -186,31 +204,31 @@ def feedback():
             return jsonify({"status": "false","message": "Data insert feedback FAILS!"})
     else:
         return render_template('feedback.html',error=massage)
-
-@app.route('/users/<user_id>')
-def page(user_id):
-    # print(user_id)
-    cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM users WHERE user_id = {}""".format(user_id))
-    rows = cur.fetchall()
-    return jsonify(rows)
-
-@app.route('/notf/<user_id>',methods=['GET'])
-def notf_user(user_id):
-    # print(user_id)
-    cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM `notification` WHERE user_id = {}""".format(user_id))
-    rows = cur.fetchall()
-    return jsonify(rows)
-
-@app.route('/coupon/<user_id>',methods=['GET'])
-def coupon_user(user_id):
-    # print(user_id)
-    cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM `users_coupon` WHERE user_id = {}""".format(user_id))
-    rows = cur.fetchall()
-    return jsonify(rows)
-
+#
+# @app.route('/users/<user_id>')
+# def page(user_id):
+#     # print(user_id)
+#     cur = mysql.connection.cursor()
+#     cur.execute("""SELECT * FROM users WHERE user_id = {}""".format(user_id))
+#     rows = cur.fetchall()
+#     return jsonify(rows)
+#
+# @app.route('/notf/<user_id>',methods=['GET'])
+# def notf_user(user_id):
+#     # print(user_id)
+#     cur = mysql.connection.cursor()
+#     cur.execute("""SELECT * FROM `notification` WHERE user_id = {}""".format(user_id))
+#     rows = cur.fetchall()
+#     return jsonify(rows)
+#
+# @app.route('/coupon/<user_id>',methods=['GET'])
+# def coupon_user(user_id):
+#     # print(user_id)
+#     cur = mysql.connection.cursor()
+#     cur.execute("""SELECT * FROM `users_coupon` WHERE user_id = {}""".format(user_id))
+#     rows = cur.fetchall()
+#     return jsonify(rows)
+#
 
 @app.route('/send_coupon/<_location_id>',methods=['GET','POST'])
 def send_coupon(_location_id):
