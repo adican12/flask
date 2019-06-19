@@ -30,13 +30,18 @@ def get_coupnon():
             user_id = request.form['user_id']
             user_id = int(user_id)
             cur = mysql.connection.cursor()
-            qry='SELECT * from coupon WHERE couponID in (SELECT coupon_id FROM users_coupon WHERE user_id = %s) '
-            cur.execute(qry, (user_id))
+            cur.execute("""SELECT * from coupon WHERE couponID in (SELECT coupon_id FROM users_coupon WHERE user_id = {})""".format(user_id))
+
+            # qry='SELECT * from coupon WHERE couponID in (SELECT coupon_id FROM users_coupon WHERE user_id = %s) '
+            # cur.execute(qry, (user_id))
             rows = cur.fetchall()
 
-            return jsonify({"status":"true" , "data":rows})
+            if rows:
+                return jsonify({"status":"true" , "data":rows})
+            else:
+                return jsonify({"status":"true" , "data":rows ,"massage":"row is empty"})
         except Exception as e:
-            return jsonify({"status": "false", "message": "Data insert coupon FAILS!", "Exception":str(e)})
+            return jsonify({"status": "false", "message": "get coupon FAILS!", "Exception":str(e)})
     else:
         return render_template('get_coupnon.html',error=massage)
 
@@ -50,9 +55,6 @@ def get_ads():
             # user_id = str(user_id)
             cur = mysql.connection.cursor()
             cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {})""".format(user_id))
-
-            # qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s ) ',(user_id)
-            # cur.execute(qry, (user_id))
             rows = cur.fetchall()
             if rows:
                 return jsonify({"status":"true" , "data":rows})
