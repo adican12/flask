@@ -54,8 +54,10 @@ def get_ads():
             # qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s ) ',(user_id)
             # cur.execute(qry, (user_id))
             rows = cur.fetchall()
-
-            return jsonify({"status":"true" , "data":rows})
+            if rows:
+                return jsonify({"status":"true" , "data":rows})
+            else:
+                return jsonify({"status":"true" , "data":rows ,"massage":"row is empty"})
         except Exception as e:
             return jsonify({"status": "false", "message": "get ads FAILS!", "Exception":str(e),"user_id":user_id})
     else:
