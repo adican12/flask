@@ -53,7 +53,7 @@ def get_ads():
 
             return jsonify({"status":"true" , "data":rows})
         except Exception as e:
-            return jsonify({"status": "false", "message": "get ads FAILS!", "Exception":e})
+            return jsonify({"status": "false", "message": "get ads FAILS!", "Exception":str(e)})
     else:
         return render_template('get_ads.html',error=massage)
 
