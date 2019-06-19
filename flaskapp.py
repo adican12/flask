@@ -36,7 +36,7 @@ def get_coupnon():
 
             return jsonify({"status":"true" , "data":rows})
         except Exception as e:
-            return jsonify({"status": "false", "message": "Data insert coupon FAILS!"})
+            return jsonify({"status": "false", "message": "Data insert coupon FAILS!", "Exception":str(e)})
     else:
         return render_template('get_coupnon.html',error=massage)
 
@@ -47,7 +47,7 @@ def get_ads():
     if request.method == 'POST':
         try:
             user_id = request.form['user_id']
-            user_id = int(user_id)
+            # user_id = int(user_id)
             cur = mysql.connection.cursor()
             qry='SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = %s) '
             cur.execute(qry, (user_id))
