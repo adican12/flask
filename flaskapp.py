@@ -11,10 +11,21 @@ from pyfcm import FCMNotification
 app = Flask(__name__)
 
 class users():
-    def __init__(self, _user_id):
-        super( self).__init__()
-        self.user_id = _user_id
+    def __init__(self,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
+        self.user_id =_user_id
+        self.name =_name
+        self.email =_email
+        self.password =_password
+        self.gender =_gender
+        self.mobile =_mobile
+        self.user_type =_user_type
+        self.birthday =_birthday
+        self.status =_status
+        self.user_category =_user_category
+        self.location_id =_location_id
 
+    def setUser_id(self,User_id):
+        self.user_id=User_id
 
 path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
 y=open(path)
@@ -394,8 +405,8 @@ def init_run():
         cur.execute(init_qry)
         rows= cur.fetchall()
         for r in rows:
-            id = r["user_id"]
-            users= users(id)
+            # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
+            users= users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
             standard_user_Array.append(users)
 
             # user_category = r["user_category"]
