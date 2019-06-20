@@ -393,7 +393,7 @@ def insert_notf_to_db(list_of_matched):
         print("insert db problem")
         cur.execute(cond_query)
         notf_= cur.fetchone()
-        row_count = cur.rowcount
+        row_count = notf_.rowcount
     # print(row_count)
     if row_count == 0 :
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
