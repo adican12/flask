@@ -188,9 +188,9 @@ def feedback():
     massage = None
     if request.method == 'POST':
         _user_id = request.form['user_id']
-        # _user_id = "user_id"
+
         _ad_id = request.form['adID']
-        # _ad_id = "adID"
+
         _rate = request.form['rate']
         try:
             cur = mysql.connection.cursor()
