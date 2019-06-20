@@ -196,7 +196,7 @@ def feedback():
         try:
             cur = mysql.connection.cursor()
             qry='INSERT INTO `feedback`( `adID`,`user_id`,`rate`) VALUES( %s , %s , %s )'
-            cur.execute(qry,(_user_id , _ad_id , _rate))
+            cur.execute(qry,(  _ad_id,_user_id , _rate))
             mysql.connection.commit()
             return jsonify({"status": "true","message": "Data insert feedback successfully!"})
         except Exception as e:
