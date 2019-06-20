@@ -371,9 +371,10 @@ def insert_notf_to_db(list_of_matched):
             cur.execute(cond_query)
             row_count = cur.fetchone()
             print("user_id: " + str(item[1]) +", adid:"+str(item[0]))
-            # print("row_count: " , row_count["count(*)"] )
+            print("row_count: " , row_count["count(*)"] )
             r =  row_count["count(*)"]
             r = int(r)
+            print("r: " , r )
             if r == 0:
                 print("start insert")
                 qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
