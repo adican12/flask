@@ -11,20 +11,22 @@ from pyfcm import FCMNotification
 app = Flask(__name__)
 
 class users():
-    def __init__(self):
-        self.user_id =0
-        self.name =0
-        self.email =0
-        self.password =0
-        self.gender =0
-        self.mobile =0
-        self.user_type =0
-        self.birthday =0
-        self.status =0
-        self.user_category =0
-        self.location_id =0
+        user_id =0
+        name =0
+        email =0
+        password =0
+        gender =0
+        mobile =0
+        user_type =0
+        birthday =0
+        status =0
+        user_category =0
+        location_id =0
 
-    def users(self,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
+    # def __init__(self):
+
+
+    def __init__(self,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
         self.user_id =_user_id
         self.name =_name
         self.email =_email
@@ -448,7 +450,7 @@ def init_run():
         # return render_template("welcome.html", massage = "init finish")
         return jsonify({"data":standard_user_Array})
     except Exception as e:
-      return render_template("welcome.html", massage="init_run_problem"+str(e))
+      return render_template("welcome.html", massage="init_run_problem:  "+str(e))
 
 
 @app.route('/push/<index_token>',methods=['GET','POST'])
