@@ -404,12 +404,12 @@ def init_run():
         for r in rows:
             # u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
             u=users()
-            u.user_id= r["user_id"]
-            u.name = r["name"]
-            u.email = r["email"]
-            u.password = r["password"]
-            u.gender = r["gender"]
-            u.mobile = r["mobile"]
+            u.user_id=  r["user_id"]
+            u.name =    r["name"]
+            u.email =   r["email"]
+            u.password =r["password"]
+            u.gender =  r["gender"]
+            u.mobile =  r["mobile"]
             standard_user_Array.append(u)
 
             # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
