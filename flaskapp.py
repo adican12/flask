@@ -392,7 +392,7 @@ def insert_notf_to_db(list_of_matched):
     for item in list_of_matched:
         cond_query = "SELECT count(*) FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
         cur.execute(cond_query)
-        row_count = fetchone()
+        row_count = cur.fetchone()
         print("insert db problem" , row_count)
 
         # row_count = notf_.rowcount
