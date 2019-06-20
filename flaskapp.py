@@ -406,8 +406,8 @@ def init_run():
         rows= cur.fetchall()
         for r in rows:
             # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
-            users= users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
-            standard_user_Array.append(users)
+            u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
+            standard_user_Array.append(u)
 
             # user_category = r["user_category"]
             # location_id = r["location_id"]
