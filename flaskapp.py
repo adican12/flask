@@ -417,9 +417,9 @@ def init_run():
         init_qry="SELECT * FROM `users` WHERE `user_type`='standard_user' "
         cur.execute(init_qry)
         rows= cur.fetchall()
-        for r in rows:
-            u = users_create(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
-            print(u.name)
+        # for r in rows:
+        #     u = users_create(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
+        #     print(u.name)
             # standard_user_Array.append(u)
 
             # u=users()
@@ -465,7 +465,7 @@ def init_run():
         # return render_template("welcome.html", massage = match_list_of_users)
         # return render_template("welcome.html", massage = "init finish")
         # size = len(standard_user_Array)
-        return jsonify({"data":standard_user_Array })
+        return jsonify({"data":rows })
     except Exception as e:
       return render_template("welcome.html", massage="init_run_problem:  "+str(e))
 
