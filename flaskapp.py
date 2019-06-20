@@ -28,8 +28,9 @@ def push_user():
             user_id = request.form['user_id']
             # user_id = str(user_id)
             cur = mysql.connection.cursor()
-            cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {})""".format(user_id))
+            cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC LIMIT 1) """.format(user_id))
             rows = cur.fetchall()
+
             if rows:
                 return jsonify({"status":"true" , "data":rows})
             else:
