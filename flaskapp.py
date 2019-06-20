@@ -392,8 +392,8 @@ def insert_notf_to_db(list_of_matched):
         cond_query = "SELECT * FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
         print("insert db problem")
         cur.execute(cond_query)
-        notf_= cur.fetchall()
-        row_count = notf_.rowcount
+        notf_= cur.fetchone()
+        row_count = cur.rowcount
     # print(row_count)
     if row_count == 0 :
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
@@ -409,7 +409,7 @@ def insert_notf_to_db(list_of_matched):
 def init_run():
     try:
         num_of_row = count_row_users()
-        num_of_row =num_of_row
+        # num_of_row =num_of_row
         for i in range(1,num_of_row+1):
          print(i)
          id_user,user_category,location_id ,status= run_campaign(i)
