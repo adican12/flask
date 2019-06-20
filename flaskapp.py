@@ -389,7 +389,7 @@ def insert_notf_to_db(list_of_matched):
   try:
     cur = mysql.connection.cursor()
     for item in list_of_matched:
-        cond_query = "SELECT * FROM `notification` WHERE user_id={} AND  adid={}".format(item[1],item[0])
+        cond_query = "SELECT * FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
         print("insert db problem")
         cur.execute(cond_query)
         notf_= cur.fetchone()
@@ -399,9 +399,9 @@ def insert_notf_to_db(list_of_matched):
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
         cur.execute(qry,(item[0], item[1]))
         mysql.connection.commit()
-    return render_template("welcome.html", massage="add notf success")
+    return "add notf success"
   except:
-      return render_template("welcome.html", massage="add notf doesnt success")
+      return "add notf doesnt success"
   finally:
       cur.close()
 
@@ -417,13 +417,13 @@ def init_run():
             result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
             match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
             print("after ad match")
-            insert_notf_to_db(match_list_of_users)
+            massage = insert_notf_to_db(match_list_of_users)
             print("after insert")
             # result=push_notification(i)
             # print(result)
          elif status == 0:
              pass
-        return render_template("welcome.html", massage = match_list_of_users)
+        return render_template("welcome.html", massage = massage)
     except:
       return render_template("welcome.html", massage="init_run_problem")
 
