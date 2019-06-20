@@ -318,10 +318,7 @@ def count_row_users():
         rows = cur.fetchall()
         for r in rows:
              num_of_row.append(r["user_id"])
-        # num_of_row = cur.rowcount
-        # cur.execute(sql)
-        # result = cur.fetchall()
-        # print(result)
+
         return num_of_row
     except:
         return render_template("welcome.html", massage="count raw doesnt work")
@@ -396,7 +393,7 @@ def insert_notf_to_db(list_of_matched):
         cond_query = "SELECT * FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
         print("insert db problem")
         cur.execute(cond_query)
-        notf_= cur.fetchone()
+        notf_= cur.fetchall()
         row_count = notf_.rowcount
     # print(row_count)
     if row_count == 0 :
@@ -424,7 +421,7 @@ def init_run():
                 match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
                 print("after ad match")
                 massage = insert_notf_to_db(match_list_of_users)
-                print("massage"+massage)
+                print("massage: "+ massage)
                 print("after insert")
                 # result=push_notification(i)
                 # print(result)
