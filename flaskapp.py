@@ -463,8 +463,8 @@ def init_run():
         #      pass
         # return render_template("welcome.html", massage = match_list_of_users)
         # return render_template("welcome.html", massage = "init finish")
-        size = len(standard_user_Array)
-        return jsonify({"data":size })
+        # size = len(standard_user_Array)
+        return jsonify({"data":standard_user_Array })
     except Exception as e:
       return render_template("welcome.html", massage="init_run_problem:  "+str(e))
 
