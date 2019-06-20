@@ -417,10 +417,10 @@ def init_run():
             result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
             match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
             print("after ad match")
-            insert_notf_to_db(match_list_of_users)
+            # insert_notf_to_db(match_list_of_users)
             print("after insert")
-            result=push_notification(i)
-            print(result)
+            # result=push_notification(i)
+            # print(result)
          elif status == 0:
              pass
         return render_template("welcome.html", massage = match_list_of_users)
