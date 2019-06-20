@@ -370,11 +370,12 @@ def insert_notf_to_db(list_of_matched):
             cond_query = "SELECT count(*) FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
             cur.execute(cond_query)
             row_count = cur.fetchone()
-            print("user_id: " + item[1] +", adid:"+item[0])
-            print("row_count: " , row_count["count(*)"] )
-            r =  int(row_count["count(*)"])
+            print("user_id: " + str(item[1]) +", adid:"+str(item[0]))
+            # print("row_count: " , row_count["count(*)"] )
+            r =  row_count["count(*)"]
+            r = int(r)
             if r == 0:
-                print("start inser")
+                print("start insert")
                 qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
                 cur.execute(qry,(item[0], item[1]))
                 mysql.connection.commit()
@@ -382,7 +383,7 @@ def insert_notf_to_db(list_of_matched):
             else:
                 print("all ready sent to this notification for user")
     except Exception as e:
-        print("add notf doesnt success"+str(e))
+        print("insert_notf_to_db except: "+str(e))
     finally:
         cur.close()
 
