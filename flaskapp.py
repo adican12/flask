@@ -10,6 +10,12 @@ from pyfcm import FCMNotification
 
 app = Flask(__name__)
 
+class users():
+    def __init__(self, _user_id):
+        super( self).__init__()
+        self.user_id = _user_id
+
+
 path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
 y=open(path)
 db = yaml.load(y)
@@ -203,31 +209,6 @@ def feedback():
             return jsonify({"status": "false","message": "Data insert feedback FAILS!"})
     else:
         return render_template('feedback.html',error=massage)
-#
-# @app.route('/users/<user_id>')
-# def page(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM users WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
-# @app.route('/notf/<user_id>',methods=['GET'])
-# def notf_user(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM `notification` WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
-# @app.route('/coupon/<user_id>',methods=['GET'])
-# def coupon_user(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM `users_coupon` WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
 
 @app.route('/send_coupon/<_location_id>',methods=['GET','POST'])
 def send_coupon(_location_id):
@@ -307,42 +288,42 @@ def internal_server_error(e):
     return render_template('500.html'), 500
 
 
-#count the number of users
-def count_row_users():
-    try:
-        cur = mysql.connection.cursor()
-        sql = 'SELECT * FROM users'
-        cur.execute(sql)
-        num_of_row = cur.rowcount
-        cur.execute(sql)
-        # result = cur.fetchall()
-        # print(result)
-        return num_of_row
-    except:
-        return render_template("welcome.html", massage="count raw doesnt work")
-    finally:
-        cur.close()
+# #count the number of users
+# def count_row_users():
+#     try:
+#         cur = mysql.connection.cursor()
+#         sql = 'SELECT * FROM users'
+#         cur.execute(sql)
+#         num_of_row = cur.rowcount
+#         # cur.execute(sql)
+#         # result = cur.fetchall()
+#         # print(result)
+#         return num_of_row
+#     except:
+#         return "false"
+#     finally:
+#         cur.close()
 
 #des: function that get in order to start process match user to campian
 #@app.route('/run1',methods=['GET','POST'])
-def run_campaign(num):
-    try:
-     cur = mysql.connection.cursor()
-     qry = 'SELECT * FROM users WHERE user_id = {} '.format(num)
-     cur.execute(qry)
-     rows = cur.fetchall()
-     for r in rows:
-        id = r["user_id"]
-        user_category = r["user_category"]
-        location_id = r["location_id"]
-        status_user = r["status"]
-        # if location_id == "NULL":
-        #    break
-        return id ,user_category ,location_id , status_user
-    except:
-        return render_template("welcome.html", massage="run campaign doesnt work")
-    finally:
-        cur.close()
+# def run_campaign(num):
+#     try:
+#          cur = mysql.connection.cursor()
+#          qry = "SELECT * FROM users WHERE user_id = {} AND user_type='standard_user' ".format(num)
+#          cur.execute(qry)
+#          rows = cur.fetchall()
+#          for r in rows:
+#             id = r["user_id"]
+#             user_category = r["user_category"]
+#             location_id = r["location_id"]
+#             status_user = r["status"]
+#             # if location_id == "NULL":
+#             #    break
+#             return id ,user_category ,location_id , status_user
+#     except:
+#             return render_template("welcome.html", massage="run campaign doesnt work")
+#     finally:
+#             cur.close()
 
 
 def ad_match_to_user(user_id ,user_category , _location_id):
@@ -406,23 +387,40 @@ def insert_notf_to_db(list_of_matched):
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
+    standard_user_Array = []
     try:
-        num_of_row = count_row_users()
-        num_of_row =num_of_row
-        for i in range(1,num_of_row+1):
-         print(i)
-         id_user,user_category,location_id ,status= run_campaign(i)
-         if status ==1:
-            result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
-            match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
-            print("after ad match")
-            insert_notf_to_db(match_list_of_users)
-            print("after insert")
-            result=push_notification(i)
-            print(result)
-         elif status == 0:
-             pass
-        return render_template("welcome.html", massage = match_list_of_users)
+        cur = mysql.connection.cursor()
+        init_qry="SELECT * FROM `users` WHERE `user_type`='standard_user' "
+        cur.execute(init_qry)
+        rows= cur.fetchall()
+        for r in rows:
+            users= users(id)
+            id = r["user_id"]
+            user_category = r["user_category"]
+            location_id = r["location_id"]
+            status_user = r["status"]
+            standard_user_Array.append(users)
+                        # if location_id == "NULL":
+        # num_of_row = count_row_users()
+        # # num_of_row =num_of_row
+        # if num_of_row == "false":
+        #     print("num_of_row==false")
+
+        # for i in range(1,num_of_row+1):
+        #  print(i)
+        #  id_user,user_category,location_id ,status= run_campaign(i)
+        #  if status ==1:
+        #     result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
+        #     match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
+        #     print("after ad match")
+        #     insert_notf_to_db(match_list_of_users)
+        #     print("after insert")
+        #     result=push_notification(i)
+        #     print(result)
+        #  elif status == 0:
+        #      pass
+        # return render_template("welcome.html", massage = match_list_of_users)
+        return render_template("welcome.html", massage = "init finish")
     except:
       return render_template("welcome.html", massage="init_run_problem")
 
