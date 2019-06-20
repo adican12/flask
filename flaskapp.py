@@ -423,8 +423,8 @@ def init_run():
         # return render_template("welcome.html", massage = match_list_of_users)
         # return render_template("welcome.html", massage = "init finish")
         return jsonify({"data":rows})
-    except:
-      return render_template("welcome.html", massage="init_run_problem")
+    except Exception as e:
+      return render_template("welcome.html", massage="init_run_problem"+str(e))
 
 
 @app.route('/push/<index_token>',methods=['GET','POST'])
