@@ -392,8 +392,8 @@ def insert_notf_to_db(list_of_matched):
         cond_query = "SELECT * FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
         print("insert db problem")
         cur.execute(cond_query)
-        notf_= cur.fetchone()
-        row_count = cur.rowcount
+        notf_= cur.fetchall()
+        row_count = notf_.rowcount
     # print(row_count)
     if row_count == 0 :
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
@@ -424,8 +424,8 @@ def init_run():
          elif status == 0:
              pass
         return render_template("welcome.html", massage = massage)
-    except:
-      return render_template("welcome.html", massage="init_run_problem")
+    except Exception as e:
+      return render_template("welcome.html", massage="init_run_problem: "+str(e))
 
 
 @app.route('/push/<index_token>',methods=['GET','POST'])
