@@ -375,10 +375,10 @@ def insert_notf_to_db(list_of_matched):
     if r == 0:
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
         cur.execute(qry,(item[0], item[1]))
-        mysql.connection.commit()
-        return "add notf success"
+        cur.commit()
+        print("add notf success")
     else:
-        return "all ready sent to this notification for user"
+        print("all ready sent to this notification for user")
   except Exception as e:
       return "add notf doesnt success"+str(e)
   finally:
@@ -396,8 +396,7 @@ def init_run():
                 print(result)
                 match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
                 print("after ad match")
-                massage = insert_notf_to_db(match_list_of_users)
-                print("massage: "+ massage)
+                insert_notf_to_db(match_list_of_users)
                 print("after insert")
                 result=push_notification(user_id)
                 print(result)
