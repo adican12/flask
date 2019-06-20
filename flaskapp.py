@@ -426,7 +426,7 @@ def init_run():
                 print("massage: "+ massage)
                 print("after insert")
                 result=push_notification(user_id)
-                # print(result)
+                print(result)
              elif status == 0:
                  pass
         return render_template("welcome.html", massage = match_list_of_users)
