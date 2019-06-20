@@ -11,18 +11,34 @@ from pyfcm import FCMNotification
 app = Flask(__name__)
 
 class users(object):
-    def __init__( self ,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
-        self.user_id =_user_id
-        self.name =_name
-        self.email =_email
-        self.password =_password
-        self.gender =_gender
-        self.mobile =_mobile
-        self.user_type =_user_type
-        self.birthday =_birthday
-        self.status =_status
-        self.user_category =_user_category
-        self.location_id =_location_id
+    def __init__(self):
+        self.user_id =0
+        self.name ="default"
+        self.email ="default"
+        self.password ="default"
+        self.gender ="default"
+        self.mobile ="default"
+        self.user_type ="default"
+        self.birthday ="default"
+        self.status =0
+        self.user_category ="default"
+        self.location_id =0
+
+
+def users_create( _user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
+    c=users()
+    c.user_id =_user_id
+    c.name =_name
+    c.email =_email
+    c.password =_password
+    c.gender =_gender
+    c.mobile =_mobile
+    c.user_type =_user_type
+    c.birthday =_birthday
+    c.status =_status
+    c.user_category =_user_category
+    c.location_id =_location_id
+    return c
 
 path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
 y=open(path)
@@ -402,20 +418,21 @@ def init_run():
         cur.execute(init_qry)
         rows= cur.fetchall()
         for r in rows:
-            # u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
-            u=users()
-            u.user_id=  r["user_id"]
-            u.name =    r["name"]
-            u.email =   r["email"]
-            u.password =r["password"]
-            u.gender =  r["gender"]
-            u.mobile =  r["mobile"]
-            u.user_type =  r["user_type"]
-            u.birthday =  r["birthday"]
-            u.status =  r["status"]
-            u.user_category =  r["user_category"]
-            u.location_id =  r["location_id"]
+            u = users_create(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
             standard_user_Array.append(u)
+
+            # u=users()
+        #     u.user_id=  r["user_id"]
+        #     u.name =    r["name"]
+        #     u.email =   r["email"]
+        #     u.password =r["password"]
+        #     u.gender =  r["gender"]
+        #     u.mobile =  r["mobile"]
+        #     u.user_type =  r["user_type"]
+        #     u.birthday =  r["birthday"]
+        #     u.status =  r["status"]
+        #     u.user_category =  r["user_category"]
+        #     u.location_id =  r["location_id"]
 
             # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
             # u =users()
