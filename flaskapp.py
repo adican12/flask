@@ -370,9 +370,9 @@ def insert_notf_to_db(list_of_matched):
         cur.execute(cond_query)
         row_count = cur.fetchone()
         print("row_count: " , row_count)
-        print("row_count: " , row_count["count(*)"])
-
-    if row_count == 0:
+        print("row_count: " , row_count["count(*)"] )
+        r =  row_count["count(*)"]
+    if r == 0:
         qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
         cur.execute(qry,(item[0], item[1]))
         mysql.connection.commit()
