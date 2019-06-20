@@ -364,27 +364,27 @@ def ad_match_to_user(user_id ,user_category , _location_id):
 
 def insert_notf_to_db(list_of_matched):
     print("insert_notf_to_db")
-  try:
-    cur = mysql.connection.cursor()
-    for item in list_of_matched:
-        cond_query = "SELECT count(*) FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
-        cur.execute(cond_query)
-        row_count = cur.fetchone()
-        print("user_id: " + item[1] +", adid:"+item[0])
-        print("row_count: " , row_count["count(*)"] )
-        r =  int(row_count["count(*)"])
-        if r == 0:
-            print("start inser")
-            qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
-            cur.execute(qry,(item[0], item[1]))
-            mysql.connection.commit()
-            print("add notf success")
-        else:
-            print("all ready sent to this notification for user")
-  except Exception as e:
-      return "add notf doesnt success"+str(e)
-  finally:
-      cur.close()
+    try:
+        cur = mysql.connection.cursor()
+        for item in list_of_matched:
+            cond_query = "SELECT count(*) FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
+            cur.execute(cond_query)
+            row_count = cur.fetchone()
+            print("user_id: " + item[1] +", adid:"+item[0])
+            print("row_count: " , row_count["count(*)"] )
+            r =  int(row_count["count(*)"])
+            if r == 0:
+                print("start inser")
+                qry = 'INSERT INTO `notification`( `adid`, `user_id`) VALUES( %s , %s )'
+                cur.execute(qry,(item[0], item[1]))
+                mysql.connection.commit()
+                print("add notf success")
+            else:
+                print("all ready sent to this notification for user")
+    except Exception as e:
+        return "add notf doesnt success"+str(e)
+    finally:
+        cur.close()
 
 @app.route('/init',methods=['GET','POST'])
 def init_run():
