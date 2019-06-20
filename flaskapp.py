@@ -429,7 +429,7 @@ def init_run():
                 # print(result)
              elif status == 0:
                  pass
-            return render_template("welcome.html", massage = match_list_of_users)
+        return render_template("welcome.html", massage = match_list_of_users)
     except Exception as e:
       return render_template("welcome.html", massage="init_run_problem: "+str(e))
 
