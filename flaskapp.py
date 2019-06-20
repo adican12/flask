@@ -441,7 +441,7 @@ def init_run():
         #      pass
         # return render_template("welcome.html", massage = match_list_of_users)
         # return render_template("welcome.html", massage = "init finish")
-        return jsonify({"data":rows})
+        return jsonify({"data":standard_user_Array[0].name})
     except Exception as e:
       return render_template("welcome.html", massage="init_run_problem:  "+str(e))
 
