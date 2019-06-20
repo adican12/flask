@@ -205,31 +205,6 @@ def feedback():
             return jsonify({"status": "false","message": "Data insert feedback FAILS!"})
     else:
         return render_template('feedback.html',error=massage)
-#
-# @app.route('/users/<user_id>')
-# def page(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM users WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
-# @app.route('/notf/<user_id>',methods=['GET'])
-# def notf_user(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM `notification` WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
-# @app.route('/coupon/<user_id>',methods=['GET'])
-# def coupon_user(user_id):
-#     # print(user_id)
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT * FROM `users_coupon` WHERE user_id = {}""".format(user_id))
-#     rows = cur.fetchall()
-#     return jsonify(rows)
-#
 
 @app.route('/send_coupon/<_location_id>',methods=['GET','POST'])
 def send_coupon(_location_id):
@@ -412,9 +387,6 @@ def insert_notf_to_db(list_of_matched):
 def init_run():
     try:
         num_of_row = count_row_users()
-        # num_of_row =num_of_row
-
-        # for i in range(1,num_of_row+1):
         for user_id in num_of_row:
              print(user_id)
              id_user,user_category,location_id ,status= run_campaign(user_id)
@@ -456,42 +428,6 @@ def push_notification(user_id):
         return "push_notification FAILS: "+str(e)
         # return render_template("welcome.html", massage="push main problem")
 
-
-# def bring_user_id_form_notf(user_id_app):
-#  try:
-#      cur = mysql.connection.cursor()
-#      qry = 'SELECT * FROM `notification` WHERE user_id = {} '.format(user_id_app)
-#      cur.execute(qry)
-#      rows = cur.fetchall()
-#      if len(rows) ==1:
-#       for items in rows:
-#          not_id_app = items["noteid"]
-#          ad_id_app = items["adid"]
-#          ad_user_id_app = items["user_id"]
-#       print(not_id_app,ad_id_app,ad_user_id_app)
-#       return ad_id_app
-#      else:
-#          pass
-#  except:
-#      return render_template("welcome.html", massage="problem in push notification(adid)")
-#  finally:
-#     cur.close()
-
-
-#
-# def extract_image_from_ad_id(ad_id_app):
-#     try:
-#         cur = mysql.connection.cursor()
-#         qry = 'SELECT * FROM `ad` WHERE adID = {} '.format(ad_id_app)
-#         cur.execute(qry)
-#         rows = cur.fetchall()
-#         for items in rows:
-#             app_image = items["image"]
-#         return app_image
-#     except:
-#         return render_template("welcome.html", massage="image problem from extarct")
-#     finally:
-#         cur.close()
 
 # main
 if __name__ == '__main__':
