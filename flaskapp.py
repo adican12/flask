@@ -10,9 +10,9 @@ from pyfcm import FCMNotification
 
 app = Flask(__name__)
 
-class users():
+class users(object):
 
-    def __init__(self,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
+    def __init__(self ,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
         self.user_id =_user_id
         self.name =_name
         self.email =_email
@@ -403,12 +403,13 @@ def init_run():
         cur.execute(init_qry)
         rows= cur.fetchall()
         for r in rows:
-            # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
-            u =users()
-            u.name="adi"
-            # u.user_id=r["user_id"]
-            # u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
+            u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
             standard_user_Array.append(u)
+
+            # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
+            # u =users()
+            # u.name="adi"
+            # u.user_id=r["user_id"]
 
             # user_category = r["user_category"]
             # location_id = r["location_id"]
