@@ -310,7 +310,7 @@ def internal_server_error(e):
 
 #count the number of users
 def count_row_users():
-    num_of_row []
+    num_of_row = []
     try:
         cur = mysql.connection.cursor()
         sql = "SELECT * FROM users WHERE user_type='standard_user' "
