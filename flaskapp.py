@@ -310,12 +310,16 @@ def internal_server_error(e):
 
 #count the number of users
 def count_row_users():
+    num_of_row []
     try:
         cur = mysql.connection.cursor()
-        sql = 'SELECT * FROM users'
+        sql = "SELECT * FROM users WHERE user_type='standard_user' "
         cur.execute(sql)
-        num_of_row = cur.rowcount
-        cur.execute(sql)
+        rows = cur.fetchall()
+        for r in rows:
+             num_of_row.append(r["user_id"])
+        # num_of_row = cur.rowcount
+        # cur.execute(sql)
         # result = cur.fetchall()
         # print(result)
         return num_of_row
@@ -409,21 +413,23 @@ def insert_notf_to_db(list_of_matched):
 def init_run():
     try:
         num_of_row = count_row_users()
-        num_of_row =num_of_row
-        for i in range(1,num_of_row+1):
-         print(i)
-         id_user,user_category,location_id ,status= run_campaign(i)
-         if status ==1:
-            result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
-            match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
-            print("after ad match")
-            # massage = insert_notf_to_db(match_list_of_users)
-            print("after insert")
-            # result=push_notification(i)
-            # print(result)
-         elif status == 0:
-             pass
-        return render_template("welcome.html", massage = massage)
+        # num_of_row =num_of_row
+
+        # for i in range(1,num_of_row+1):
+        for i in num_of_row:
+             print(i)
+             id_user,user_category,location_id ,status= run_campaign(i)
+             if status ==1:
+                result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
+                match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
+                print("after ad match")
+                # massage = insert_notf_to_db(match_list_of_users)
+                print("after insert")
+                # result=push_notification(i)
+                # print(result)
+             elif status == 0:
+                 pass
+            return render_template("welcome.html", massage = massage)
     except Exception as e:
       return render_template("welcome.html", massage="init_run_problem: "+str(e))
 
