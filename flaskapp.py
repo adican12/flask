@@ -409,7 +409,7 @@ def insert_notf_to_db(list_of_matched):
 def init_run():
     try:
         num_of_row = count_row_users()
-        # num_of_row =num_of_row
+        num_of_row =num_of_row
         for i in range(1,num_of_row+1):
          print(i)
          id_user,user_category,location_id ,status= run_campaign(i)
@@ -417,7 +417,7 @@ def init_run():
             result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
             match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
             print("after ad match")
-            massage = insert_notf_to_db(match_list_of_users)
+            # massage = insert_notf_to_db(match_list_of_users)
             print("after insert")
             # result=push_notification(i)
             # print(result)
