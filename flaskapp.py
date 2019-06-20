@@ -394,13 +394,14 @@ def init_run():
         cur.execute(init_qry)
         rows= cur.fetchall()
         for r in rows:
-            users= users(id)
             id = r["user_id"]
-            user_category = r["user_category"]
-            location_id = r["location_id"]
-            status_user = r["status"]
+            users= users(id)
             standard_user_Array.append(users)
-                        # if location_id == "NULL":
+
+            # user_category = r["user_category"]
+            # location_id = r["location_id"]
+            # status_user = r["status"]
+            # if location_id == "NULL":
         # num_of_row = count_row_users()
         # # num_of_row =num_of_row
         # if num_of_row == "false":
