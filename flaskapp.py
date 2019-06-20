@@ -382,7 +382,7 @@ def insert_notf_to_db(list_of_matched):
             else:
                 print("all ready sent to this notification for user")
     except Exception as e:
-        return "add notf doesnt success"+str(e)
+        print("add notf doesnt success"+str(e))
     finally:
         cur.close()
 
