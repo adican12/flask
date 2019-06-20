@@ -11,19 +11,22 @@ from pyfcm import FCMNotification
 app = Flask(__name__)
 
 class users(object):
+    def __init__(self, name, balance=0.0):
+        self.name = name
+        self.balance = balance
 
-    def __init__(self ,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
-        self.user_id =_user_id
-        self.name =_name
-        self.email =_email
-        self.password =_password
-        self.gender =_gender
-        self.mobile =_mobile
-        self.user_type =_user_type
-        self.birthday =_birthday
-        self.status =_status
-        self.user_category =_user_category
-        self.location_id =_location_id
+    # def __init__( self ,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
+    #     self.user_id =_user_id
+    #     self.name =_name
+    #     self.email =_email
+    #     self.password =_password
+    #     self.gender =_gender
+    #     self.mobile =_mobile
+    #     self.user_type =_user_type
+    #     self.birthday =_birthday
+    #     self.status =_status
+    #     self.user_category =_user_category
+    #     self.location_id =_location_id
 
 path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
 y=open(path)
@@ -403,7 +406,8 @@ def init_run():
         cur.execute(init_qry)
         rows= cur.fetchall()
         for r in rows:
-            u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
+            u= users("name",77)
+            # u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
             standard_user_Array.append(u)
 
             # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
