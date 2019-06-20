@@ -391,7 +391,8 @@ def init_run():
              print(user_id)
              id_user,user_category,location_id ,status= run_campaign(user_id)
              if status ==1:
-                result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
+                result = "id_user: " + str(id_user) + " , user_category: " + str(user_category) + " , location_id: " + str(location_id) + " , status: "+str(status)
+                print(result)
                 match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
                 print("after ad match")
                 massage = insert_notf_to_db(match_list_of_users)
