@@ -410,6 +410,11 @@ def init_run():
             u.password =r["password"]
             u.gender =  r["gender"]
             u.mobile =  r["mobile"]
+            u.user_type =  r["user_type"]
+            u.birthday =  r["birthday"]
+            u.status =  r["status"]
+            u.user_category =  r["user_category"]
+            u.location_id =  r["location_id"]
             standard_user_Array.append(u)
 
             # (_user_id   ,  _name    ,   _email, _password   ,_gender    ,_mobile    ,_user_type,    _birthday,  _status     ,_user_category,_location_id):
@@ -441,7 +446,8 @@ def init_run():
         #      pass
         # return render_template("welcome.html", massage = match_list_of_users)
         # return render_template("welcome.html", massage = "init finish")
-        return jsonify({"data":standard_user_Array[0].name})
+        size = len(standard_user_Array)
+        return jsonify({"data":size })
     except Exception as e:
       return render_template("welcome.html", massage="init_run_problem:  "+str(e))
 
