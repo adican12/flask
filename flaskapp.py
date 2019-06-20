@@ -363,6 +363,7 @@ def ad_match_to_user(user_id ,user_category , _location_id):
       cur.close()
 
 def insert_notf_to_db(list_of_matched):
+    print("insert_notf_to_db")
   try:
     cur = mysql.connection.cursor()
     for item in list_of_matched:
