@@ -406,7 +406,9 @@ def init_run():
         cur.execute(init_qry)
         rows= cur.fetchall()
         for r in rows:
-            u= users("name",77)
+            u= users()
+            u.name = "yarden"
+            u.balance =2
             # u = users(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
             standard_user_Array.append(u)
 
