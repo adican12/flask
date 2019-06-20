@@ -391,9 +391,10 @@ def insert_notf_to_db(list_of_matched):
     cur = mysql.connection.cursor()
     for item in list_of_matched:
         cond_query = "SELECT count(*) FROM `notification` WHERE user_id={}  AND  adid={}".format(item[1],item[0])
-        print("insert db problem")
         cur.execute(cond_query)
         row_count = fetchone()
+        print("insert db problem" , row_count)
+
         # row_count = notf_.rowcount
     # print(row_count)
     if row_count :
@@ -403,8 +404,8 @@ def insert_notf_to_db(list_of_matched):
         return "add notf success"
     else:
         return "not all ready sent to this user"
-  except:
-      return "add notf doesnt success"
+  except Exception as e:
+      return "add notf doesnt success"+str(e)
   finally:
       cur.close()
 
