@@ -419,7 +419,8 @@ def init_run():
         rows= cur.fetchall()
         for r in rows:
             u = users_create(r["user_id"],r["name"],r["email"],r["password"],r["gender"],r["mobile"],r["user_type"],r["birthday"],r["status"],r["user_category"],r["location_id"])
-            standard_user_Array.append(u)
+            print(u.name)
+            # standard_user_Array.append(u)
 
             # u=users()
         #     u.user_id=  r["user_id"]
