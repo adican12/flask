@@ -94,9 +94,10 @@ def push_notf(token_device):
         message_title = "Cantor the cat"
         message_body = "Hope you're remmber to go out with ligal tonight"
         result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
+        print("push_notf success")
     # push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
-    except:
-        print("push_notf not working", result)
+    except Exception as e:
+        print("push_notf not working"+ str(e) )
 
 def handle_token(user_id,token):
     cur = mysql.connection.cursor()
@@ -414,9 +415,9 @@ def init_run():
         # num_of_row =num_of_row
 
         # for i in range(1,num_of_row+1):
-        for i in num_of_row:
-             print(i)
-             id_user,user_category,location_id ,status= run_campaign(i)
+        for user_id in num_of_row:
+             print(user_id)
+             id_user,user_category,location_id ,status= run_campaign(user_id)
              if status ==1:
                 result = "result1: " + str(id_user) + " , result2: " + str(user_category) + " , result3: " + str(location_id)
                 match_list_of_users = ad_match_to_user(id_user , user_category , location_id )
@@ -424,7 +425,7 @@ def init_run():
                 massage = insert_notf_to_db(match_list_of_users)
                 print("massage: "+ massage)
                 print("after insert")
-                # result=push_notification(i)
+                result=push_notification(user_id)
                 # print(result)
              elif status == 0:
                  pass
@@ -440,15 +441,20 @@ def push_notification(user_id):
         qry = 'SELECT * FROM `devices` WHERE user_id ={}'.format(user_id)
         cur.execute(qry)
         rows = cur.fetchall()
-        for row in rows:
-            _token=row["token"]
-        push_notf(_token)
-
-        return jsonify({"status": "true",
-        "message": "Data fetched successfully!",
-        "data": "result"})
-    except:
-        return render_template("welcome.html", massage="push main problem")
+        if rows:
+            for row in rows:
+                _token=row["token"]
+            push_notf(_token)
+            return "push_notification - ok"
+        else:
+            print("not register device")
+            return "not register device"
+        # return jsonify({"status": "true",
+        # "message": "Data fetched successfully!",
+        # "data": "result"})
+    except Exception as e:
+        return "push_notification FAILS: "+str(e)
+        # return render_template("welcome.html", massage="push main problem")
 
 
 # def bring_user_id_form_notf(user_id_app):
