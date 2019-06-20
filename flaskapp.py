@@ -133,9 +133,7 @@ def login():
                 return jsonify({
                         "status": "true",
                         "message": "Data fetched successfully!",
-                        "data": rows,
-                        "username":username,
-                        "password":password})
+                        "data": rows})
 
             else:
                 return jsonify({
