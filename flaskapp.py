@@ -401,7 +401,7 @@ def insert_notf_to_db(list_of_matched):
         mysql.connection.commit()
         return "add notf success"
     else:
-        return "not all ready sent to this user"
+        return "all ready sent to this notification for user"
   except Exception as e:
       return "add notf doesnt success"+str(e)
   finally:
