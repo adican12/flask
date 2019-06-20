@@ -11,20 +11,6 @@ from pyfcm import FCMNotification
 app = Flask(__name__)
 
 class users():
-        user_id =0
-        name =0
-        email =0
-        password =0
-        gender =0
-        mobile =0
-        user_type =0
-        birthday =0
-        status =0
-        user_category =0
-        location_id =0
-
-    # def __init__(self):
-
 
     def __init__(self,_user_id,_name,_email,_password,_gender,_mobile,_user_type,_birthday,_status,_user_category,_location_id):
         self.user_id =_user_id
@@ -38,9 +24,6 @@ class users():
         self.status =_status
         self.user_category =_user_category
         self.location_id =_location_id
-    #
-    # def setUser_id(self,User_id):
-    #     self.user_id=User_id
 
 path = os.path.join('.', os.path.dirname(__file__), 'database.yaml')
 y=open(path)
