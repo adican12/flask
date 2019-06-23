@@ -29,7 +29,7 @@ def push_user():
             # user_id = str(user_id)
             cur = mysql.connection.cursor()
             # cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC LIMIT 1) """.format(user_id))
-            cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = 4 ORDER BY noteid DESC) LIMIT 1""".format(user_id))
+            cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC) LIMIT 1""".format(user_id))
             rows = cur.fetchall()
 
             if rows:
@@ -91,8 +91,8 @@ def push_notf(token_device):
             }
         registration_id = token_device
         # registration_id = "fBAt-6vVxt0:APA91bGUo8K6BYKm3tdyjD90xR6pp7D1mC8RaivskNJVUcPh5tqVRJouZeCc76IxRJdRf3HXASAMOmbI_pxVwAZrlGiKTL3wLQgN3dSx_sE4muuyZoFaRGjPQgB7j2f-1JD9Stzfa6Z4"
-        message_title = "Cantor the cat"
-        message_body = "Hope you're remmber to go out with ligal tonight"
+        message_title = "New Ad From Catifi"
+        message_body = "Press for further info"
         result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
         print("push_notf success")
     # push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
