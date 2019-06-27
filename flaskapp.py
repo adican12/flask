@@ -29,11 +29,16 @@ def push_user():
             # user_id = str(user_id)
             cur = mysql.connection.cursor()
             # cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC) LIMIT 1""".format(user_id))
-            cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid ASC) LIMIT 1""".format(user_id))
+            # cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid ASC) LIMIT 1""".format(user_id))
+            cur.execute("""SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC limit 1""".format(user_id))
             rows = cur.fetchall()
-
             if rows:
-                return jsonify({"status":"true" , "data":rows})
+                # return jsonify({"status":"true" , "data":rows})
+                adID = rows[0]
+                cur2.execute("""SELECT * from ad WHERE adID = {} """.format(adID))
+                rows2 = cur2.fetchall()
+                if rows2:
+                    return jsonify({"status":"true" , "data":rows})
             else:
                 return jsonify({"status":"true" , "data":rows ,"massage":"row is empty"})
         except Exception as e:
