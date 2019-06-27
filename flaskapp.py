@@ -34,7 +34,7 @@ def push_user():
             rows = cur.fetchall()
             if rows:
                 # return jsonify({"status":"true" , "data":rows})
-                adID = rows["adid"]
+                adID = int(rows["adid"])
                 cur.execute("""SELECT * from ad WHERE adID = {} """.format(adID))
                 rows2 = cur.fetchall()
                 if rows2:
