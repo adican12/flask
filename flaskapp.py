@@ -33,7 +33,7 @@ def push_user():
             cur.execute("""SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC limit 1""".format(user_id))
             rows = cur.fetchall()
             if rows:
-                # return jsonify({"status":"true" , "data":rows})
+
                 adID = int(rows["adid"])
                 cur.execute("""SELECT * from ad WHERE adID = {} """.format(adID))
                 rows2 = cur.fetchall()
