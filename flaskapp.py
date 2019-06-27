@@ -25,8 +25,8 @@ def push_user():
     massage = None
     if request.method == 'POST':
         try:
-            user_id = int(request.form['user_id'])
-            # user_id = str(user_id)
+            user_id = request.form['user_id']
+            user_id = int(user_id)
             cur = mysql.connection.cursor()
             # cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC) LIMIT 1""".format(user_id))
             # cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid ASC) LIMIT 1""".format(user_id))
@@ -34,11 +34,13 @@ def push_user():
             rows = cur.fetchall()
             if rows:
 
+                # adID = int(rows["adid"])
+                # cur.execute("""SELECT * from ad WHERE adID = {} """.format(adID))
+                # rows2 = cur.fetchall()
+                # if rows2:
+                    # return jsonify({"status":"true" , "data":rows})
                 adID = int(rows["adid"])
-                cur.execute("""SELECT * from ad WHERE adID = {} """.format(adID))
-                rows2 = cur.fetchall()
-                if rows2:
-                    return jsonify({"status":"true" , "data":rows})
+                return jsonify({"status":"true" , "data":adID})
             else:
                 return jsonify({"status":"true" , "data":rows ,"massage":"row is empty"})
         except Exception as e:
