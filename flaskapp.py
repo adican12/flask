@@ -26,9 +26,7 @@ def push_user():
     if request.method == 'POST':
         try:
             user_id = request.form['user_id']
-            # user_id = str(user_id)
             cur = mysql.connection.cursor()
-            # cur.execute("""SELECT * from ad WHERE adID in (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC) LIMIT 1""".format(user_id))
             cur.execute("""SELECT * from ad WHERE adID = (SELECT adid FROM notification WHERE user_id = {} ORDER BY noteid DESC LIMIT 1)""".format(user_id))
             rows = cur.fetchall()
             if rows:
@@ -405,7 +403,7 @@ def init_run():
                 print(result)
              elif status == 0:
                  pass
-        return render_template("welcome.html", massage = match_list_of_users)
+        return render_template("welcome.html", massage = "Ad Exchange done successfully")
     except Exception as e:
       return render_template("welcome.html", massage="init_run_problem: "+str(e))
 
